@@ -1,0 +1,4 @@
+
+
+class CommunicationModal(object):
+    pass
