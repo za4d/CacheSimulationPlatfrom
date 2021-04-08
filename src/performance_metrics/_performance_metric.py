@@ -16,6 +16,7 @@ class PerformanceMetric(ABC):
     @abstractmethod
     def hit(self, requested_file):
         """What to do in the event of a cache hit"""
+        pass
 
     @abstractmethod
     def miss(self, requested_file):
@@ -23,6 +24,10 @@ class PerformanceMetric(ABC):
         pass
 
     @abstractmethod
-    def calculate(self):
+    def compute(self):
         """calculate metric result"""
+        pass
+
+    @abstractmethod
+    def __add__(self, other):
         pass

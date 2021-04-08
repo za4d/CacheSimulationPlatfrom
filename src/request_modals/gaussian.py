@@ -1,4 +1,4 @@
-from src.request_modals import RequestModal
+from _request_modal import RequestModal
 import numpy as np
 
 

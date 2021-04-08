@@ -26,5 +26,5 @@ class SimpleLoss(PerformanceMetric):
         self.simple_loss += self.cost_func[requested_file]
 
     # Loss
-    def calculate(self):
+    def compute(self):
         return self.simple_loss / (self.hit_count + self.miss_count)

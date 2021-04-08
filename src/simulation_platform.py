@@ -2,12 +2,14 @@ import numpy as np
 import random
 from typing import NamedTuple, List
 from dataclasses import dataclass
-from src.performance_metrics import PerformanceMetric
-from src.caching_algorithms import CachingAlgorithm
-from src.request_modals import RequestModal
-from src.communication_modals import LibraryModal
+import performance_metrics
+import caching_algorithms
+import request_modals
+import communication_modals
 # import concurrent.futures
 import multiprocessing
+
+
 
 @dataclass
 class Hyperparameters:
@@ -59,7 +61,7 @@ class SimulationPlatform:
         self.simulation_parameters = args[:-2]
 
 
-    def run_simulations(self):
+    def run(self):
 
         for params in self.get_instances():
             performance_metric_args = None # TODO
@@ -67,11 +69,9 @@ class SimulationPlatform:
             caching_algorithm_args = None # TODO
             caching_algorithm = CachingAlgorithm(params).get(name=params.caching_algorithm)
             request_modal_args = None # TODO
-            request_modal = RequestModal(params).get(name=params.request_modal)
+            request_modal = request_modals.get(name=params.request_modal, args=request_modal_args)
             file_library_args = None # TODO
             file_library = LibraryModal(params).get(name=params.file_library)
-
-
 
 
 

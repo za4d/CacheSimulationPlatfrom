@@ -22,5 +22,5 @@ class HitRatio(PerformanceMetric):
         return f'{100 * self.calculate() :4f} %'
 
     # HIT RATIO
-    def calculate(self):
+    def compute(self):
         return self.hit_count / (self.hit_count + self.miss_count)

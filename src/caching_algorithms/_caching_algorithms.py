@@ -1,30 +1,61 @@
-from src.caching_algorithms import *
+from abc import ABC, abstractmethod
 
 
-class CachingAlgorithm(object):
-    def __init__(self, *params):
-        self.params = params
 
-    def get(self, name):
-        if name == 'RR':
-            return RandomReplacement(self.params.cost_function)
-        elif name == 'FIFO':
-            return FirstInFirstOut(*self.params)
-        elif name == 'FILO':
-            return FirstInLastOut(*self.params)
-        elif name == 'LRU':
-            return LeastRecentlyUsed(*self.params)
-        elif name == 'LFU':
-            return LeastFrequentlyUsed(*self.params)
-        elif name == 'MIN':
-            return Beladays(*self.params)
-        elif name == 'MAD':
-            return MinimumAggregateDelay(*self.params)
-        # elif name == 'MAD-P':
-        # 	return MinimumAggregateDelay_Perturbed(*self.params)
-        elif name == 'MINAD':
-            return MinimumAggregateDelay_Beladys(*self.params)
-        elif name == 'MINAD-P':
-            return MinimumAggregateDelay_Perturbed(*self.params)
-        elif name == 'MINAD-L':
-            return MinimumAggregateDelay_L(*self.params)
+class CachingAlgorithm(ABC):
+    """If file is in cache then return `None` for no replacment address. If files is not cached but not stored return -1"""
+
+    def __init__(self):
+        pass
+
+    @abstractmethod
+    def __call__(self, cache_state, request, time):
+        """:returns replacement address. If file is not going to be cached return`-1` = """
+        # if request in cache_state:
+        # if is_hit:
+        #     # hit
+        # else:
+        #     # miss
+        pass
+
+    @property
+    @abstractmethod
+    def online(self):
+        """:return true of false, depending on policy type"""
+        return True
+
+    @property
+    @abstractmethod
+    def coded(self):
+        """:return true of false, depending on policy type"""
+        pass
+
+
+
+class OfflineCachingAlgorithm(ABC):
+
+    def __init__(self, request_sequence):
+        self._request_sequence = request_sequence
+
+    @abstractmethod
+    def __call__(self, cache_state, request, time):
+        # if request in cache_state:
+        # if is_hit:
+        #     # hit
+        # else:
+        #     # miss
+        pass
+
+    @property
+    def online(self):
+        """:return true of false, depending on policy type"""
+        return False
+
+    @property
+    @abstractmethod
+    def coded(self):
+        """:return true of false, depending on policy type"""
+        pass
+
+
+

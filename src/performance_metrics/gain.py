@@ -20,9 +20,9 @@ class Gain(PerformanceMetric):
         self.miss_count += 1
 
     def __str__(self):
-        return str(self.calculate())
+        return str(self.compute())
 
     # GAIN
-    def calculate(self):
+    def compute(self):
         """Returns the 'gain' per request"""
         return (self.hit_weight*self.hit_count - self.miss_count*self.miss_weight) / (self.hit_count + self.miss_count)

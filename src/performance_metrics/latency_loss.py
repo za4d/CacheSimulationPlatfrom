@@ -38,7 +38,7 @@ class LatencyLoss(PerformanceMetric):
             self.file_requests_log[requested_file] = [log_entry]
 
     # Loss
-    def calculate(self):
+    def compute(self):
         if self.latency_loss:
             return self.latency_loss
 
