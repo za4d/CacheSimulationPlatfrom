@@ -5,10 +5,10 @@ from dataclasses import dataclass
 import performance_metrics
 import caching_algorithms
 import request_modals
-import communication_modals
+import cost_modals
+from virtual_cache import VirtualCache
 # import concurrent.futures
 import multiprocessing
-
 
 
 @dataclass
@@ -25,7 +25,6 @@ class Hyperparameters:
     QUITE: bool
     HIT_WEIGHT: float
     MISS_WEIGHT: float
-    SEED: int
 
 @dataclass
 class Parameters:
@@ -33,7 +32,7 @@ class Parameters:
     performance_metric: str
     caching_algorithm: str
     request_modal: str
-    file_library: str
+    cost_modal: str
     num_of_iterations: int
     num_of_requests: int
     Z: float  # avg. number of requests arriving during a fetch
@@ -44,7 +43,6 @@ class Parameters:
     quite: bool
     hit_weight: float
     miss_weight: float
-    seed: int
 
 
 
@@ -65,13 +63,15 @@ class SimulationPlatform:
 
         for params in self.get_instances():
             performance_metric_args = None # TODO
-            performance_metric = PerformanceMetric(params).get(name=params.performance_metric)
+            performance_metric = performance_metrics.get(name=params.performance_metric, args=performance_metric_args)
             caching_algorithm_args = None # TODO
-            caching_algorithm = CachingAlgorithm(params).get(name=params.caching_algorithm)
+            caching_algorithm = caching_algorithms.get(name=params.caching_algorithm, args=caching_algorithm_args)
             request_modal_args = None # TODO
             request_modal = request_modals.get(name=params.request_modal, args=request_modal_args)
-            file_library_args = None # TODO
-            file_library = LibraryModal(params).get(name=params.file_library)
+            cost_modal_args = None # TODO
+            cost_modal = cost_modals.get(name=params.cost_modal, args=cost_modal_args)
+            init_state = list(np.random.randint(params.memory_size, size=params.cache_size))
+            virtual_cache = VirtualCache(init_state)
 
 
 
@@ -95,7 +95,6 @@ class SimulationPlatform:
         '''Returns a normally distributed dictionary of file costs'''
         # TODO: replace generators
         # TODO: change costs from a fixed mean to normal distribution
-        np.random.seed(self.seed)
         while True:
             yield {file: mean for file in range(self.args.MEMORY_SIZE)}
             # yield {file: abs(np.random.normal(mean, std)) for file in range(self.args.MEMORY_SIZE)}

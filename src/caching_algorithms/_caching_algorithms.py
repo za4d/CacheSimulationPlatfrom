@@ -5,11 +5,9 @@ from abc import ABC, abstractmethod
 class CachingAlgorithm(ABC):
     """If file is in cache then return `None` for no replacment address. If files is not cached but not stored return -1"""
 
-    def __init__(self):
-        pass
 
     @abstractmethod
-    def __call__(self, cache_state, request, time):
+    def __call__(self, time, request, cache_state):
         """:returns replacement address. If file is not going to be cached return`-1` = """
         # if request in cache_state:
         # if is_hit:

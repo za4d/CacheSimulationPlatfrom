@@ -3,8 +3,7 @@ import numpy as np
 
 class Zipfian(RequestModal):
 
-    def __init__(self, eta, length, library_size, seed=None):
-        np.random.seed(seed)
+    def __init__(self, eta, length, library_size):
         self.library_size = library_size
         self._length = length
         self.eta = eta

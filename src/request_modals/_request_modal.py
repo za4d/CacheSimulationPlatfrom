@@ -29,6 +29,19 @@ class RequestModal(ABC):
     def __len__(self):
         return len(self._request_sequence)
 
+    def __iter__(self):
+        return iter(self._request_sequence.items())
+
+    # def __next__(self):
+    #     yield next(self._request_sequence.items())
+        # items = self._request_sequence.items()
+        # for time, file in items:
+        #     yield time, file
+
+    def is_hit(self, replacement_address):
+        """If file is in cache then return `None` for cache hit. If files is a miss but not cached return -1"""
+        return replacement_address is None
+
     @property
     def length(self):
         return self._length

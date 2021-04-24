@@ -1,21 +1,17 @@
 import pkgutil
 import inspect
-from ._request_modal import RequestModal
-# from gaussian import Gaussian
-# from uniform import Uniform
-# from zipfian import Zipfian
+from ._cost_modal import CostModal
+# from static_cost import StaticCost
 
-def get(name, args):
-    if name == 'gaussian':
-        return Gaussian(**args)
-    elif name == 'zipfian':
-        return Zipfian(**args)
-    elif name == 'uniform':
-        return Uniform(**args)
+
+def get(name, **args):
+    if name == 'static-cost':
+        return StaticCost(**args)
     # elif name == 'simpleloss':
     #     return SimpleLoss()
     else:
         raise AttributeError(f'Invalid request modal name given \'{name}\'')
+
 
 # Dynamic import files
 __all__ = ['get']

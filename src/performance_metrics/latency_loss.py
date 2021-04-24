@@ -2,40 +2,40 @@ from _performance_metric import PerformanceMetric
 
 class LatencyLoss(PerformanceMetric):
 
-    def __init__(self, cost_func, hit_count=0, miss_count=0, hit_weight=1, miss_weight=1):
-        self.latency_loss = None
-        self.processing_time = 10
-        self.file_requests_log = dict()
-        self.time = 0
-        self.hit_count = self.miss_count = 0
-        self.cost_func = cost_func #{file: abs(np.random.normal(10, 30)) for file in self.request_log.keys()}
-
-
     @property
     def name(self):
         return 'Latency Loss'
 
+    def __init__(self, cost_func, hit_weight=1, miss_weight=1):
+        self.latency_loss = None
+        self.processing_time = 10
+        self.file_requests_log = dict()
+        self.time = 0
+        self.cost_func = cost_func #{file: abs(np.random.normal(10, 30)) for file in self.request_log.keys()}
+
+
+    def record(self, time, replacement_address):
+        """time can be used to get requested file from request sequence"""
+        requested_file = self.request_sequence[time]
+        if self.is_hit(replacement_address):
+            self.hit()
+            log_entry = (self.time, True)
+            self.time += 1
+            try:
+                self.file_requests_log[requested_file].append(log_entry)
+            except KeyError:
+                self.file_requests_log[requested_file] = [log_entry]
+        else:
+            log_entry = (self.time, False)
+            self.time += 1
+            try:
+                self.file_requests_log[requested_file].append(log_entry)
+            except KeyError:
+                self.file_requests_log[requested_file] = [log_entry]
+
+
     def __str__(self):
-        return f'{self.calculate() :4f}'
-
-    def hit(self, requested_file):
-        self.hit_count += 1
-        log_entry = (self.time, True)
-        self.time += 1
-        try:
-            self.file_requests_log[requested_file].append(log_entry)
-        except KeyError:
-            self.file_requests_log[requested_file] = [log_entry]
-
-
-    def miss(self, requested_file):
-        self.miss_count += 1
-        log_entry = (self.time, False)
-        self.time += 1
-        try:
-            self.file_requests_log[requested_file].append(log_entry)
-        except KeyError:
-            self.file_requests_log[requested_file] = [log_entry]
+        return f'{self.compute() :4f}'
 
     # Loss
     def compute(self):

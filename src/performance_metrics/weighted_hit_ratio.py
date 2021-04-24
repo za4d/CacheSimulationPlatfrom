@@ -2,28 +2,25 @@ from _performance_metric import PerformanceMetric
 
 class WeightedHitRatio(PerformanceMetric):
 
-    def __init__(self, hit_count=0, miss_count=0, hit_weight=1, miss_weight=1):
-        self.hit_count = hit_count
-        self.miss_count = miss_count
-        self.hit_weight = hit_weight
-        self.miss_weight = miss_weight
-
     @property
     def name(self):
         return 'Weighted Hit Ratio'
 
+    def __init__(self, hit_weight=1, miss_weight=1):
+        self.hit_weight = hit_weight
+        self.miss_weight = miss_weight
 
-    def hit(self, requested_file):
-        self.hit_count += 1
-
-    def miss(self, requested_file):
-        self.miss_count += 1
+    def record(self, time, replacement_address):
+        """time can be used to get requested file from request sequence"""
+        if self.is_hit(replacement_address):
+            self.hit()
 
     def __str__(self):
-        return f'{100 * self.calculate() :4f} %'
+        return f'{100 * self.compute() :4f} %'
 
     # HIT RATIO
     def compute(self):
-        return self.hit_count / (self.hit_count + self.miss_count)
+        return (self.hit_weight*self.hit_count) / (self.hit_count + self.miss_count)
+
 
 

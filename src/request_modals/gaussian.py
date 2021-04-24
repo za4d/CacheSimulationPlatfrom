@@ -5,8 +5,7 @@ import numpy as np
 class Gaussian(RequestModal):
 
 
-    def __init__(self, mean, std, length, library_size, seed=None):
-        np.random.seed(seed)
+    def __init__(self, mean, std, length, library_size):
         self.std = std
         self.mean = mean
         self._length = length

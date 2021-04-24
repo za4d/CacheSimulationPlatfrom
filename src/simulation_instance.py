@@ -1,7 +1,7 @@
+import numpy as np
 
 
 class SimulationInstance:
-
 
     # def __init__(self, algorithm_name, performance_metric, request_modal, library_modal, init_state: List[File]):
     #     self.storage = init_state
@@ -12,40 +12,28 @@ class SimulationInstance:
     #     elif algorithm_name == 'MINAD-P':
     #         self.perturbation_scale = np.power(4 * np.pi * np.log(len(data)), -1/4) * np.sqrt(len(data)/len(init_state))
 
-
-    def __init__(self, caching_algorithm, performance_metric, request_modal, communication_modal, init_state=None):
+    def __init__(self, caching_algorithm, performance_metric, request_modal, cost_modal, virtual_cache):
+        self.cache = virtual_cache
         self.caching_algorithm = caching_algorithm
         self.performance_metric = performance_metric
         self.request_modal = request_modal
-        self.communication_modal = communication_modal
-        self.cache_storage = init_state
+        self.cost_modal = cost_modal
 
+    def simulate(self):
+        cache = self.cache
+        caching_algorithm = self.caching_algorithm
+        performance_metric = self.performance_metric
+        request_modal = self.request_modal
 
-
-    def simualte(self):
-        # performace_metric = self.set_metric(self.args.PERFORMANCE_METRIC, cost_func, self.args.HIT_WEIGHT, self.args.MISS_WEIGHT)
-        # # initialise cache with random files
-        # cache_state = list(np.random.randint(self.args.MEMORY_SIZE, size=self.args.CACHE_SIZE))
-        # cac
-        # data = None
-        #
-        # if algorithm_name in ['MIN', 'MINAD', 'MINAD-P', 'MINAD-L']:
-        #     data = request_sequence.copy()
-        #
-        # if init_state is not None:
-        #     cache_state = init_state.copy()
-        #
-        # cache = Cache(cache_state, algorithm_name, data, cost_func)
-
-
-
-        for file in self.request_modal:
+        for time, file in request_modal:
             # caching algorithm takes requested file??? and returns file to be replaced file
-            replacement_address = cache.caching_algorithm(file, self.performace_metric)
+            replacement_address = caching_algorithm(time, file, cache)
+            print(replacement_address)
             if replacement_address is not None:
-                cache.replace(replacement_address, file)
+                cache.write(replacement_address, file)
+            performance_metric.record(time, replacement_address)
 
-        return performace_metric
+        return performance_metric
 
     # def set_algorithm(self, name):
     #     if name == 'RR':

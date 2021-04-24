@@ -3,8 +3,7 @@ import numpy as np
 
 class Uniform(RequestModal):
 
-    def __init__(self, length, library_size, seed=None):
-        np.random.seed(seed)
+    def __init__(self, length, library_size):
         self.library_size = library_size
         self._length = length
         super().__init__()
