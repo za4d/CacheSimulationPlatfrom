@@ -1,9 +1,10 @@
 
-from src.caching_algorithms._caching_algorithms import CachingAlgorithm
+from src.caching_algorithms._caching_algorithms import OnlineCachingAlgorithm
 
-class LeastRecentlyUsed(CachingAlgorithm):
+class LeastRecentlyUsed(OnlineCachingAlgorithm):
 
-    def __init__(self, cache_size):
+    def __init__(self, cache_size, cost_modal):
+        super().__init__(cache_size, cost_modal)
         self.data = list(range(cache_size))
 
     def __call__(self, time, requested_file, cache_state):
@@ -20,11 +21,13 @@ class LeastRecentlyUsed(CachingAlgorithm):
             self.data.append(replacement_address)
             return replacement_address
 
-    def online(self):
-        return False
-
-    def coded(self):
-        return False
+    # @property
+    # def online(self):
+    #     return False
+    #
+    # @property
+    # def coded(self):
+    #     return False
 
 
 

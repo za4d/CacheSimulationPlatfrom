@@ -35,7 +35,7 @@ class LatencyLoss(PerformanceMetric):
 
 
     def __str__(self):
-        return f'{self.compute() :4f}'
+        return f'{self.result :4f}'
 
     # Loss
     def compute(self):
@@ -72,4 +72,4 @@ class LatencyLoss(PerformanceMetric):
                 pass
 
         self.latency_loss = latency_loss / self.time
-        return self.latency_loss
+        self.result = self.latency_loss

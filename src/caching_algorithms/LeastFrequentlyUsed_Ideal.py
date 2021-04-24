@@ -1,12 +1,12 @@
 import numpy as np
 
-from src.caching_algorithms._caching_algorithms import CachingAlgorithm
+from src.caching_algorithms._caching_algorithms import OnlineCachingAlgorithm
 
 
-class LeastFrequentlyUsedIdeal(CachingAlgorithm):
+class LeastFrequentlyUsedIdeal(OnlineCachingAlgorithm):
 
-    def __init__(self, cache_size):
-        self.cache_size = cache_size
+    def __init__(self, cache_size, cost_modal):
+        super().__init__(cache_size, cost_modal)
         self.frequency = {} # frequency by file
 
     def __call__(self, time, requested_file, cache_state):
@@ -19,11 +19,11 @@ class LeastFrequentlyUsedIdeal(CachingAlgorithm):
             self.frequency[least_used_address] = 1
             return least_used_address
 
-    @property
-    def online(self):
-        return False
-
-    @property
-    def coded(self):
-        return False
+    # @property
+    # def online(self):
+    #     return True
+    #
+    # @property
+    # def coded(self):
+    #     return False
 #

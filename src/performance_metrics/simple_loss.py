@@ -20,8 +20,8 @@ class SimpleLoss(PerformanceMetric):
             self.simple_loss += self.cost_modal.cost(requested_file)
 
     def __str__(self):
-        return f'{self.compute() :4f}'
+        return f'{self.result :4f}'
 
     # Loss
     def compute(self):
-        return self.simple_loss / (len(self.request_sequence))
+        self.result = self.simple_loss / (len(self.request_sequence))

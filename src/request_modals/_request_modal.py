@@ -11,6 +11,13 @@ class RequestModal(ABC):
         """Generator function that produces a fixed series of random requests"""
         pass
 
+    def time_of_next_request(self, search_file):
+        for address, file in self._request_sequence.items():
+            if file == search_file:
+                return address
+        raise ValueError('No request for file in sequence')
+
+
     def __setitem__(self, time, request):
         self._request_sequence[time] = request
 
@@ -20,8 +27,11 @@ class RequestModal(ABC):
     def get(self, index):
         return list(self._request_sequence.items())[index]
 
-    def request_sequence(self, time):
+    def request_sequence(self, time=None):
         return self._request_sequence.items()[:time]
+
+    def aslist(self):
+        return list(self._request_sequence.values())
 
     def __delitem__(self, time):
         del self._request_sequence[time]
@@ -31,6 +41,10 @@ class RequestModal(ABC):
 
     def __iter__(self):
         return iter(self._request_sequence.items())
+
+    def __contains__(self, item):
+        return item in self._request_sequence
+
 
     # def __next__(self):
     #     yield next(self._request_sequence.items())

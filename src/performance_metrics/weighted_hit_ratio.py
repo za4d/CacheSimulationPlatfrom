@@ -16,11 +16,11 @@ class WeightedHitRatio(PerformanceMetric):
             self.hit()
 
     def __str__(self):
-        return f'{100 * self.compute() :4f} %'
+        return f'{100 * self.result :4f} %'
 
     # HIT RATIO
     def compute(self):
-        return (self.hit_weight*self.hit_count) / (self.hit_count + self.miss_count)
+        self.result = (self.hit_weight*self.hit_count) / (self.hit_count + self.miss_count)
 
 
 

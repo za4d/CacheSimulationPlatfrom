@@ -18,8 +18,8 @@ class HitRatio(PerformanceMetric):
             self.hit()
 
     def __str__(self):
-        return f'{100 * self.compute() :4f} %'
+        return f'{100 * self.result :4f} %'
 
     # HIT RATIO
     def compute(self):
-        return self.hit_count / (len(self.request_sequence))
+        self.result = self.hit_count / (len(self.request_sequence))

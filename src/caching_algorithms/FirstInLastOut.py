@@ -1,11 +1,11 @@
 from collections import deque
-from src.caching_algorithms._caching_algorithms import CachingAlgorithm
+from src.caching_algorithms._caching_algorithms import OnlineCachingAlgorithm
 
 
-class FirstInLastOut(CachingAlgorithm):
+class FirstInLastOut(OnlineCachingAlgorithm):
 
-    def __init__(self, cache_size):
-        self.cache_size = cache_size
+    def __init__(self, cache_size, cost_modal):
+        super().__init__(cache_size, cost_modal)
         # list(range(len(self.storage)))
         self.stack = list(range(cache_size))
 
@@ -17,8 +17,10 @@ class FirstInLastOut(CachingAlgorithm):
             self.stack.append(replacement_address)
             return replacement_address
 
-    def online(self):
-        return False
-
-    def coded(self):
-        return False
+    # @property
+    # def online(self):
+    #     return True
+    #
+    # @property
+    # def coded(self):
+    #     return False

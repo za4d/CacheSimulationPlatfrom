@@ -1,12 +1,13 @@
 import numpy as np
 # from _caching_algorithms import CachingAlgorithm
-from src.caching_algorithms._caching_algorithms import CachingAlgorithm
+from src.caching_algorithms._caching_algorithms import OnlineCachingAlgorithm
 from collections import deque
 
 
-class FirstInFirstOut(CachingAlgorithm):
+class FirstInFirstOut(OnlineCachingAlgorithm):
 
-    def __init__(self, cache_size):
+    def __init__(self, cache_size, cost_modal):
+        super().__init__(cache_size, cost_modal)
         self.cache_size = cache_size
         # list(range(len(self.storage)))
         self.stack = deque(range(cache_size))
@@ -19,24 +20,10 @@ class FirstInFirstOut(CachingAlgorithm):
             self.stack.appendleft(replacement_address)
             return replacement_address
 
-    def online(self):
-        return False
-
-    def coded(self):
-        return False
-
-# class FirstInFirstOut(CachingAlgorithm):
-#
-#     def __init__(self, cache_size):
-#         super().__init__()
-#         self.cache_size = cache_size
-#         # self.data = list(range(cache_size))
-#         self.queue = list(np.zeros(cache_size))
-#
-#     def __call__(self, file_request, time, cache_state):
-#         if file_request in cache_state:
-#             return None
-#         else:
-#             replacement_address = self.queue.pop(0)
-#             self.queue.append(replacement_address)
-#             return replacement_address
+    # @property
+    # def online(self):
+    #     return False
+    #
+    # @property
+    # def coded(self):
+    #     return False

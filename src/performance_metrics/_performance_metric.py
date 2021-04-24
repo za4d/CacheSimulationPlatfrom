@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 
 
 class PerformanceMetric(ABC):
+    _result = None
 
     @property
     @abstractmethod
@@ -26,8 +27,20 @@ class PerformanceMetric(ABC):
 
     @abstractmethod
     def compute(self):
-        """calculate metric result"""
+        """calculate metric result and set self.result"""
         pass
+
+    @property
+    def result(self):
+        if self._result is None:
+            raise NameError('Result not yet computed')
+        else:
+            return self._result
+
+    @result.setter
+    def result(self, result):
+        self._result = result
+
 
     def is_hit(self, replacement_address):
         """If file is in cache then return `None` for cache hit. If files is a miss but not cached return -1"""
@@ -43,6 +56,11 @@ class PerformanceMetric(ABC):
     @property
     def miss_count(self):
         return len(self.request_sequence) - self.hit_count_
+
     # @abstractmethod
     # def __add__(self, other):
     #     pass
+
+
+
+
