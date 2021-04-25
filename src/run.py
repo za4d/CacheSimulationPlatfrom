@@ -80,5 +80,6 @@ if __name__ == '__main__':
     # hyperparam_list = cross_join_args(*args[:-2])
 
     sim = simulation_platform.Simulation(args)
+    print(f'(saved at {LOG_FILE})')
 
 

@@ -1,4 +1,4 @@
-from _performance_metric import PerformanceMetric
+from src.performance_metrics._performance_metric import PerformanceMetric
 
 class LatencyLoss(PerformanceMetric):
 
@@ -6,12 +6,13 @@ class LatencyLoss(PerformanceMetric):
     def name(self):
         return 'Latency Loss'
 
-    def __init__(self, cost_func, hit_weight=1, miss_weight=1):
+    def __init__(self, request_sequence, initial_state, cost_modal):
+        super().__init__(request_sequence, initial_state, cost_modal)
         self.latency_loss = None
         self.processing_time = 10
         self.file_requests_log = dict()
         self.time = 0
-        self.cost_func = cost_func #{file: abs(np.random.normal(10, 30)) for file in self.request_log.keys()}
+        # self.cost_modal = cost_modal #{file: abs(np.random.normal(10, 30)) for file in self.request_log.keys()}
 
 
     def record(self, time, replacement_address):
@@ -44,7 +45,7 @@ class LatencyLoss(PerformanceMetric):
 
         latency_loss = 0
         for file, request_history in self.file_requests_log.items():
-            c = self.cost_func[file]
+            c = self.cost(file)
             try:
                 # skip any cache hits from file being in initial cache
                 while True:

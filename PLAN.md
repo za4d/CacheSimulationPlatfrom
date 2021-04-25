@@ -21,7 +21,7 @@
 - number of requests to simulate
 - size of cache
 - size of library
-- seed
+- ~~~~seed
 *Z is a communiation modal parameter*
 *eta is a request modal parameter*
 *hit weight and miss weight are performance metric parameters*

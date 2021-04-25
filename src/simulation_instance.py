@@ -28,7 +28,7 @@ class SimulationInstance:
         for time, file in request_modal:
             # caching algorithm takes requested file??? and returns file to be replaced file
             replacement_address = caching_algorithm(time, file, cache)
-            print(replacement_address)
+            # print(replacement_address)
             if replacement_address is not None:
                 cache.write(replacement_address, file)
             performance_metric.record(time, replacement_address)

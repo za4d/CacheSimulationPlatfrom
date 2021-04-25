@@ -1,4 +1,4 @@
-from _request_modal import RequestModal
+from src.request_modals._request_modal import RequestModal
 import numpy as np
 
 class Uniform(RequestModal):

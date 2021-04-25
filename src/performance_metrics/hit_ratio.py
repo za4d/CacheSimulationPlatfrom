@@ -1,4 +1,4 @@
-from _performance_metric import PerformanceMetric
+from src.performance_metrics._performance_metric import PerformanceMetric
 # from s. import PerformanceMetric
 
 
@@ -8,8 +8,8 @@ class HitRatio(PerformanceMetric):
     def name(self):
         return 'Hit Ratio'
 
-    def __init__(self, request_sequence, initial_state, hit_count=0):
-        super().__init__(request_sequence, initial_state, cost_modal=None)
+    def __init__(self, request_sequence, initial_state, cost_modal, hit_count=0):
+        super().__init__(request_sequence, initial_state, cost_modal)
         self.hit_count_ = hit_count
 
     def record(self, time, replacement_address):

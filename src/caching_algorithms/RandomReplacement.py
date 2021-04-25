@@ -6,7 +6,8 @@ from src.caching_algorithms._caching_algorithms import OnlineCachingAlgorithm
 
 class RandomReplacement(OnlineCachingAlgorithm):
 
-    def __init__(self, cache_size):
+    def __init__(self, cache_size, cost_modal):
+        super().__init__(cache_size, cost_modal)
         self.cache_size = cache_size
 
     def __call__(self, time, requested_file, cache_state):

@@ -4,9 +4,12 @@ from typing import NamedTuple, List
 from dataclasses import dataclass
 import performance_metrics
 import caching_algorithms
+from caching_algorithms import is_online
 import request_modals
 import cost_modals
+from src.utils import Results
 from virtual_cache import VirtualCache
+from simulation_instance import SimulationInstance
 # import concurrent.futures
 import multiprocessing
 
@@ -17,14 +20,14 @@ class Hyperparameters:
     PERFORMANCE_METRIC: str
     NUM_OF_ITERATIONS: int
     NUM_OF_REQUESTS: int
-    Z: float  # Avg. number of requests arriving during a fetch
+    REQ_FREQUENCY: float  # Avg. number of requests arriving during a fetch
     ETA: float
     CACHE_SIZE: int
     MEMORY_SIZE: int
     LOG_FILE: str
-    QUITE: bool
-    HIT_WEIGHT: float
-    MISS_WEIGHT: float
+    # QUITE: bool
+    # HIT_WEIGHT: float
+    # MISS_WEIGHT: float
 
 @dataclass
 class Parameters:
@@ -44,6 +47,11 @@ class Parameters:
     hit_weight: float
     miss_weight: float
 
+# define types
+# TODO add typeing
+File = int
+RequestSequence = [(float, File)]
+
 
 
 '''
@@ -59,7 +67,7 @@ class SimulationPlatform:
         self.simulation_parameters = args[:-2]
 
 
-    def run(self):
+    def batch_run(self):
 
         for params in self.get_instances():
             performance_metric_args = None # TODO
@@ -73,50 +81,79 @@ class SimulationPlatform:
             init_state = list(np.random.randint(params.memory_size, size=params.cache_size))
             virtual_cache = VirtualCache(init_state)
 
-
-
         return results
 
-    def get_instances(self):
-        for sp in self.simulation_parameters:
-            yield Parameters(*sp)
-
-    def get_performance_metric(self, performance_metric_name: str, *params):
-        if performance_metric_name == 'hit-ratio':
-            return pm.HitRatio(*params)
-        elif performance_metric_name == 'gain':
-            return pm.Gain(*params)
-        elif performance_metric_name == 'loss':
-            return pm.LatencyLoss(*params)
-        elif performance_metric_name == 'simpleloss':
-            return pm.SimpleLoss(*params)
-
-    def get_cost_function(self, mean, std):
-        '''Returns a normally distributed dictionary of file costs'''
-        # TODO: replace generators
-        # TODO: change costs from a fixed mean to normal distribution
-        while True:
-            yield {file: mean for file in range(self.args.MEMORY_SIZE)}
-            # yield {file: abs(np.random.normal(mean, std)) for file in range(self.args.MEMORY_SIZE)}
+    @staticmethod
+    def run_simulations(algorithms, n_iter, n_requests, cache_size, library_size, performance_metric_name, request_frq, zipf_eta, seed):
+        results = Results(algorithms, n_iter, n_requests, cache_size, library_size, performance_metric_name, request_frq, zipf_eta, seed)
 
 
-    def set_metric(self, metric_arg: str, *params):
-        if metric_arg == 'hit-ratio':
-            return pm.HitRatio(*params)
-        elif metric_arg == 'gain':
-            return pm.Gain(*params)
-        elif metric_arg == 'loss':
-            return pm.LatencyLoss(*params)
-        elif metric_arg == 'simpleloss':
-            return pm.SimpleLoss(*params)
+        for algorithm in algorithms:
+
+            # Initilise simulation parameters
+            np.random.seed(seed)
+            request_modal_gen = (request_modals.Zipfian(n_requests, library_size, eta=zipf_eta) for _ in range(n_iter))
+            cost_modal_gen = (cost_modals.StaticUniformCost(library_size, request_frq) for _ in range(n_iter))
+
+            total = 0
+            for iteration in range(n_iter):
+                log(f'begin')
+                # initilise instance
+                virtual_cache = VirtualCache(cache_size)
+                print('#')
+                request_modal = next(request_modal_gen)
+                print('#')
+                cost_modal = next(cost_modal_gen)
+                print('#')
+                caching_algorithm = caching_algorithms.get(algorithm, cache_size, cost_modal) if is_online(algorithm) else caching_algorithms.get(algorithm, cache_size, cost_modal, request_modal)
+                print('#')
+                performance_metric = performance_metrics.get(performance_metric_name, request_modal, virtual_cache.state(), cost_modal)
+                print('#')
+                sim = SimulationInstance(caching_algorithm, performance_metric, request_modal, cost_modal, virtual_cache)
+
+                ## Simulate
+                log(f'>>> Simulating {algorithm}...')
+                sim_pm = sim.simulate()
+                sim_pm.compute()
+                total += sim_pm.result
+                log(f'{algorithm} #{iteration+1} \t{sim_pm}\t', f'hit: {sim_pm.hit_count}  miss: {sim_pm.miss_count}')
 
 
-    def log_results(self, results):
-        args=self.args
-        # log results as csv
+            # log(f'>>> Simulating {algorithm}...')
+            # p = multiprocessing.Pool(n_iter)
+            # simulation_args = [(algorithm, next(request_sequence_gen), next(cost_func_gen)) for _ in range(n_iter)]
+            # total = 0
+            # for number, performance_result in enumerate(p.starmap(self.simulate, simulation_args)):
+            #     total += performance_result.calculate()
+            #     log(f'{algorithm} #{number+1} \t{performance_result}\t', f'hit: {performance_result.hit_count}  miss: {performance_result.miss_count}')
 
-        log('ALGORITHM,METRIC,RESULT,Z,ETA,N_ITER,N_REQUESTS,CACHE_SIZE,MEMORY_SIZE,SEED')
-        for algorithm, result in results.items():
-            log(f'{algorithm},{args.PERFORMANCE_METRIC},{result},{args.Z},{args.ETA},{args.NUM_OF_ITERATIONS},{args.NUM_OF_REQUESTS},{args.CACHE_SIZE},{args.MEMORY_SIZE},{args.SEED}')
+
+            results[algorithm] = total / n_iter
+
+            log(f'>>> Average {performance_metric_name}: {results[algorithm]}\t(over {n_iter} simulations)\n')
+
+        # log results as csv and formatted table
+        log(f'{"-"*50} RAW DATA (CSV) \n'
+            f'{results}\n'
+            f'{"-"*50}\n\n'
+            f'>>> RESULTS - (over {n_iter} simulations)\n'
+            f'{results.table(sort=True)}\n\n')
+            
+        return results
+
+    def create_instance(self, n_requests, cache_size, library_size, performance_metric_name, performance_metric_args, caching_algorithm_name, request_modal_name, request_modal_args, cost_modal_name, cost_modal_args, init_cache_state=None):
+        virtual_cache = VirtualCache(cache_size, init_cache_state)
+        request_modal = request_modals.get(request_modal_name, *request_modal_args)
+        cost_modal = cost_modals.get(cost_modal_name, *cost_modal_args)
+
+        if caching_algorithms.is_online(caching_algorithm_name):
+            caching_algorithm = caching_algorithms.get(caching_algorithm_name, cache_size, cost_modal)
+        else:
+            caching_algorithm = caching_algorithms.get(caching_algorithm_name, cache_size, cost_modal, request_modal)
+        performance_metric = performance_metrics.get(performance_metric_name, *performance_metric_args)
+
+        return SimulationInstance(caching_algorithm, performance_metric, request_modal, cost_modal, virtual_cache)
 
 
+def log(*param):
+    print(*param)

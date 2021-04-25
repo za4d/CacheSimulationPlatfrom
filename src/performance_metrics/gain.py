@@ -1,4 +1,4 @@
-from _performance_metric import PerformanceMetric
+from src.performance_metrics._performance_metric import PerformanceMetric
 
 
 class Gain(PerformanceMetric):
@@ -7,7 +7,8 @@ class Gain(PerformanceMetric):
     def name(self):
         return 'Gain'
 
-    def __init__(self, cost_func, hit_weight=1, miss_weight=1):
+    def __init__(self, request_sequence, initial_state, cost_modal, hit_weight=1, miss_weight=1):
+        super().__init__(request_sequence, initial_state, cost_modal)
         self.hit_weight = hit_weight
         self.miss_weight = miss_weight
 

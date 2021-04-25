@@ -1,19 +1,17 @@
 import pkgutil
 import inspect
 from ._request_modal import RequestModal
-# from gaussian import Gaussian
-# from uniform import Uniform
-# from zipfian import Zipfian
+from .gaussian import Gaussian
+from .uniform import Uniform
+from .zipfian import Zipfian
 
 def get(name, args):
     if name == 'gaussian':
-        return Gaussian(**args)
+        return Gaussian(*args)
     elif name == 'zipfian':
-        return Zipfian(**args)
+        return Zipfian(*args)
     elif name == 'uniform':
-        return Uniform(**args)
-    # elif name == 'simpleloss':
-    #     return SimpleLoss()
+        return Uniform(*args)
     else:
         raise AttributeError(f'Invalid request modal name given \'{name}\'')
 

@@ -9,11 +9,11 @@ class VirtualCache(list):
         else:
             raise TypeError("VirtualCache takes at least 1 positional argument (0 given)")
 
-
     def read(self, address):
         return super().__getitem__(address)
 
     def write(self, address, file):
         super().__setitem__(address, file)
 
-
+    def state(self):
+        return self.copy()

@@ -1,21 +1,21 @@
 import pkgutil
 import inspect
 from ._performance_metric import PerformanceMetric
-# from .hit_ratio import HitRatio
-# from .gain import Gain
-# from .latency_loss import LatencyLoss
-# from .simple_loss import SimpleLoss
+from .hit_ratio import HitRatio
+from .gain import Gain
+from .latency_loss import LatencyLoss
+from .simple_loss import SimpleLoss
 
 
-def get(name, **args):
+def get(name, *args):
     if name == 'hit-ratio':
-        return HitRatio()
+        return HitRatio(*args)
     elif name == 'gain':
-        return Gain()
+        return Gain(*args)
     elif name == 'latency-loss':
-        return LatencyLoss()
+        return LatencyLoss(*args)
     elif name == 'simple-loss':
-        return SimpleLoss()
+        return SimpleLoss(*args)
     else:
         raise AttributeError(f'Invalid performance metric name given \'{name}\'')
 

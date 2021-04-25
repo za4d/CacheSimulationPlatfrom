@@ -30,6 +30,9 @@ class PerformanceMetric(ABC):
         """calculate metric result and set self.result"""
         pass
 
+    def cost(self, file):
+        return self.cost_modal.cost(file)
+
     @property
     def result(self):
         if self._result is None:

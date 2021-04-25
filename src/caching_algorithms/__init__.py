@@ -15,32 +15,65 @@ from .MinimumAggregateDelay_Beladys import MinimumAggregateDelay_Beladys
 from .MinimumAggregateDelay_L import MinimumAggregateDelay_L
 from .MinimumAggregateDelay_Perturbed import MinimumAggregateDelay_Perturbed
 
-def get(name):
+# def get(name, cache_size, cost_modal, request_sequence):
+#     if name == 'RR':
+#         return RandomReplacement(cache_size, cost_modal)
+#     elif name == 'FIFO':
+#         return FirstInFirstOut(cache_size, cost_modal)
+#     elif name == 'FILO':
+#         return FirstInLastOut(cache_size, cost_modal)
+#     elif name == 'LRU':
+#         return LeastRecentlyUsed(cache_size, cost_modal)
+#     elif name == 'LFU':
+#         return LeastFrequentlyUsed(cache_size, cost_modal)
+#     elif name == 'MIN':
+#         return Beladys(cache_size, cost_modal, request_sequence)
+#     elif name == 'MAD':
+#         return MinimumAggregateDelay(cache_size, cost_modal)
+#     # elif name == 'MAD-P':
+#     # 	return MinimumAggregateDelay_Perturbed(*self.params)
+#     elif name == 'MINAD':
+#         return MinimumAggregateDelay_Beladys(cache_size, cost_modal, request_sequence)
+#     elif name == 'MINAD-P':
+#         return MinimumAggregateDelay_Perturbed(cache_size, cost_modal, request_sequence)
+#     elif name == 'MINAD-L':
+#         return MinimumAggregateDelay_L(cache_size, cost_modal, request_sequence)
+#     else:
+#         raise AttributeError(f'Invalid caching algorithm given \'{name}\'')
+
+def is_online(name):
+    if name in ['RR', 'FIFO', 'FILO', 'LRU', 'LFU', 'MAD']:
+        return True
+    if name in ['MIN', 'MINAD', 'MINAD-P', 'MINAD-L']:
+        return False
+    else:
+        raise ValueError(f'Invalid caching algorithm given \'{name}\'')
+
+def get(name, *args):
     if name == 'RR':
-        return RandomReplacement(self.params.cost_modal)
+        return RandomReplacement(*args)
     elif name == 'FIFO':
-        return FirstInFirstOut(*self.params)
+        return FirstInFirstOut(*args)
     elif name == 'FILO':
-        return FirstInLastOut
+        return FirstInLastOut(*args)
     elif name == 'LRU':
-        return LeastRecentlyUsed(*self.params)
+        return LeastRecentlyUsed(*args)
     elif name == 'LFU':
-        return LeastFrequentlyUsed(*self.params)
+        return LeastFrequentlyUsed(*args)
     elif name == 'MIN':
-        return Beladys(*self.params)
+        return Beladys(*args)
     elif name == 'MAD':
-        return MinimumAggregateDelay(*self.params)
+        return MinimumAggregateDelay(*args)
     # elif name == 'MAD-P':
     # 	return MinimumAggregateDelay_Perturbed(*self.params)
     elif name == 'MINAD':
-        return MinimumAggregateDelay_Beladys(*self.params)
+        return MinimumAggregateDelay_Beladys(*args)
     elif name == 'MINAD-P':
-        return MinimumAggregateDelay_Perturbed(*self.params)
+        return MinimumAggregateDelay_Perturbed(*args)
     elif name == 'MINAD-L':
-        return MinimumAggregateDelay_L(*self.params)
+        return MinimumAggregateDelay_L(*args)
     else:
         raise AttributeError(f'Invalid caching algorithm given \'{name}\'')
-
 
 # Dynamic import files
 __all__ = ['get']
