@@ -61,6 +61,6 @@ def test_basic():
 
 
 if __name__ == '__main__':
-    # test_online_algorithms()
-    # test_offline_algorithms()
+    test_online_algorithms()
+    test_offline_algorithms()
     test_basic()

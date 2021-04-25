@@ -1,5 +1,5 @@
 from collections import deque
-from src.caching_algorithms._caching_algorithms import OnlineCachingAlgorithm
+from caching_algorithms import OnlineCachingAlgorithm
 
 
 class FirstInLastOut(OnlineCachingAlgorithm):

@@ -1,5 +1,5 @@
 
-from src.caching_algorithms._caching_algorithms import OnlineCachingAlgorithm
+from caching_algorithms import OnlineCachingAlgorithm
 
 class LeastRecentlyUsed(OnlineCachingAlgorithm):
 

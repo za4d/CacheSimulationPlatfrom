@@ -11,9 +11,6 @@ from dataclasses import asdict, dataclass
 caching_algorithms = ['RR', 'FIFO', 'FILO', 'LRU', 'LFU', 'MIN', 'MAD', 'MAD-P', 'MINAD', 'MINAD-P', 'MINAD-L']  # RR FIFO FILO LRU LFU B
 metrics = ['hit-ratio', 'gain', 'loss']
 
-def log(*param):
-    print(*param)
-
 @dataclass
 class Hyperparameters:
     ALGORITHMS: List[str]
@@ -60,6 +57,10 @@ if __name__ == '__main__':
     # parser.add_argument('--seed', nargs='*', metavar='SEED', default=[], type=int, help='Seed for request sequence and file cost generation')
     # parser.add_argument('-q', action='store_true', default=False, help='File name to log terminal output to')
     parser = argparse.ArgumentParser(description='Simulate a caching algorithm.')
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument('--f', help='...', action='store_true')
+    group.add_argument('--list', help='...', action='store_true')
+    group.add_argument('--add',  type=str, help='...')
     parser.add_argument('ALGORITHMS', nargs='*', choices=caching_algorithms, type=str.upper, default='-ALL', help=f'List of algorithms to be simulated from {", ".join(caching_algorithms[:-1])}')
     parser.add_argument('-p', nargs='*', metavar='PERFORMANCE_METRIC', choices=metrics, type=str.lower, default=['hit-ratio'], help='Measure to track')
     parser.add_argument('-i', nargs='*', metavar='NUM_OF_ITERATIONS', type=int, default=[10], help='Number of simulations to average results over')
@@ -75,6 +76,7 @@ if __name__ == '__main__':
     parser.add_argument('-f', nargs='*', metavar='LOG_FILE', type=str, default='logfile.log', help='File name to log terminal output to')
 
     args = list(vars(parser.parse_args()).values())
+
     # quite = args[-1]
     # logfile = args[-2]
     # hyperparam_list = cross_join_args(*args[:-2])

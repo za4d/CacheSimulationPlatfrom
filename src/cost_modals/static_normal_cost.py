@@ -1,5 +1,5 @@
 import numpy as np
-from src.cost_modals._cost_modal import StaticCost
+from cost_modals import StaticCost
 
 class StaticNormalCost(StaticCost):
 

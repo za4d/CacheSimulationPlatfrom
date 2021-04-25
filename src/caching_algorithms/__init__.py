@@ -1,8 +1,7 @@
 # __all__ = ['CachingAlgorithm','RandomReplacement', 'FirstInFirstOut', 'FirstInLastOut', 'LeastRecentlyUsed', 'LeastFrequentlyUsed', 'Beladays', 'MinimumAggregateDelay', 'MinimumAggregateDelay_Beladys', 'MinimumAggregateDelay_Perturbed', 'MinimumAggregateDelay_L', ]
 import pkgutil
 import inspect
-from ._caching_algorithms import OnlineCachingAlgorithm
-
+from ._caching_algorithms import OnlineCachingAlgorithm, OfflineCachingAlgorithm
 from .FirstInLastOut import FirstInLastOut
 from .FirstInFirstOut import FirstInFirstOut
 from .LeastRecentlyUsed import LeastRecentlyUsed
@@ -14,6 +13,8 @@ from .MinimumAggregateDelay import MinimumAggregateDelay
 from .MinimumAggregateDelay_Beladys import MinimumAggregateDelay_Beladys
 from .MinimumAggregateDelay_L import MinimumAggregateDelay_L
 from .MinimumAggregateDelay_Perturbed import MinimumAggregateDelay_Perturbed
+
+caching_algorithms_names = ['RR', 'FIFO', 'FILO', 'LRU', 'LFU', 'MIN', 'MAD', 'MINAD', 'MINAD-P', 'MINAD-L']  # RR FIFO FILO LRU LFU B
 
 # def get(name, cache_size, cost_modal, request_sequence):
 #     if name == 'RR':

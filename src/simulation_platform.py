@@ -7,7 +7,7 @@ import caching_algorithms
 from caching_algorithms import is_online
 import request_modals
 import cost_modals
-from src.utils import Results
+from utils import Results, log
 from virtual_cache import VirtualCache
 from simulation_instance import SimulationInstance
 # import concurrent.futures
@@ -84,7 +84,7 @@ class SimulationPlatform:
         return results
 
     @staticmethod
-    def run_simulations(algorithms, n_iter, n_requests, cache_size, library_size, performance_metric_name, request_frq, zipf_eta, seed):
+    def run_simulations(algorithms: List[str], n_iter: int, n_requests: int, cache_size: int, library_size: int, performance_metric_name: str, request_frq: float, zipf_eta: float, seed):
         results = Results(algorithms, n_iter, n_requests, cache_size, library_size, performance_metric_name, request_frq, zipf_eta, seed)
 
 
@@ -134,7 +134,8 @@ class SimulationPlatform:
             
         return results
 
-    def create_instance(self, n_requests, cache_size, library_size, performance_metric_name, performance_metric_args, caching_algorithm_name, request_modal_name, request_modal_args, cost_modal_name, cost_modal_args, init_cache_state=None):
+    @staticmethod
+    def create_instance(n_requests, cache_size, library_size, performance_metric_name, performance_metric_args, caching_algorithm_name, request_modal_name, request_modal_args, cost_modal_name, cost_modal_args, init_cache_state=None):
         virtual_cache = VirtualCache(cache_size, init_cache_state)
         request_modal = request_modals.get(request_modal_name, *request_modal_args)
         cost_modal = cost_modals.get(cost_modal_name, *cost_modal_args)
@@ -148,5 +149,3 @@ class SimulationPlatform:
         return SimulationInstance(caching_algorithm, performance_metric, request_modal, cost_modal, virtual_cache)
 
 
-def log(*param):
-    print(*param)

@@ -1,6 +1,6 @@
 import pkgutil
 import inspect
-from ._cost_modal import CostModal,StaticCost
+from ._cost_modal import CostModal, StaticCost
 from .static_normal_cost import StaticNormalCost
 from .static_uniform_cost import StaticUniformCost
 

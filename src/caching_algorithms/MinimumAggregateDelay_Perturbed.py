@@ -1,6 +1,6 @@
 import numpy as np
 
-from src.caching_algorithms._caching_algorithms import OfflineCachingAlgorithm
+from caching_algorithms import OfflineCachingAlgorithm
 from math import ceil
 
 class MinimumAggregateDelay_Perturbed(OfflineCachingAlgorithm):

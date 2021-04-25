@@ -1,5 +1,5 @@
 import numpy as np
-from src.caching_algorithms._caching_algorithms import OnlineCachingAlgorithm
+from caching_algorithms import OnlineCachingAlgorithm
 
 
 # TODO: caching algorithms module

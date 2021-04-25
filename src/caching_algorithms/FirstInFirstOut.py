@@ -1,6 +1,6 @@
 import numpy as np
 # from _caching_algorithms import CachingAlgorithm
-from src.caching_algorithms._caching_algorithms import OnlineCachingAlgorithm
+from caching_algorithms import OnlineCachingAlgorithm
 from collections import deque
 
 

@@ -1,4 +1,4 @@
-from src.performance_metrics._performance_metric import PerformanceMetric
+from performance_metrics import PerformanceMetric
 
 
 class SimpleLoss(PerformanceMetric):

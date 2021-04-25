@@ -6,6 +6,7 @@ from .gain import Gain
 from .latency_loss import LatencyLoss
 from .simple_loss import SimpleLoss
 
+performance_metrics_names = ['hit-ratio', 'gain', 'loss']
 
 def get(name, *args):
     if name == 'hit-ratio':

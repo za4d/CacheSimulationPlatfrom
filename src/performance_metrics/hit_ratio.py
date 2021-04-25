@@ -1,5 +1,6 @@
-from src.performance_metrics._performance_metric import PerformanceMetric
+# from .performance_metrics._performance_metric import PerformanceMetric
 # from s. import PerformanceMetric
+from performance_metrics import PerformanceMetric
 
 
 class HitRatio(PerformanceMetric):
