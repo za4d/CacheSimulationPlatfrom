@@ -89,7 +89,7 @@ class SimulationPlatform:
 
 
         for algorithm in algorithms:
-
+            log(f'>>> Simulating {algorithm}...')
             # Initilise simulation parameters
             np.random.seed(seed)
             request_modal_gen = (request_modals.Zipfian(n_requests, library_size, eta=zipf_eta) for _ in range(n_iter))
@@ -97,22 +97,15 @@ class SimulationPlatform:
 
             total = 0
             for iteration in range(n_iter):
-                log(f'begin')
                 # initilise instance
                 virtual_cache = VirtualCache(cache_size)
-                print('#')
                 request_modal = next(request_modal_gen)
-                print('#')
                 cost_modal = next(cost_modal_gen)
-                print('#')
                 caching_algorithm = caching_algorithms.get(algorithm, cache_size, cost_modal) if is_online(algorithm) else caching_algorithms.get(algorithm, cache_size, cost_modal, request_modal)
-                print('#')
                 performance_metric = performance_metrics.get(performance_metric_name, request_modal, virtual_cache.state(), cost_modal)
-                print('#')
                 sim = SimulationInstance(caching_algorithm, performance_metric, request_modal, cost_modal, virtual_cache)
 
                 ## Simulate
-                log(f'>>> Simulating {algorithm}...')
                 sim_pm = sim.simulate()
                 sim_pm.compute()
                 total += sim_pm.result
