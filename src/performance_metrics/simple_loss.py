@@ -25,3 +25,7 @@ class SimpleLoss(PerformanceMetric):
     # Loss
     def compute(self):
         self.result = self.simple_loss / (len(self.request_sequence))
+
+    @property
+    def params(self):
+        return None

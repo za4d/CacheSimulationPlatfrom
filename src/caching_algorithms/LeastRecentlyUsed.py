@@ -29,5 +29,7 @@ class LeastRecentlyUsed(OnlineCachingAlgorithm):
     # def coded(self):
     #     return False
 
-
+    @property
+    def params(self):
+        return None
 

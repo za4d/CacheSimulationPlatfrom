@@ -64,6 +64,9 @@ class PerformanceMetric(ABC):
     # def __add__(self, other):
     #     pass
 
-
-
+    @property
+    @abstractmethod
+    def params(self):
+        """:return true of false, depending on policy type"""
+        pass
 

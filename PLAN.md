@@ -17,14 +17,15 @@
 - (Request modal, list of Request modal arguments as KWDs)
 - (Communication modal, list of Communication modal arguments as KWDs)
 - (Performance metric, list of Performance metric arguments as KWDs)
-- number of iterations to average over
-- number of requests to simulate
-- size of cache
-- size of library
+- *number of iterations to average over*
+- *number of requests to simulate*
+- *size of cache*
+- *size of library*
 - ~~~~seed
-*Z is a communiation modal parameter*
-*eta is a request modal parameter*
-*hit weight and miss weight are performance metric parameters*
+  *Z is a communiation modal parameter*
+  *eta is a request modal parameter*
+  *hit weight and miss weight are performance metric parameters*
+  ~~~~
 
 
 [^1]: list of tuple containing names and parameters as keyword dictionaries e.g.

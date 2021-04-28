@@ -58,3 +58,7 @@ class MinimumAggregateDelay_Perturbed(OfflineCachingAlgorithm):
 
         return agg_delay
 
+
+    @property
+    def params(self):
+        return None

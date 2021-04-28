@@ -24,3 +24,7 @@ class HitRatio(PerformanceMetric):
     # HIT RATIO
     def compute(self):
         self.result = self.hit_count / (len(self.request_sequence))
+
+    @property
+    def params(self):
+        return ['hit_count']

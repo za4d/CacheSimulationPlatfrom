@@ -56,3 +56,6 @@ class MinimumAggregateDelay(OnlineCachingAlgorithm):
             replacement_address = np.argmin(map(self.track.estimate_aggregate_delay, cache_state))
             return replacement_address
 
+    @property
+    def params(self):
+        return None

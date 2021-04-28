@@ -11,8 +11,14 @@ class CostModal(ABC):
     def cost(self, file):
         pass
 
+    @property
+    @abstractmethod
+    def params(self):
+        """:return true of false, depending on policy type"""
+        pass
 
-class StaticCost(CostModal):
+
+class StaticCost(CostModal, ABC):
 
     def __init__(self, dict):
         super().__init__(len(dict))
@@ -20,3 +26,7 @@ class StaticCost(CostModal):
 
     def cost(self, file):
         return self.cost_func[file]
+
+    @property
+    def params(self):
+        return None

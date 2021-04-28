@@ -29,6 +29,11 @@ class OnlineCachingAlgorithm(ABC):
     #     """:return true of false, depending on policy type"""
     #     return False
 
+    @property
+    @abstractmethod
+    def params(self):
+        """:return a list of object parameters (excluding parent class parameters)"""
+        pass
 
 
 class OfflineCachingAlgorithm(ABC):
@@ -58,4 +63,8 @@ class OfflineCachingAlgorithm(ABC):
     #     pass
 
 
-
+    @property
+    @abstractmethod
+    def params(self):
+        """:return a list of object parameters (excluding parent class parameters)"""
+        pass

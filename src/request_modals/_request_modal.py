@@ -3,7 +3,9 @@ from sortedcontainers import SortedDict
 
 class RequestModal(ABC):
 
-    def __init__(self):
+    def __init__(self, num_requests, library_size):
+        self._length = num_requests
+        self._library_size = library_size
         self._request_sequence = SortedDict(self._generate())
 
     @abstractmethod
@@ -59,3 +61,13 @@ class RequestModal(ABC):
     @property
     def length(self):
         return self._length
+
+    @property
+    def library_size(self):
+        return self._library_size
+
+    @property
+    @abstractmethod
+    def params(self):
+        """:return true of false, depending on policy type"""
+        pass

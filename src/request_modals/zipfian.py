@@ -3,12 +3,9 @@ import numpy as np
 
 class Zipfian(RequestModal):
 
-    def __init__(self, n_requests, library_size, eta=1.5):
-        self.library_size = library_size
-        self._length = n_requests
+    def __init__(self, num_requests, library_size, eta=1.5):
         self.eta = eta
-        super().__init__()
-
+        super().__init__(num_requests, library_size)
 
     # '''Generator function that produces a fixed series of random requests'''
     # def _generate(self):
@@ -23,3 +20,10 @@ class Zipfian(RequestModal):
             request = np.random.zipf(self.eta)
             if request < self.library_size:
                 yield (time, request)
+
+    @property
+    def params(self):
+        return ['eta']
+
+
+

@@ -50,3 +50,7 @@ class MinimumAggregateDelay_Beladys(OfflineCachingAlgorithm):
         agg_delay = len(delayed_hits) * (cost + next_request_time) - (sum(delayed_hits) + next_request_time)
 
         return agg_delay
+
+    @property
+    def params(self):
+        return None

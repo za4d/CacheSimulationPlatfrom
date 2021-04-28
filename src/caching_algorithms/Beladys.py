@@ -33,3 +33,6 @@ class Beladys(OfflineCachingAlgorithm):
 
             return replacement_address
 
+    @property
+    def params(self):
+        return None

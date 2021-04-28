@@ -5,22 +5,16 @@ import numpy as np
 class Gaussian(RequestModal):
 
 
-    def __init__(self, length, library_size, mean=None, std=None):
-        super().__init__()
-        self._length = length
-        self.library_size = library_size
-        if mean is None:
-            self.mean = library_size//2
-            self.std = library_size//20
-        else:
-            self.std = std
-            self.mean = mean
+    def __init__(self, num_requests, library_size, mean=None, std=None):
+        super().__init__(num_requests, library_size)
+        self.mean = mean if mean else library_size//2
+        self.std = std if std else library_size//20
 
     def _generate(self):
         self.time = 0
         while self.time < self.length:
             request = np.random.normal(self.mean, self.std)
-            if request > 0 and request < self.library_size:
+            if 0 < request < self.library_size:
                 self.time += 1
                 yield (self.time, request)
 
@@ -41,4 +35,9 @@ class Gaussian(RequestModal):
     #                 request_sequence.append(r)
     #
     #     yield request_sequence
+
+    @property
+    def params(self):
+        return ['mean', 'std']
+
 

@@ -24,3 +24,7 @@ class FirstInLastOut(OnlineCachingAlgorithm):
     # @property
     # def coded(self):
     #     return False
+
+    @property
+    def params(self):
+        return None

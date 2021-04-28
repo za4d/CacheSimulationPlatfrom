@@ -22,8 +22,11 @@ class LeastFrequentlyUsedIdeal(OnlineCachingAlgorithm):
     # @property
     # def online(self):
     #     return True
-    #
+
     # @property
     # def coded(self):
     #     return False
-#
+
+    @property
+    def params(self):
+        return None

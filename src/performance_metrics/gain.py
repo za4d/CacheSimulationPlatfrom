@@ -26,3 +26,7 @@ class Gain(PerformanceMetric):
         h = self.hit_weight * self.hit_count
         m = self.miss_count * self.miss_weight
         self.result = (h - m) / (self.hit_count + self.miss_count)
+
+    @property
+    def params(self):
+        return ['hit_weight','miss_weight']

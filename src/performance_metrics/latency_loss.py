@@ -74,3 +74,8 @@ class LatencyLoss(PerformanceMetric):
 
         self.latency_loss = latency_loss / self.time
         self.result = self.latency_loss
+
+
+    @property
+    def params(self):
+        return None

@@ -23,5 +23,6 @@ class WeightedHitRatio(PerformanceMetric):
     def compute(self):
         self.result = (self.hit_weight*self.hit_count) / (self.hit_count + self.miss_count)
 
-
-
+    @property
+    def params(self):
+        return ['hit_weight','miss_weight']

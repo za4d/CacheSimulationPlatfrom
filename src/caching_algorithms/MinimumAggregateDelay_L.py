@@ -54,3 +54,6 @@ class MinimumAggregateDelay_L(OfflineCachingAlgorithm):
 
         return agg_delay
 
+    @property
+    def params(self):
+        return None

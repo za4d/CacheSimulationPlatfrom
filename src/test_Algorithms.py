@@ -19,7 +19,7 @@ def test_online_algorithms():
         n = 1000
         r = 10000
         vc = VirtualCache(c)
-        rm = request_modals.Zipfian(n_requests=r, library_size=n, eta=1.7)
+        rm = request_modals.Zipfian(num_requests=r, library_size=n, eta=1.7)
         cm = cost_modals.StaticCost({file: abs(np.random.normal(100, 10)) for file in range(n)})
         ###
         ca = caching_algorithms.get(caching_algorithm_name, c, cm)
@@ -40,7 +40,7 @@ def test_offline_algorithms():
         library_size = 1000
         n_requests = 10000
         virtual_cache = VirtualCache(cache_size)
-        request_modal = request_modals.Zipfian(n_requests=n_requests, library_size=library_size, eta=1.7)
+        request_modal = request_modals.Zipfian(num_requests=n_requests, library_size=library_size, eta=1.7)
         # cm = cost_modals.StaticCost({file: abs(np.random.normal(100, 10)) for file in range(n)})
         cost_modal = cost_modals.StaticNormalCost(library_size, 100, 10)
         ###

@@ -17,11 +17,14 @@ class LeastFrequentlyUsed(OnlineCachingAlgorithm):
             self.frequency[least_used_address] = 1
             return least_used_address
 
-#     @property
-#     def online(self):
-#         return True
+    # @property
+    # def online(self):
+    #     return True
+    #
+    # @property
+    # def coded(self):
+    #     return False
 #
-#     @property
-#     def coded(self):
-#         return False
-# #
+    @property
+    def params(self):
+        return None
