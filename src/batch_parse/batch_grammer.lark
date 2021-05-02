@@ -1,0 +1,53 @@
+start: definitions
+
+definitions: _def~8
+
+_def: object_definition
+    | literal_definition
+
+_HEADER: "::" WS_INLINE*
+
+literal_definition: _HEADER HYP_LITERAL _S _val _B
+
+_val: NUMBER
+    | range
+    | ESCAPED_STRING
+
+HYP_LITERAL: "NUM ITERATIONS"i
+           | "NUM REQUESTS"i
+           | "CACHE SIZE"i
+           | "LIBRARY SIZE"i
+
+HYP_OBJECT: "CACHING ALGORITHM"i
+          | "PERFORMANCE METRIC"i
+          | "REQUEST MODAL"i
+          | "COST MODAL"i
+
+object_definition: _object_header object_instance+
+
+_NAME_HEADER: ":" WS_INLINE*
+
+object_instance: (_NAME_HEADER OBJECT_NAME _B) object_params*
+
+object_params: (KWARG _S _val _B) -> kw_val
+
+_object_header: _HEADER HYP_OBJECT _S* _B
+
+OBJECT_NAME: STRING
+
+KWARG: STRING
+
+range: "(" START "," STOP "," STEP ")"
+START: NUMBER
+STOP: NUMBER
+STEP: NUMBER
+
+STRING: /\w+/
+
+_S: WS_INLINE
+_B: NEWLINE
+
+%import common.NUMBER
+%import common.NEWLINE
+%import common.WS_INLINE
+%import common.ESCAPED_STRING
