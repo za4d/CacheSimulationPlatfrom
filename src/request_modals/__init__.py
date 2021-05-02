@@ -7,11 +7,11 @@ from .zipfian import Zipfian
 
 def get(name, args):
     if name == 'gaussian':
-        return Gaussian(*args)
+        return Gaussian(**args)
     elif name == 'zipfian':
-        return Zipfian(*args)
+        return Zipfian(**args)
     elif name == 'uniform':
-        return Uniform(*args)
+        return Uniform(**args)
     else:
         raise AttributeError(f'Invalid request modal name given \'{name}\'')
 

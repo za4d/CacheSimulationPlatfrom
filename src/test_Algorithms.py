@@ -13,6 +13,7 @@ from virtual_cache import VirtualCache
 #
 #     def t(self):
 #         print('Y')
+
 def test_online_algorithms():
     for caching_algorithm_name in ['RR', 'FIFO', 'FILO', 'LRU', 'LFU', 'MAD']:
         c = 10
@@ -41,7 +42,7 @@ def test_offline_algorithms():
         n_requests = 10000
         virtual_cache = VirtualCache(cache_size)
         request_modal = request_modals.Zipfian(num_requests=n_requests, library_size=library_size, eta=1.7)
-        # cm = cost_modals.StaticCost({file: abs(np.random.normal(100, 10)) for file in range(n)})
+        # cost_modal = cost_modals.StaticCost({file: abs(np.random.normal(100, 10)) for file in range(n)})
         cost_modal = cost_modals.StaticNormalCost(library_size, 100, 10)
         ###
         caching_algorithm = caching_algorithms.get(caching_algorithm_name, cache_size, cost_modal, request_modal)
@@ -57,10 +58,20 @@ def test_offline_algorithms():
 
 
 def test_basic():
-    SimulationPlatform.run_simulations(['RR','LFU','LRU','FIFO','FILO'], 3, 10000, 10, 1000, 'hit-ratio', 1000, 1.5, None)
+    SimulationPlatform().run_simulations(['RR','LFU','LRU','FIFO',], 3, 10000, 10, 1000, 'hit_ratio', 1000, 1.5, None)
 
+def test_all():
+    SimulationPlatform().run_simulations(['RR','LFU','LRU','FIFO','MIN'], 5, 100000, 10, 1000, 'hit_ratio', 1000, 1.5, None)
+    SimulationPlatform().run_simulations(['RR','LFU','LRU','FIFO','MIN'], 5, 100000, 10, 1000, 'latency_loss', 1000, 1.5, None)
+
+def test():
+    a = 'zipfian'
+    b = {'num_requests':100, 'library_size':10, 'eta': 1.1}
+    x = request_modals.get(a,b)
+    return x
 
 if __name__ == '__main__':
-    test_online_algorithms()
-    test_offline_algorithms()
-    test_basic()
+    # test()
+    # test_online_algorithms()
+    # test_offline_algorithms()
+    test_all()

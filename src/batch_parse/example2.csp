@@ -1,0 +1,20 @@
+:: NUM ITERATIONS 3
+:: NUM REQUESTS 1000
+::   CACHE SIZE 100
+::LIBRARY SIZE 1000
+:: CACHING ALGORITHM
+: min
+:: PERFORMANCE METRIC
+:gain
+hit_weight 2
+miss_weight 3
+:: REQUEST MODAL
+:gaussian
+mean 500
+std 15
+test_string "hello"
+:zipfian
+eta (1.1,2,0.1)
+:: COST MODAL
+:static_uniform_cost
+cost 99

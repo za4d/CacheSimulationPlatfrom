@@ -69,9 +69,9 @@ def get(name, *args):
     # 	return MinimumAggregateDelay_Perturbed(*self.params)
     elif name == 'MINAD':
         return MinimumAggregateDelay_Beladys(*args)
-    elif name == 'MINAD-P':
+    elif name == 'MINAD_P':
         return MinimumAggregateDelay_Perturbed(*args)
-    elif name == 'MINAD-L':
+    elif name == 'MINAD_L':
         return MinimumAggregateDelay_L(*args)
     else:
         raise AttributeError(f'Invalid caching algorithm given \'{name}\'')

@@ -9,13 +9,13 @@ from .simple_loss import SimpleLoss
 performance_metrics_names = ['hit-ratio', 'gain', 'loss']
 
 def get(name, *args):
-    if name == 'hit-ratio':
+    if name == 'hit_ratio':
         return HitRatio(*args)
     elif name == 'gain':
         return Gain(*args)
-    elif name == 'latency-loss':
+    elif name == 'latency_loss':
         return LatencyLoss(*args)
-    elif name == 'simple-loss':
+    elif name == 'simple_loss':
         return SimpleLoss(*args)
     else:
         raise AttributeError(f'Invalid performance metric name given \'{name}\'')

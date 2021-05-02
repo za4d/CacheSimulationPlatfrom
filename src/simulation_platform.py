@@ -63,8 +63,10 @@ Algorithms to test
 '''
 
 class SimulationPlatform:
-    def __init__(self, args):
-        self.simulation_parameters = args[:-2]
+    # def __init__(self, args):
+    #     self.simulation_parameters = args[:-2]
+    def __init__(self):
+        pass
 
 
     def batch_run(self):
@@ -83,8 +85,7 @@ class SimulationPlatform:
 
         return results
 
-    @staticmethod
-    def run_simulations(algorithms: List[str], n_iter: int, n_requests: int, cache_size: int, library_size: int, performance_metric_name: str, request_frq: float, zipf_eta: float, seed):
+    def run_simulations(self, algorithms: List[str], n_iter: int, n_requests: int, cache_size: int, library_size: int, performance_metric_name: str, request_frq: float, zipf_eta: float, seed):
         results = Results(algorithms, n_iter, n_requests, cache_size, library_size, performance_metric_name, request_frq, zipf_eta, seed)
 
 
@@ -95,7 +96,8 @@ class SimulationPlatform:
             request_modal_gen = (request_modals.Zipfian(n_requests, library_size, eta=zipf_eta) for _ in range(n_iter))
             cost_modal_gen = (cost_modals.StaticUniformCost(library_size, request_frq) for _ in range(n_iter))
 
-            total = 0
+            ###
+            simulation_instances = []
             for iteration in range(n_iter):
                 # initilise instance
                 virtual_cache = VirtualCache(cache_size)
@@ -103,13 +105,31 @@ class SimulationPlatform:
                 cost_modal = next(cost_modal_gen)
                 caching_algorithm = caching_algorithms.get(algorithm, cache_size, cost_modal) if is_online(algorithm) else caching_algorithms.get(algorithm, cache_size, cost_modal, request_modal)
                 performance_metric = performance_metrics.get(performance_metric_name, request_modal, virtual_cache.state(), cost_modal)
-                sim = SimulationInstance(caching_algorithm, performance_metric, request_modal, cost_modal, virtual_cache)
+                simulation_instances.append(SimulationInstance(caching_algorithm, performance_metric, request_modal, cost_modal, virtual_cache))
 
-                ## Simulate
-                sim_pm = sim.simulate()
-                sim_pm.compute()
-                total += sim_pm.result
-                log(f'{algorithm} #{iteration+1} \t{sim_pm}\t', f'hit: {sim_pm.hit_count}  miss: {sim_pm.miss_count}')
+            p = multiprocessing.Pool(n_iter)
+            total = 0
+            for iteration_num, performance_result in enumerate(p.map(self.do, simulation_instances)):
+                total += performance_result.result
+                log(f'{algorithm} #{iteration_num+1} \t{performance_result}\t', f'hit: {performance_result.hit_count}  miss: {performance_result.miss_count}')
+
+            # ###
+            # total = 0
+            # for iteration in range(n_iter):
+            #     # initilise instance
+            #     virtual_cache = VirtualCache(cache_size)
+            #     request_modal = next(request_modal_gen)
+            #     cost_modal = next(cost_modal_gen)
+            #     caching_algorithm = caching_algorithms.get(algorithm, cache_size, cost_modal) if is_online(algorithm) else caching_algorithms.get(algorithm, cache_size, cost_modal, request_modal)
+            #     performance_metric = performance_metrics.get(performance_metric_name, request_modal, virtual_cache.state(), cost_modal)
+            #     sim = SimulationInstance(caching_algorithm, performance_metric, request_modal, cost_modal, virtual_cache)
+            #
+            #     ## Simulate
+            #     sim_pm = sim.simulate()
+            #     sim_pm.compute()
+            #     total += sim_pm.result
+            #     log(f'{algorithm} #{iteration+1} \t{sim_pm}\t', f'hit: {sim_pm.hit_count}  miss: {sim_pm.miss_count}')
+            # ###
 
 
             # log(f'>>> Simulating {algorithm}...')
@@ -134,6 +154,11 @@ class SimulationPlatform:
             
         return results
 
+    def do(self, sim):
+        performance_result = sim.simulate()
+        performance_result.compute()
+        return performance_result
+
     @staticmethod
     def create_instance(n_requests, cache_size, library_size, performance_metric_name, performance_metric_args, caching_algorithm_name, request_modal_name, request_modal_args, cost_modal_name, cost_modal_args, init_cache_state=None):
         virtual_cache = VirtualCache(cache_size, init_cache_state)
@@ -147,5 +172,3 @@ class SimulationPlatform:
         performance_metric = performance_metrics.get(performance_metric_name, *performance_metric_args)
 
         return SimulationInstance(caching_algorithm, performance_metric, request_modal, cost_modal, virtual_cache)
-
-

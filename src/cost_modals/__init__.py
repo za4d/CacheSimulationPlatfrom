@@ -6,9 +6,9 @@ from .static_uniform_cost import StaticUniformCost
 
 
 def get(name, *args):
-    if name == 'static-normal-cost':
+    if name == 'static_normal_cost':
         return StaticNormalCost(*args)
-    elif name == 'static-uniform-cost':
+    elif name == 'static_uniform_cost':
         return StaticUniformCost(*args)
     # elif name == 'simpleloss':
     #     return SimpleLoss()
