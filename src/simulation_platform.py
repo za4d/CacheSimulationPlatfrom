@@ -68,8 +68,8 @@ Algorithms to test
 '''
 
 class SimulationPlatform:
-    # def __init__(self, args):
-    #     self.simulation_parameters = args[:-2]
+
+
     def __init__(self, log_file='logfile.log', csv_file='results.csv'):
         sys.stdout = Logger(log_file)
         self.csv_file = csv_file
