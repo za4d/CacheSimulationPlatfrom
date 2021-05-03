@@ -20,15 +20,15 @@ a_all = ['RR', 'FIFO', 'FILO', 'LRU', 'LFU', 'MAD', 'MIN', 'MINAD', 'MINAD_P', '
 def test_basic():
     SimulationPlatform().run_simulations(['RR','LFU','LRU','FIFO',], 3, 10000, 10, 1000, 'hit_ratio', 1000, 1.5, None)
 
-def test_all():
+def test_all(log_file=log_file,csv_file=csv_file):
     a = a_all
-    SimulationPlatform().run_simulations(a, 10,  10000, 100, 10000, 'hit_ratio', 1000, 1.5, None)
-    SimulationPlatform().run_simulations(a, 10,  10000, 100, 10000, 'latency_loss', 1000, 1.5, None)
+    SimulationPlatform(log_file=log_file,csv_file=csv_file).run_simulations(a, 10,  10000, 100, 10000, 'hit_ratio', 1000, 1.5, None)
+    SimulationPlatform(log_file=log_file,csv_file=csv_file).run_simulations(a, 10,  10000, 100, 10000, 'latency_loss', 1000, 1.5, None)
 
 def test(log_file='logfile.log', csv_file='results.csv'):
     # a = ['RR', 'FIFO', 'LRU', 'LFU', 'MAD']
     a = ['RR', 'FIFO', 'LRU', 'LFU', 'MAD']
-    SimulationPlatform(log_file=log_file,csv_file=csv_file).run_simulations(a, 2, 1000, 10, 10000, 'hit_ratio', 1000, 1.5, None)
+    SimulationPlatform().run_simulations(a, 2, 1000, 10, 10000, 'hit_ratio', 1000, 1.5, None)
     # SimulationPlatform().run_simulations(a, 2, 1000, 10, 1000, 'hit_ratio', 1000, 1.5, 9909739)
 
 if __name__ == '__main__':
