@@ -15,7 +15,7 @@ from .MinimumAggregateDelay_L import MinimumAggregateDelay_L
 from .MinimumAggregateDelay_Perturbed import MinimumAggregateDelay_Perturbed
 from .MinimumAggregateDelay_MADP import MinimumAggregateDelay_MADP
 
-caching_algorithms_all = ['RR', 'FIFO', 'FILO', 'LRU', 'LFU', 'MIN', 'MAD', 'MINAD', 'MINAD-P', 'MINAD-L']  # RR FIFO FILO LRU LFU B
+caching_algorithms_all = ['RR', 'FIFO', 'FILO', 'LRU', 'LFU', 'MIN', 'MAD', 'MAD_P', 'MINAD', 'MINAD-P', 'MINAD-L']  # RR FIFO FILO LRU LFU B
 caching_algorithms_online = ['RR', 'FIFO', 'FILO', 'LRU', 'LFU', 'MAD', 'MAD_P']
 caching_algorithms_offline = ['MIN', 'MINAD', 'MINAD_P', 'MINAD_L']
 # def get(name, cache_size, cost_modal, request_sequence):

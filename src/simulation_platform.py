@@ -170,6 +170,7 @@ class SimulationPlatform:
     def do(self, sim):
         performance_result = sim.simulate()
         performance_result.compute()
+        # log(f'\t{performance_result}\t', f'hit: {performance_result.hit_count}  miss: {performance_result.miss_count}')
         return performance_result
 
     def save_result(self,*data):
