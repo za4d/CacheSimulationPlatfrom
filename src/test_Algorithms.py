@@ -67,8 +67,8 @@ def test_all():
 def test():
     # a = ['RR', 'FIFO', 'LRU', 'LFU', 'MAD']
     a = ['RR', 'FIFO', 'LRU', 'LFU', 'MAD']
-    SimulationPlatform().run_simulations(['MAD','MAD_P','MIN','MINAD_P'], 2, 10000, 10, 1000, 'hit_ratio', 1000, 1.1, None)
-    SimulationPlatform().run_simulations(['MAD','MAD_P','MIN','MINAD_P'], 2, 10000, 10, 1000, 'latency_loss', 1000, 1.1, None)
+    SimulationPlatform().run_simulations(['MAD','MAD_P','MIN','MINAD_P'], 2, 10000, 10, 1000, 'hit_ratio', 1000, 1.5, None)
+    SimulationPlatform().run_simulations(['MAD','MAD_P','MIN','MINAD_P'], 2, 10000, 10, 1000, 'latency_loss', 1000, 1.5, None)
 
 
 if __name__ == '__main__':
