@@ -17,8 +17,8 @@ from caching_algorithms import caching_algorithms_all, caching_algorithms_online
 
 def test_all(log_file='logfile.log', csv_file='results.csv'):
     a = caching_algorithms_all
-    SimulationPlatform(log_file=log_file,csv_file=csv_file).run_simulations(a, 10,  10000, 10, 10000, 'hit_ratio', 10000, 1.5, None)
     SimulationPlatform(log_file=log_file,csv_file=csv_file).run_simulations(a, 10,  10000, 10, 10000, 'latency_loss', 10000, 1.5, None)
+    SimulationPlatform(log_file=log_file,csv_file=csv_file).run_simulations(a, 10,  10000, 10, 10000, 'hit_ratio', 10000, 1.5, None)
 
 if __name__ == '__main__':
     # test()
