@@ -61,8 +61,8 @@ def test_basic():
 
 def test_all():
     a = caching_algorithms_all
-    SimulationPlatform().run_simulations(a, 10,  10000, 100, 10000, 'hit_ratio', 1000, 1.5, None)
     SimulationPlatform().run_simulations(a, 10,  10000, 100, 10000, 'latency_loss', 1000, 1.5, None)
+    SimulationPlatform().run_simulations(a, 10,  10000, 100, 10000, 'hit_ratio', 1000, 1.5, None)
 
 def test():
     # a = ['RR', 'FIFO', 'LRU', 'LFU', 'MAD']
