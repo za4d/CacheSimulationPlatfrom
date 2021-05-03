@@ -8,7 +8,9 @@ import simulation_instance
 from simulation_platform import SimulationPlatform
 from virtual_cache import VirtualCache
 
-
+a_online = ['RR', 'FIFO', 'FILO', 'LRU', 'LFU', 'MAD']
+a_offline = ['MIN', 'MINAD', 'MINAD-P', 'MINAD-L']
+a_all = ['RR', 'FIFO', 'FILO', 'LRU', 'LFU', 'MAD', 'MIN', 'MINAD', 'MINAD-P', 'MINAD-L']
 # class TestAlgorithms(TestCase):
 #
 #     def t(self):
@@ -61,14 +63,15 @@ def test_basic():
     SimulationPlatform().run_simulations(['RR','LFU','LRU','FIFO',], 3, 10000, 10, 1000, 'hit_ratio', 1000, 1.5, None)
 
 def test_all():
-    SimulationPlatform().run_simulations(['RR','LFU','LRU','FIFO','MIN'], 5, 100000, 10, 1000, 'hit_ratio', 1000, 1.5, None)
-    SimulationPlatform().run_simulations(['RR','LFU','LRU','FIFO','MIN'], 5, 100000, 10, 1000, 'latency_loss', 1000, 1.5, None)
+    a = a_online
+    SimulationPlatform().run_simulations(a, 10,  10000, 100, 10000, 'hit_ratio', 1000, 1.5, None)
+    SimulationPlatform().run_simulations(a, 10,  10000, 100, 10000, 'latency_loss', 1000, 1.5, None)
 
 def test():
-    a = 'zipfian'
-    b = {'num_requests':100, 'library_size':10, 'eta': 1.1}
-    x = request_modals.get(a,b)
-    return x
+    # a = ['RR', 'FIFO', 'LRU', 'LFU', 'MAD']
+    a = ['RR', 'FIFO', 'LRU', 'LFU', 'MAD']
+    SimulationPlatform().run_simulations(a, 2, 1000, 10, 10000, 'hit_ratio', 1000, 1.5, None)
+    # SimulationPlatform().run_simulations(a, 2, 1000, 10, 1000, 'hit_ratio', 1000, 1.5, 9909739)
 
 if __name__ == '__main__':
     # test()

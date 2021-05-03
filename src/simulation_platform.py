@@ -1,13 +1,18 @@
+import sys
+
 import numpy as np
 import random
 from typing import NamedTuple, List
 from dataclasses import dataclass
+
+from tabulate import tabulate
+
 import performance_metrics
 import caching_algorithms
 from caching_algorithms import is_online
 import request_modals
 import cost_modals
-from utils import Results, log
+from utils import Results, log, Logger
 from virtual_cache import VirtualCache
 from simulation_instance import SimulationInstance
 # import concurrent.futures
@@ -65,8 +70,11 @@ Algorithms to test
 class SimulationPlatform:
     # def __init__(self, args):
     #     self.simulation_parameters = args[:-2]
-    def __init__(self):
-        pass
+    def __init__(self, log_file='logfile.log', csv_file='results.csv'):
+        sys.stdout = Logger(log_file)
+        self.csv_file = csv_file
+        
+        
 
 
     def batch_run(self):
@@ -86,7 +94,10 @@ class SimulationPlatform:
         return results
 
     def run_simulations(self, algorithms: List[str], n_iter: int, n_requests: int, cache_size: int, library_size: int, performance_metric_name: str, request_frq: float, zipf_eta: float, seed):
+        seed = seed if seed else np.random.randint(10000000)
         results = Results(algorithms, n_iter, n_requests, cache_size, library_size, performance_metric_name, request_frq, zipf_eta, seed)
+
+        self.log_hyperparameter(algorithms, n_iter, n_requests, cache_size, library_size, performance_metric_name, request_frq, zipf_eta, seed)
 
 
         for algorithm in algorithms:
@@ -96,7 +107,7 @@ class SimulationPlatform:
             request_modal_gen = (request_modals.Zipfian(n_requests, library_size, eta=zipf_eta) for _ in range(n_iter))
             cost_modal_gen = (cost_modals.StaticUniformCost(library_size, request_frq) for _ in range(n_iter))
 
-            ###
+            #### MULTI THREAD
             simulation_instances = []
             for iteration in range(n_iter):
                 # initilise instance
@@ -113,7 +124,7 @@ class SimulationPlatform:
                 total += performance_result.result
                 log(f'{algorithm} #{iteration_num+1} \t{performance_result}\t', f'hit: {performance_result.hit_count}  miss: {performance_result.miss_count}')
 
-            # ###
+            #### SINGLE
             # total = 0
             # for iteration in range(n_iter):
             #     # initilise instance
@@ -151,13 +162,27 @@ class SimulationPlatform:
             f'{"-"*50}\n\n'
             f'>>> RESULTS - (over {n_iter} simulations)\n'
             f'{results.table(sort=True)}\n\n')
-            
+
+        self.save_result(*results.csv())
+
         return results
 
     def do(self, sim):
         performance_result = sim.simulate()
         performance_result.compute()
         return performance_result
+
+    def save_result(self,*data):
+        with open(self.csv_file, 'a') as f:
+            for d in data:
+                print(d, file=f)
+
+    def log_hyperparameter(self, algorithms, n_iter, n_requests, cache_size, library_size, performance_metric_name, request_frq, zipf_eta, seed):
+        log(f'>>> HYPERPARAMETERS \nTesting algorithms {str(algorithms).strip("[]")}, {n_iter} simulations '
+            f'of {n_requests} requests distributed with eta={zipf_eta}, Cache size is {cache_size} with {library_size} files in main memory')
+        names = ["algorithms", "n_iter", "n_requests", "cache_size", "library_size", "performance_metric_name", "request_frq", "zipf_eta", "seed"]
+        values = [algorithms, n_iter, n_requests, cache_size, library_size, performance_metric_name, request_frq, zipf_eta, seed]
+        log(tabulate(tabular_data=zip(names,values), tablefmt='simple'))
 
     @staticmethod
     def create_instance(n_requests, cache_size, library_size, performance_metric_name, performance_metric_args, caching_algorithm_name, request_modal_name, request_modal_args, cost_modal_name, cost_modal_args, init_cache_state=None):

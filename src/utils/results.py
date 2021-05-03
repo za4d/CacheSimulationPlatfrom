@@ -19,11 +19,11 @@ class Results(dict):
         return f'{headers}\n{data}'
 
     def csv(self):
-        headers = 'ALGORITHM,METRIC,RESULT,Z,ETA,N_ITER,N_REQUESTS,CACHE_SIZE,MEMORY_SIZE,SEED'
+        headers = 'ALGORITHM,METRIC,RESULT,REQUEST_FRQ,ZIPF_ETA,N_ITER,N_REQUESTS,CACHE_SIZE,LIBRARY_SIZE,SEED'
         data = ''
         for algorithm, result in self.items():
             data += f'{algorithm},{self.performance_metric_name},{result},{self.request_frq},{self.zipf_eta},{self.n_iter},{self.n_requests},{self.cache_size},{self.library_size},{self.seed} \n'
-        return headers, data.rstrip("\n")
+        return headers, data #.rstrip("\n")
 
     def table(self, sort=False):
         if sort:
