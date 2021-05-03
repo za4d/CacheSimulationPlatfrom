@@ -7,10 +7,7 @@ import cost_modals
 import simulation_instance
 from simulation_platform import SimulationPlatform
 from virtual_cache import VirtualCache
-
-a_online = ['RR', 'FIFO', 'FILO', 'LRU', 'LFU', 'MAD']
-a_offline = ['MIN', 'MINAD', 'MINAD-P', 'MINAD-L']
-a_all = ['RR', 'FIFO', 'FILO', 'LRU', 'LFU', 'MAD', 'MIN', 'MINAD', 'MINAD-P', 'MINAD-L']
+from caching_algorithms import caching_algorithms_all, caching_algorithms_online, caching_algorithms_offline
 # class TestAlgorithms(TestCase):
 #
 #     def t(self):
@@ -63,18 +60,19 @@ def test_basic():
     SimulationPlatform().run_simulations(['RR','LFU','LRU','FIFO',], 3, 10000, 10, 1000, 'hit_ratio', 1000, 1.5, None)
 
 def test_all():
-    a = a_all
+    a = caching_algorithms_all
     SimulationPlatform().run_simulations(a, 10,  10000, 100, 10000, 'hit_ratio', 1000, 1.5, None)
     SimulationPlatform().run_simulations(a, 10,  10000, 100, 10000, 'latency_loss', 1000, 1.5, None)
 
 def test():
     # a = ['RR', 'FIFO', 'LRU', 'LFU', 'MAD']
     a = ['RR', 'FIFO', 'LRU', 'LFU', 'MAD']
-    SimulationPlatform().run_simulations(a, 2, 1000, 10, 10000, 'hit_ratio', 1000, 1.5, None)
-    # SimulationPlatform().run_simulations(a, 2, 1000, 10, 1000, 'hit_ratio', 1000, 1.5, 9909739)
+    SimulationPlatform().run_simulations(['MAD','MAD_P','MIN','MINAD_P'], 2, 10000, 10, 1000, 'hit_ratio', 1000, 1.1, None)
+    SimulationPlatform().run_simulations(['MAD','MAD_P','MIN','MINAD_P'], 2, 10000, 10, 1000, 'latency_loss', 1000, 1.1, None)
+
 
 if __name__ == '__main__':
-    # test()
+    test()
     # test_online_algorithms()
     # test_offline_algorithms()
-    test_all()
+    # test_all()

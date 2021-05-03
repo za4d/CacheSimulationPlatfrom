@@ -13,9 +13,11 @@ from .MinimumAggregateDelay import MinimumAggregateDelay
 from .MinimumAggregateDelay_Beladys import MinimumAggregateDelay_Beladys
 from .MinimumAggregateDelay_L import MinimumAggregateDelay_L
 from .MinimumAggregateDelay_Perturbed import MinimumAggregateDelay_Perturbed
+from .MinimumAggregateDelay_MADP import MinimumAggregateDelay_MADP
 
-caching_algorithms_names = ['RR', 'FIFO', 'FILO', 'LRU', 'LFU', 'MIN', 'MAD', 'MINAD', 'MINAD-P', 'MINAD-L']  # RR FIFO FILO LRU LFU B
-
+caching_algorithms_all = ['RR', 'FIFO', 'FILO', 'LRU', 'LFU', 'MIN', 'MAD', 'MINAD', 'MINAD-P', 'MINAD-L']  # RR FIFO FILO LRU LFU B
+caching_algorithms_online = ['RR', 'FIFO', 'FILO', 'LRU', 'LFU', 'MAD', 'MAD_P']
+caching_algorithms_offline = ['MIN', 'MINAD', 'MINAD_P', 'MINAD_L']
 # def get(name, cache_size, cost_modal, request_sequence):
 #     if name == 'RR':
 #         return RandomReplacement(cache_size, cost_modal)
@@ -43,14 +45,16 @@ caching_algorithms_names = ['RR', 'FIFO', 'FILO', 'LRU', 'LFU', 'MIN', 'MAD', 'M
 #         raise AttributeError(f'Invalid caching algorithm given \'{name}\'')
 
 def is_online(name):
-    if name in ['RR', 'FIFO', 'FILO', 'LRU', 'LFU', 'MAD']:
+    name = name.upper()
+    if name in caching_algorithms_online:
         return True
-    if name in ['MIN', 'MINAD', 'MINAD_P', 'MINAD_L']:
+    if name in caching_algorithms_offline:
         return False
     else:
         raise ValueError(f'Invalid caching algorithm given \'{name}\'')
 
 def get(name, *args):
+    name = name.upper()
     if name == 'RR':
         return RandomReplacement(*args)
     elif name == 'FIFO':
@@ -65,8 +69,8 @@ def get(name, *args):
         return Beladys(*args)
     elif name == 'MAD':
         return MinimumAggregateDelay(*args)
-    # elif name == 'MAD-P':
-    # 	return MinimumAggregateDelay_Perturbed(*self.params)
+    elif name == 'MAD_P':
+    	return MinimumAggregateDelay_MADP(*args)
     elif name == 'MINAD':
         return MinimumAggregateDelay_Beladys(*args)
     elif name == 'MINAD_P':

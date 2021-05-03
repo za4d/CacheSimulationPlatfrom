@@ -17,6 +17,9 @@ class CostModal(ABC):
         """:return true of false, depending on policy type"""
         pass
 
+    def __len__(self):
+        return self.library_size
+
 
 class StaticCost(CostModal, ABC):
 

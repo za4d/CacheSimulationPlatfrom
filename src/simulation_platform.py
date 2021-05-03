@@ -186,7 +186,8 @@ class SimulationPlatform:
 
     @staticmethod
     def create_instance(n_requests, cache_size, library_size, performance_metric_name, performance_metric_args, caching_algorithm_name, request_modal_name, request_modal_args, cost_modal_name, cost_modal_args, init_cache_state=None):
-        virtual_cache = VirtualCache(cache_size, init_cache_state)
+        virtual_cache = VirtualCache(cache_size, [np.random.randint(library_size) for _ in range(cache_size)]
+        )
         request_modal = request_modals.get(request_modal_name, *request_modal_args)
         cost_modal = cost_modals.get(cost_modal_name, *cost_modal_args)
 
