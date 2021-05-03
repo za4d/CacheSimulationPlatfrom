@@ -45,7 +45,7 @@ caching_algorithms_names = ['RR', 'FIFO', 'FILO', 'LRU', 'LFU', 'MIN', 'MAD', 'M
 def is_online(name):
     if name in ['RR', 'FIFO', 'FILO', 'LRU', 'LFU', 'MAD']:
         return True
-    if name in ['MIN', 'MINAD', 'MINAD-P', 'MINAD-L']:
+    if name in ['MIN', 'MINAD', 'MINAD_P', 'MINAD_L']:
         return False
     else:
         raise ValueError(f'Invalid caching algorithm given \'{name}\'')
