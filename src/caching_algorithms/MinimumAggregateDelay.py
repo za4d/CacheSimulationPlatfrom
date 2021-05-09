@@ -24,6 +24,7 @@ class MinimumAggregateDelay(OfflineCachingAlgorithm):
                 # get Time Until Next Request
                 try:
                     tunr = self.request_sequence_data.index(file) + 1
+
                 except ValueError:
                     # tunr = np.inf
                     # if file is never requested again remove it
@@ -31,7 +32,8 @@ class MinimumAggregateDelay(OfflineCachingAlgorithm):
 
                 # get Aggregate Delay
                 agg_delay = self.aggregate_delay(file, tunr-1)
-
+                if tunr < 0 or agg_delay <0:
+                    print('!!')
                 time_saved[address] = agg_delay / tunr
 
             # replace file which saves the least amount of time
@@ -47,8 +49,11 @@ class MinimumAggregateDelay(OfflineCachingAlgorithm):
 
         delayed_hits = [t for t, f in window if f == file]
 
-        agg_delay = len(delayed_hits) * (cost + next_request_time) - (sum(delayed_hits) + next_request_time)
-
+        agg_delay = len(delayed_hits) * (cost + next_request_time) - (sum(delayed_hits))
+        # if agg_delay <0:
+        #     print('!!')
+        # else:
+        #     print('!!!')
         return agg_delay
 
     @property

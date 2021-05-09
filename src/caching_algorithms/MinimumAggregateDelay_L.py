@@ -50,7 +50,7 @@ class MinimumAggregateDelay_L(OfflineCachingAlgorithm):
 
         delayed_hits = [t for t, f in window if f == file]
 
-        agg_delay = len(delayed_hits) * (cost + next_request_time) - (sum(delayed_hits) + next_request_time)
+        agg_delay = len(delayed_hits) * (cost + next_request_time) - (sum(delayed_hits))
 
         return agg_delay
 

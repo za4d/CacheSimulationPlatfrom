@@ -115,7 +115,7 @@ class SimulationPlatform:
         print(f'{"-"*50}\n\n')
 
         self.save_result(self.csv_file,csv_data)
-        s = str(tabulate(data,
+        s = str(tabulate(sorted(data, key=lambda tup: tup[1]),
                        headers = ['Algorithms'] + performance_metric_names,
                        tablefmt='grid',
                         ))
