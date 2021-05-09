@@ -1,0 +1,680 @@
+>>> HYPERPARAMETERS 
+Testing algorithms 'RR', 'FIFO', 'FILO', 'LRU', 'LFU', 'LFU_IDEAL', 'MIN', 'MAD', 'MAD_LFU', 'MAD_P', 'MINAD', 'MINAD_P', 'MINAD_L', 10 simulations of 100000 requests distributed with eta=1.5, Cache size is 10 with 1000 files in main memory
+-----------------------  ------------------------------------------------------------------------------------------------------------------
+algorithms               ['RR', 'FIFO', 'FILO', 'LRU', 'LFU', 'LFU_IDEAL', 'MIN', 'MAD', 'MAD_LFU', 'MAD_P', 'MINAD', 'MINAD_P', 'MINAD_L']
+n_iter                   10
+n_requests               100000
+cache_size               10
+library_size             1000
+performance_metric_name  latency_loss
+request_frq              1000
+zipf_eta                 1.5
+seed                     3974411
+-----------------------  ------------------------------------------------------------------------------------------------------------------
+>>> Simulating RR...
+RR #1 	1449.132039	 hit: 60853  miss: 39148
+RR #2 	1452.679733	 hit: 61146  miss: 38855
+RR #3 	1446.938101	 hit: 60936  miss: 39065
+RR #4 	1448.072589	 hit: 60803  miss: 39198
+RR #5 	1457.368406	 hit: 61220  miss: 38781
+RR #6 	1444.440506	 hit: 60698  miss: 39303
+RR #7 	1440.734243	 hit: 60796  miss: 39205
+RR #8 	1447.751992	 hit: 61086  miss: 38915
+RR #9 	1453.572794	 hit: 61081  miss: 38920
+RR #10 	1447.799492	 hit: 61345  miss: 38656
+>>> Average latency_loss: 1448.8489895101052	(over 10 simulations)
+
+>>> Simulating FIFO...
+FIFO #1 	1457.393966	 hit: 60885  miss: 39116
+FIFO #2 	1468.393206	 hit: 61163  miss: 38838
+FIFO #3 	1463.255817	 hit: 60938  miss: 39063
+FIFO #4 	1459.394376	 hit: 60956  miss: 39045
+FIFO #5 	1470.303497	 hit: 61267  miss: 38734
+FIFO #6 	1459.999290	 hit: 60857  miss: 39144
+FIFO #7 	1448.351266	 hit: 60841  miss: 39160
+FIFO #8 	1458.577614	 hit: 61174  miss: 38827
+FIFO #9 	1469.627474	 hit: 61131  miss: 38870
+FIFO #10 	1462.046930	 hit: 61194  miss: 38807
+>>> Average latency_loss: 1461.7343436565634	(over 10 simulations)
+
+>>> Simulating FILO...
+FILO #1 	1475.202738	 hit: 18471  miss: 81530
+FILO #2 	1480.212238	 hit: 18655  miss: 81346
+FILO #3 	1476.644794	 hit: 19329  miss: 80672
+FILO #4 	1474.660343	 hit: 18436  miss: 81565
+FILO #5 	1488.732543	 hit: 18808  miss: 81193
+FILO #6 	1474.883381	 hit: 18594  miss: 81407
+FILO #7 	1467.477315	 hit: 18312  miss: 81689
+FILO #8 	1477.405386	 hit: 18707  miss: 81294
+FILO #9 	1486.625834	 hit: 18663  miss: 81338
+FILO #10 	1472.327147	 hit: 18916  miss: 81085
+>>> Average latency_loss: 1477.4171718282817	(over 10 simulations)
+
+>>> Simulating LRU...
+LRU #1 	896.518515	 hit: 67776  miss: 32225
+LRU #2 	906.705463	 hit: 67934  miss: 32067
+LRU #3 	859.256767	 hit: 67765  miss: 32236
+LRU #4 	869.940011	 hit: 67802  miss: 32199
+LRU #5 	953.533185	 hit: 68161  miss: 31840
+LRU #6 	909.460485	 hit: 67618  miss: 32383
+LRU #7 	856.901961	 hit: 67861  miss: 32140
+LRU #8 	888.507305	 hit: 67975  miss: 32026
+LRU #9 	855.780232	 hit: 67936  miss: 32065
+LRU #10 	868.557624	 hit: 68118  miss: 31883
+>>> Average latency_loss: 886.5161548384515	(over 10 simulations)
+
+>>> Simulating LFU...
+LFU #1 	210.486815	 hit: 73051  miss: 26950
+LFU #2 	189.714403	 hit: 76233  miss: 23768
+LFU #3 	191.763542	 hit: 75855  miss: 24146
+LFU #4 	187.835632	 hit: 76368  miss: 23633
+LFU #5 	193.809062	 hit: 76022  miss: 23979
+LFU #6 	204.746523	 hit: 74322  miss: 25679
+LFU #7 	192.384016	 hit: 75641  miss: 24360
+LFU #8 	185.530415	 hit: 76876  miss: 23125
+LFU #9 	204.069249	 hit: 74076  miss: 25925
+LFU #10 	211.306947	 hit: 73625  miss: 26376
+>>> Average latency_loss: 197.16466035339647	(over 10 simulations)
+
+>>> Simulating LFU_IDEAL...
+LFU_IDEAL #1 	181.286887	 hit: 77296  miss: 22705
+LFU_IDEAL #2 	181.731833	 hit: 77519  miss: 22482
+LFU_IDEAL #3 	181.340367	 hit: 77298  miss: 22703
+LFU_IDEAL #4 	181.980040	 hit: 77309  miss: 22692
+LFU_IDEAL #5 	183.176238	 hit: 77453  miss: 22548
+LFU_IDEAL #6 	183.620774	 hit: 77123  miss: 22878
+LFU_IDEAL #7 	182.484415	 hit: 77244  miss: 22757
+LFU_IDEAL #8 	179.862941	 hit: 77611  miss: 22390
+LFU_IDEAL #9 	181.624464	 hit: 77373  miss: 22628
+LFU_IDEAL #10 	181.701333	 hit: 77591  miss: 22410
+>>> Average latency_loss: 181.8809291907081	(over 10 simulations)
+
+>>> Simulating MIN...
+MIN #1 	288.592234	 hit: 80668  miss: 19333
+MIN #2 	294.460485	 hit: 80759  miss: 19242
+MIN #3 	296.951080	 hit: 80579  miss: 19422
+MIN #4 	285.749183	 hit: 80561  miss: 19440
+MIN #5 	281.584564	 hit: 80816  miss: 19185
+MIN #6 	290.886831	 hit: 80469  miss: 19532
+MIN #7 	294.191078	 hit: 80680  miss: 19321
+MIN #8 	280.411876	 hit: 80800  miss: 19201
+MIN #9 	283.471975	 hit: 80712  miss: 19289
+MIN #10 	287.427246	 hit: 80831  miss: 19170
+>>> Average latency_loss: 288.37265527344726	(over 10 simulations)
+
+>>> Simulating MAD...
+MAD #1 	181.777202	 hit: 77299  miss: 22702
+MAD #2 	181.888001	 hit: 77523  miss: 22478
+MAD #3 	181.936811	 hit: 77287  miss: 22714
+MAD #4 	181.980040	 hit: 77308  miss: 22693
+MAD #5 	184.127519	 hit: 77437  miss: 22564
+MAD #6 	183.819602	 hit: 77108  miss: 22893
+MAD #7 	182.829562	 hit: 77234  miss: 22767
+MAD #8 	180.002130	 hit: 77610  miss: 22391
+MAD #9 	182.227628	 hit: 77391  miss: 22610
+MAD #10 	181.934181	 hit: 77589  miss: 22412
+>>> Average latency_loss: 182.25226747732523	(over 10 simulations)
+
+>>> Simulating MAD_LFU...
+MAD_LFU #1 	181.286887	 hit: 77296  miss: 22705
+MAD_LFU #2 	181.731833	 hit: 77519  miss: 22482
+MAD_LFU #3 	181.340367	 hit: 77298  miss: 22703
+MAD_LFU #4 	181.980040	 hit: 77309  miss: 22692
+MAD_LFU #5 	183.176238	 hit: 77453  miss: 22548
+MAD_LFU #6 	183.620774	 hit: 77123  miss: 22878
+MAD_LFU #7 	182.484415	 hit: 77244  miss: 22757
+MAD_LFU #8 	179.862941	 hit: 77611  miss: 22390
+MAD_LFU #9 	181.624464	 hit: 77373  miss: 22628
+MAD_LFU #10 	181.701333	 hit: 77591  miss: 22410
+>>> Average latency_loss: 181.8809291907081	(over 10 simulations)
+
+>>> Simulating MAD_P...
+MAD_P #1 	1475.202738	 hit: 18471  miss: 81530
+MAD_P #2 	1478.942761	 hit: 18578  miss: 81423
+MAD_P #3 	1469.751832	 hit: 19532  miss: 80469
+MAD_P #4 	1474.296407	 hit: 18593  miss: 81408
+MAD_P #5 	1481.012410	 hit: 18996  miss: 81005
+MAD_P #6 	1471.660173	 hit: 19371  miss: 80630
+MAD_P #7 	1467.248348	 hit: 18210  miss: 81791
+MAD_P #8 	1477.558394	 hit: 18694  miss: 81307
+MAD_P #9 	1472.190488	 hit: 21569  miss: 78432
+MAD_P #10 	512.634324	 hit: 44357  miss: 55644
+>>> Average latency_loss: 1378.049787502125	(over 10 simulations)
+
+>>> Simulating MINAD...
+MINAD #1 	213.047910	 hit: 80287  miss: 19714
+MINAD #2 	212.059239	 hit: 80358  miss: 19643
+MINAD #3 	212.074549	 hit: 80193  miss: 19808
+MINAD #4 	213.245058	 hit: 80190  miss: 19811
+MINAD #5 	212.396946	 hit: 80421  miss: 19580
+MINAD #6 	217.233178	 hit: 80055  miss: 19946
+MINAD #7 	214.752342	 hit: 80240  miss: 19761
+MINAD #8 	210.428756	 hit: 80419  miss: 19582
+MINAD #9 	215.040620	 hit: 80343  miss: 19658
+MINAD #10 	214.332697	 hit: 80430  miss: 19571
+>>> Average latency_loss: 213.4611293887061	(over 10 simulations)
+
+>>> Simulating MINAD_P...
+MINAD_P #1 	212.128369	 hit: 79986  miss: 20015
+MINAD_P #2 	209.983590	 hit: 80080  miss: 19921
+MINAD_P #3 	210.229418	 hit: 79893  miss: 20108
+MINAD_P #4 	210.716563	 hit: 79886  miss: 20115
+MINAD_P #5 	208.664133	 hit: 80097  miss: 19904
+MINAD_P #6 	212.189388	 hit: 79746  miss: 20255
+MINAD_P #7 	211.525735	 hit: 79939  miss: 20062
+MINAD_P #8 	207.589624	 hit: 80157  miss: 19844
+MINAD_P #9 	210.683533	 hit: 80086  miss: 19915
+MINAD_P #10 	210.043880	 hit: 80146  miss: 19855
+>>> Average latency_loss: 210.37542324576754	(over 10 simulations)
+
+>>> Simulating MINAD_L...
+MINAD_L #1 	182.113669	 hit: 78163  miss: 21838
+MINAD_L #2 	183.371946	 hit: 78371  miss: 21630
+MINAD_L #3 	182.396496	 hit: 78128  miss: 21873
+MINAD_L #4 	184.078009	 hit: 78111  miss: 21890
+MINAD_L #5 	183.606834	 hit: 78373  miss: 21628
+MINAD_L #6 	183.694703	 hit: 78004  miss: 21997
+MINAD_L #7 	184.250077	 hit: 78035  miss: 21966
+MINAD_L #8 	180.471165	 hit: 78438  miss: 21563
+MINAD_L #9 	181.954940	 hit: 78293  miss: 21708
+MINAD_L #10 	181.539335	 hit: 78468  miss: 21533
+>>> Average latency_loss: 182.74771752282476	(over 10 simulations)
+
+--------------------------------------------------
+
+>>> RESULTS - (over 10 simulations)
+| Algorithms   |   latency_loss (10) |
+|--------------|---------------------|
+| LFU_IDEAL    |             181.881 |
+| MAD_LFU      |             181.881 |
+| MAD          |             182.252 |
+| MINAD_L      |             182.748 |
+| LFU          |             197.165 |
+| MINAD_P      |             210.375 |
+| MINAD        |             213.461 |
+| MIN          |             288.373 |
+| LRU          |             886.516 |
+| MAD_P        |            1378.05  |
+| RR           |            1448.85  |
+| FIFO         |            1461.73  |
+| FILO         |            1477.42  |
+
+
+>>> HYPERPARAMETERS 
+Testing algorithms 'RR', 'FIFO', 'FILO', 'LRU', 'LFU', 'LFU_IDEAL', 'MIN', 'MAD', 'MAD_LFU', 'MAD_P', 'MINAD', 'MINAD_P', 'MINAD_L', 10 simulations of 100000 requests distributed with eta=1.5, Cache size is 10 with 1000 files in main memory
+-----------------------  ------------------------------------------------------------------------------------------------------------------
+algorithms               ['RR', 'FIFO', 'FILO', 'LRU', 'LFU', 'LFU_IDEAL', 'MIN', 'MAD', 'MAD_LFU', 'MAD_P', 'MINAD', 'MINAD_P', 'MINAD_L']
+n_iter                   10
+n_requests               100000
+cache_size               10
+library_size             1000
+performance_metric_name  simple_loss
+request_frq              1000
+zipf_eta                 1.5
+seed                     3974411
+-----------------------  ------------------------------------------------------------------------------------------------------------------
+>>> Simulating RR...
+RR #1 	391.476085	 hit: 39148  miss: 60853
+RR #2 	388.546115	 hit: 38855  miss: 61146
+RR #3 	390.646094	 hit: 39065  miss: 60936
+RR #4 	391.976080	 hit: 39198  miss: 60803
+RR #5 	387.806122	 hit: 38781  miss: 61220
+RR #6 	393.026070	 hit: 39303  miss: 60698
+RR #7 	392.046080	 hit: 39205  miss: 60796
+RR #8 	389.146109	 hit: 38915  miss: 61086
+RR #9 	389.196108	 hit: 38920  miss: 61081
+RR #10 	386.556134	 hit: 38656  miss: 61345
+>>> Average simple_loss: 390.04209957900423	(over 10 simulations)
+
+>>> Simulating FIFO...
+FIFO #1 	391.156088	 hit: 39116  miss: 60885
+FIFO #2 	388.376116	 hit: 38838  miss: 61163
+FIFO #3 	390.626094	 hit: 39063  miss: 60938
+FIFO #4 	390.446096	 hit: 39045  miss: 60956
+FIFO #5 	387.336127	 hit: 38734  miss: 61267
+FIFO #6 	391.436086	 hit: 39144  miss: 60857
+FIFO #7 	391.596084	 hit: 39160  miss: 60841
+FIFO #8 	388.266117	 hit: 38827  miss: 61174
+FIFO #9 	388.696113	 hit: 38870  miss: 61131
+FIFO #10 	388.066119	 hit: 38807  miss: 61194
+>>> Average simple_loss: 389.6001039989599	(over 10 simulations)
+
+>>> Simulating FILO...
+FILO #1 	815.291847	 hit: 81530  miss: 18471
+FILO #2 	813.451865	 hit: 81346  miss: 18655
+FILO #3 	806.711933	 hit: 80672  miss: 19329
+FILO #4 	815.641844	 hit: 81565  miss: 18436
+FILO #5 	811.921881	 hit: 81193  miss: 18808
+FILO #6 	814.061859	 hit: 81407  miss: 18594
+FILO #7 	816.881831	 hit: 81689  miss: 18312
+FILO #8 	812.931871	 hit: 81294  miss: 18707
+FILO #9 	813.371866	 hit: 81338  miss: 18663
+FILO #10 	810.841892	 hit: 81085  miss: 18916
+>>> Average simple_loss: 813.1108688913112	(over 10 simulations)
+
+>>> Simulating LRU...
+LRU #1 	322.246778	 hit: 32225  miss: 67776
+LRU #2 	320.666793	 hit: 32067  miss: 67934
+LRU #3 	322.356776	 hit: 32236  miss: 67765
+LRU #4 	321.986780	 hit: 32199  miss: 67802
+LRU #5 	318.396816	 hit: 31840  miss: 68161
+LRU #6 	323.826762	 hit: 32383  miss: 67618
+LRU #7 	321.396786	 hit: 32140  miss: 67861
+LRU #8 	320.256797	 hit: 32026  miss: 67975
+LRU #9 	320.646794	 hit: 32065  miss: 67936
+LRU #10 	318.826812	 hit: 31883  miss: 68118
+>>> Average simple_loss: 321.06078939210613	(over 10 simulations)
+
+>>> Simulating LFU...
+LFU #1 	269.497305	 hit: 26950  miss: 73051
+LFU #2 	237.677623	 hit: 23768  miss: 76233
+LFU #3 	241.457585	 hit: 24146  miss: 75855
+LFU #4 	236.327637	 hit: 23633  miss: 76368
+LFU #5 	239.787602	 hit: 23979  miss: 76022
+LFU #6 	256.787432	 hit: 25679  miss: 74322
+LFU #7 	243.597564	 hit: 24360  miss: 75641
+LFU #8 	231.247688	 hit: 23125  miss: 76876
+LFU #9 	259.247408	 hit: 25925  miss: 74076
+LFU #10 	263.757362	 hit: 26376  miss: 73625
+>>> Average simple_loss: 247.93852061479384	(over 10 simulations)
+
+>>> Simulating LFU_IDEAL...
+LFU_IDEAL #1 	227.047730	 hit: 22705  miss: 77296
+LFU_IDEAL #2 	224.817752	 hit: 22482  miss: 77519
+LFU_IDEAL #3 	227.027730	 hit: 22703  miss: 77298
+LFU_IDEAL #4 	226.917731	 hit: 22692  miss: 77309
+LFU_IDEAL #5 	225.477745	 hit: 22548  miss: 77453
+LFU_IDEAL #6 	228.777712	 hit: 22878  miss: 77123
+LFU_IDEAL #7 	227.567724	 hit: 22757  miss: 77244
+LFU_IDEAL #8 	223.897761	 hit: 22390  miss: 77611
+LFU_IDEAL #9 	226.277737	 hit: 22628  miss: 77373
+LFU_IDEAL #10 	224.097759	 hit: 22410  miss: 77591
+>>> Average simple_loss: 226.19073809261909	(over 10 simulations)
+
+>>> Simulating MIN...
+MIN #1 	193.328067	 hit: 19333  miss: 80668
+MIN #2 	192.418076	 hit: 19242  miss: 80759
+MIN #3 	194.218058	 hit: 19422  miss: 80579
+MIN #4 	194.398056	 hit: 19440  miss: 80561
+MIN #5 	191.848082	 hit: 19185  miss: 80816
+MIN #6 	195.318047	 hit: 19532  miss: 80469
+MIN #7 	193.208068	 hit: 19321  miss: 80680
+MIN #8 	192.008080	 hit: 19201  miss: 80800
+MIN #9 	192.888071	 hit: 19289  miss: 80712
+MIN #10 	191.698083	 hit: 19170  miss: 80831
+>>> Average simple_loss: 193.1330686693133	(over 10 simulations)
+
+>>> Simulating MAD...
+MAD #1 	227.017730	 hit: 22702  miss: 77299
+MAD #2 	224.777752	 hit: 22478  miss: 77523
+MAD #3 	227.137729	 hit: 22714  miss: 77287
+MAD #4 	226.927731	 hit: 22693  miss: 77308
+MAD #5 	225.637744	 hit: 22564  miss: 77437
+MAD #6 	228.927711	 hit: 22893  miss: 77108
+MAD #7 	227.667723	 hit: 22767  miss: 77234
+MAD #8 	223.907761	 hit: 22391  miss: 77610
+MAD #9 	226.097739	 hit: 22610  miss: 77391
+MAD #10 	224.117759	 hit: 22412  miss: 77589
+>>> Average simple_loss: 226.22173778262214	(over 10 simulations)
+
+>>> Simulating MAD_LFU...
+MAD_LFU #1 	227.047730	 hit: 22705  miss: 77296
+MAD_LFU #2 	224.817752	 hit: 22482  miss: 77519
+MAD_LFU #3 	227.027730	 hit: 22703  miss: 77298
+MAD_LFU #4 	226.917731	 hit: 22692  miss: 77309
+MAD_LFU #5 	225.477745	 hit: 22548  miss: 77453
+MAD_LFU #6 	228.777712	 hit: 22878  miss: 77123
+MAD_LFU #7 	227.567724	 hit: 22757  miss: 77244
+MAD_LFU #8 	223.897761	 hit: 22390  miss: 77611
+MAD_LFU #9 	226.277737	 hit: 22628  miss: 77373
+MAD_LFU #10 	224.097759	 hit: 22410  miss: 77591
+>>> Average simple_loss: 226.19073809261909	(over 10 simulations)
+
+>>> Simulating MAD_P...
+MAD_P #1 	815.291847	 hit: 81530  miss: 18471
+MAD_P #2 	814.221858	 hit: 81423  miss: 18578
+MAD_P #3 	804.681953	 hit: 80469  miss: 19532
+MAD_P #4 	814.071859	 hit: 81408  miss: 18593
+MAD_P #5 	810.041900	 hit: 81005  miss: 18996
+MAD_P #6 	806.291937	 hit: 80630  miss: 19371
+MAD_P #7 	817.901821	 hit: 81791  miss: 18210
+MAD_P #8 	813.061869	 hit: 81307  miss: 18694
+MAD_P #9 	784.312157	 hit: 78432  miss: 21569
+MAD_P #10 	556.434436	 hit: 55644  miss: 44357
+>>> Average simple_loss: 783.6311636883631	(over 10 simulations)
+
+>>> Simulating MINAD...
+MINAD #1 	197.138029	 hit: 19714  miss: 80287
+MINAD #2 	196.428036	 hit: 19643  miss: 80358
+MINAD #3 	198.078019	 hit: 19808  miss: 80193
+MINAD #4 	198.108019	 hit: 19811  miss: 80190
+MINAD #5 	195.798042	 hit: 19580  miss: 80421
+MINAD #6 	199.458005	 hit: 19946  miss: 80055
+MINAD #7 	197.608024	 hit: 19761  miss: 80240
+MINAD #8 	195.818042	 hit: 19582  miss: 80419
+MINAD #9 	196.578034	 hit: 19658  miss: 80343
+MINAD #10 	195.708043	 hit: 19571  miss: 80430
+>>> Average simple_loss: 197.0720292797072	(over 10 simulations)
+
+>>> Simulating MINAD_P...
+MINAD_P #1 	200.147999	 hit: 20015  miss: 79986
+MINAD_P #2 	199.208008	 hit: 19921  miss: 80080
+MINAD_P #3 	201.077989	 hit: 20108  miss: 79893
+MINAD_P #4 	201.147989	 hit: 20115  miss: 79886
+MINAD_P #5 	199.038010	 hit: 19904  miss: 80097
+MINAD_P #6 	202.547975	 hit: 20255  miss: 79746
+MINAD_P #7 	200.617994	 hit: 20062  miss: 79939
+MINAD_P #8 	198.438016	 hit: 19844  miss: 80157
+MINAD_P #9 	199.148009	 hit: 19915  miss: 80086
+MINAD_P #10 	198.548015	 hit: 19855  miss: 80146
+>>> Average simple_loss: 199.99200007999923	(over 10 simulations)
+
+>>> Simulating MINAD_L...
+MINAD_L #1 	218.377816	 hit: 21838  miss: 78163
+MINAD_L #2 	216.297837	 hit: 21630  miss: 78371
+MINAD_L #3 	218.727813	 hit: 21873  miss: 78128
+MINAD_L #4 	218.897811	 hit: 21890  miss: 78111
+MINAD_L #5 	216.277837	 hit: 21628  miss: 78373
+MINAD_L #6 	219.967800	 hit: 21997  miss: 78004
+MINAD_L #7 	219.657803	 hit: 21966  miss: 78035
+MINAD_L #8 	215.627844	 hit: 21563  miss: 78438
+MINAD_L #9 	217.077829	 hit: 21708  miss: 78293
+MINAD_L #10 	215.327847	 hit: 21533  miss: 78468
+>>> Average simple_loss: 217.62382376176237	(over 10 simulations)
+
+--------------------------------------------------
+
+>>> RESULTS - (over 10 simulations)
+| Algorithms   |   simple_loss (10) |
+|--------------|--------------------|
+| MIN          |            193.133 |
+| MINAD        |            197.072 |
+| MINAD_P      |            199.992 |
+| MINAD_L      |            217.624 |
+| LFU_IDEAL    |            226.191 |
+| MAD_LFU      |            226.191 |
+| MAD          |            226.222 |
+| LFU          |            247.939 |
+| LRU          |            321.061 |
+| FIFO         |            389.6   |
+| RR           |            390.042 |
+| MAD_P        |            783.631 |
+| FILO         |            813.111 |
+
+
+>>> HYPERPARAMETERS 
+Testing algorithms 'RR', 'FIFO', 'FILO', 'LRU', 'LFU', 'LFU_IDEAL', 'MIN', 'MAD', 'MAD_LFU', 'MAD_P', 'MINAD', 'MINAD_P', 'MINAD_L', 10 simulations of 100000 requests distributed with eta=1.5, Cache size is 10 with 1000 files in main memory
+-----------------------  ------------------------------------------------------------------------------------------------------------------
+algorithms               ['RR', 'FIFO', 'FILO', 'LRU', 'LFU', 'LFU_IDEAL', 'MIN', 'MAD', 'MAD_LFU', 'MAD_P', 'MINAD', 'MINAD_P', 'MINAD_L']
+n_iter                   10
+n_requests               100000
+cache_size               10
+library_size             1000
+performance_metric_name  hit_ratio
+request_frq              1000
+zipf_eta                 1.5
+seed                     3974411
+-----------------------  ------------------------------------------------------------------------------------------------------------------
+>>> Simulating RR...
+RR #1 	60.852391 %	 hit: 60853  miss: 39148
+RR #2 	61.145389 %	 hit: 61146  miss: 38855
+RR #3 	60.935391 %	 hit: 60936  miss: 39065
+RR #4 	60.802392 %	 hit: 60803  miss: 39198
+RR #5 	61.219388 %	 hit: 61220  miss: 38781
+RR #6 	60.697393 %	 hit: 60698  miss: 39303
+RR #7 	60.795392 %	 hit: 60796  miss: 39205
+RR #8 	61.085389 %	 hit: 61086  miss: 38915
+RR #9 	61.080389 %	 hit: 61081  miss: 38920
+RR #10 	61.344387 %	 hit: 61345  miss: 38656
+>>> Average hit_ratio: 0.6099579004209958	(over 10 simulations)
+
+>>> Simulating FIFO...
+FIFO #1 	60.884391 %	 hit: 60885  miss: 39116
+FIFO #2 	61.162388 %	 hit: 61163  miss: 38838
+FIFO #3 	60.937391 %	 hit: 60938  miss: 39063
+FIFO #4 	60.955390 %	 hit: 60956  miss: 39045
+FIFO #5 	61.266387 %	 hit: 61267  miss: 38734
+FIFO #6 	60.856391 %	 hit: 60857  miss: 39144
+FIFO #7 	60.840392 %	 hit: 60841  miss: 39160
+FIFO #8 	61.173388 %	 hit: 61174  miss: 38827
+FIFO #9 	61.130389 %	 hit: 61131  miss: 38870
+FIFO #10 	61.193388 %	 hit: 61194  miss: 38807
+>>> Average hit_ratio: 0.6103998960010399	(over 10 simulations)
+
+>>> Simulating FILO...
+FILO #1 	18.470815 %	 hit: 18471  miss: 81530
+FILO #2 	18.654813 %	 hit: 18655  miss: 81346
+FILO #3 	19.328807 %	 hit: 19329  miss: 80672
+FILO #4 	18.435816 %	 hit: 18436  miss: 81565
+FILO #5 	18.807812 %	 hit: 18808  miss: 81193
+FILO #6 	18.593814 %	 hit: 18594  miss: 81407
+FILO #7 	18.311817 %	 hit: 18312  miss: 81689
+FILO #8 	18.706813 %	 hit: 18707  miss: 81294
+FILO #9 	18.662813 %	 hit: 18663  miss: 81338
+FILO #10 	18.915811 %	 hit: 18916  miss: 81085
+>>> Average hit_ratio: 0.18688913110868893	(over 10 simulations)
+
+>>> Simulating LRU...
+LRU #1 	67.775322 %	 hit: 67776  miss: 32225
+LRU #2 	67.933321 %	 hit: 67934  miss: 32067
+LRU #3 	67.764322 %	 hit: 67765  miss: 32236
+LRU #4 	67.801322 %	 hit: 67802  miss: 32199
+LRU #5 	68.160318 %	 hit: 68161  miss: 31840
+LRU #6 	67.617324 %	 hit: 67618  miss: 32383
+LRU #7 	67.860321 %	 hit: 67861  miss: 32140
+LRU #8 	67.974320 %	 hit: 67975  miss: 32026
+LRU #9 	67.935321 %	 hit: 67936  miss: 32065
+LRU #10 	68.117319 %	 hit: 68118  miss: 31883
+>>> Average hit_ratio: 0.6789392106078939	(over 10 simulations)
+
+>>> Simulating LFU...
+LFU #1 	73.050269 %	 hit: 73051  miss: 26950
+LFU #2 	76.232238 %	 hit: 76233  miss: 23768
+LFU #3 	75.854241 %	 hit: 75855  miss: 24146
+LFU #4 	76.367236 %	 hit: 76368  miss: 23633
+LFU #5 	76.021240 %	 hit: 76022  miss: 23979
+LFU #6 	74.321257 %	 hit: 74322  miss: 25679
+LFU #7 	75.640244 %	 hit: 75641  miss: 24360
+LFU #8 	76.875231 %	 hit: 76876  miss: 23125
+LFU #9 	74.075259 %	 hit: 74076  miss: 25925
+LFU #10 	73.624264 %	 hit: 73625  miss: 26376
+>>> Average hit_ratio: 0.7520614793852061	(over 10 simulations)
+
+>>> Simulating LFU_IDEAL...
+LFU_IDEAL #1 	77.295227 %	 hit: 77296  miss: 22705
+LFU_IDEAL #2 	77.518225 %	 hit: 77519  miss: 22482
+LFU_IDEAL #3 	77.297227 %	 hit: 77298  miss: 22703
+LFU_IDEAL #4 	77.308227 %	 hit: 77309  miss: 22692
+LFU_IDEAL #5 	77.452225 %	 hit: 77453  miss: 22548
+LFU_IDEAL #6 	77.122229 %	 hit: 77123  miss: 22878
+LFU_IDEAL #7 	77.243228 %	 hit: 77244  miss: 22757
+LFU_IDEAL #8 	77.610224 %	 hit: 77611  miss: 22390
+LFU_IDEAL #9 	77.372226 %	 hit: 77373  miss: 22628
+LFU_IDEAL #10 	77.590224 %	 hit: 77591  miss: 22410
+>>> Average hit_ratio: 0.7738092619073809	(over 10 simulations)
+
+>>> Simulating MIN...
+MIN #1 	80.667193 %	 hit: 80668  miss: 19333
+MIN #2 	80.758192 %	 hit: 80759  miss: 19242
+MIN #3 	80.578194 %	 hit: 80579  miss: 19422
+MIN #4 	80.560194 %	 hit: 80561  miss: 19440
+MIN #5 	80.815192 %	 hit: 80816  miss: 19185
+MIN #6 	80.468195 %	 hit: 80469  miss: 19532
+MIN #7 	80.679193 %	 hit: 80680  miss: 19321
+MIN #8 	80.799192 %	 hit: 80800  miss: 19201
+MIN #9 	80.711193 %	 hit: 80712  miss: 19289
+MIN #10 	80.830192 %	 hit: 80831  miss: 19170
+>>> Average hit_ratio: 0.8068669313306867	(over 10 simulations)
+
+>>> Simulating MAD...
+MAD #1 	77.298227 %	 hit: 77299  miss: 22702
+MAD #2 	77.522225 %	 hit: 77523  miss: 22478
+MAD #3 	77.286227 %	 hit: 77287  miss: 22714
+MAD #4 	77.307227 %	 hit: 77308  miss: 22693
+MAD #5 	77.436226 %	 hit: 77437  miss: 22564
+MAD #6 	77.107229 %	 hit: 77108  miss: 22893
+MAD #7 	77.233228 %	 hit: 77234  miss: 22767
+MAD #8 	77.609224 %	 hit: 77610  miss: 22391
+MAD #9 	77.390226 %	 hit: 77391  miss: 22610
+MAD #10 	77.588224 %	 hit: 77589  miss: 22412
+>>> Average hit_ratio: 0.7737782622173779	(over 10 simulations)
+
+>>> Simulating MAD_LFU...
+MAD_LFU #1 	77.295227 %	 hit: 77296  miss: 22705
+MAD_LFU #2 	77.518225 %	 hit: 77519  miss: 22482
+MAD_LFU #3 	77.297227 %	 hit: 77298  miss: 22703
+MAD_LFU #4 	77.308227 %	 hit: 77309  miss: 22692
+MAD_LFU #5 	77.452225 %	 hit: 77453  miss: 22548
+MAD_LFU #6 	77.122229 %	 hit: 77123  miss: 22878
+MAD_LFU #7 	77.243228 %	 hit: 77244  miss: 22757
+MAD_LFU #8 	77.610224 %	 hit: 77611  miss: 22390
+MAD_LFU #9 	77.372226 %	 hit: 77373  miss: 22628
+MAD_LFU #10 	77.590224 %	 hit: 77591  miss: 22410
+>>> Average hit_ratio: 0.7738092619073809	(over 10 simulations)
+
+>>> Simulating MAD_P...
+MAD_P #1 	18.470815 %	 hit: 18471  miss: 81530
+MAD_P #2 	18.577814 %	 hit: 18578  miss: 81423
+MAD_P #3 	19.531805 %	 hit: 19532  miss: 80469
+MAD_P #4 	18.592814 %	 hit: 18593  miss: 81408
+MAD_P #5 	18.995810 %	 hit: 18996  miss: 81005
+MAD_P #6 	19.370806 %	 hit: 19371  miss: 80630
+MAD_P #7 	18.209818 %	 hit: 18210  miss: 81791
+MAD_P #8 	18.693813 %	 hit: 18694  miss: 81307
+MAD_P #9 	21.568784 %	 hit: 21569  miss: 78432
+MAD_P #10 	44.356556 %	 hit: 44357  miss: 55644
+>>> Average hit_ratio: 0.2163688363116369	(over 10 simulations)
+
+>>> Simulating MINAD...
+MINAD #1 	80.286197 %	 hit: 80287  miss: 19714
+MINAD #2 	80.357196 %	 hit: 80358  miss: 19643
+MINAD #3 	80.192198 %	 hit: 80193  miss: 19808
+MINAD #4 	80.189198 %	 hit: 80190  miss: 19811
+MINAD #5 	80.420196 %	 hit: 80421  miss: 19580
+MINAD #6 	80.054199 %	 hit: 80055  miss: 19946
+MINAD #7 	80.239198 %	 hit: 80240  miss: 19761
+MINAD #8 	80.418196 %	 hit: 80419  miss: 19582
+MINAD #9 	80.342197 %	 hit: 80343  miss: 19658
+MINAD #10 	80.429196 %	 hit: 80430  miss: 19571
+>>> Average hit_ratio: 0.8029279707202928	(over 10 simulations)
+
+>>> Simulating MINAD_P...
+MINAD_P #1 	79.985200 %	 hit: 79986  miss: 20015
+MINAD_P #2 	80.079199 %	 hit: 80080  miss: 19921
+MINAD_P #3 	79.892201 %	 hit: 79893  miss: 20108
+MINAD_P #4 	79.885201 %	 hit: 79886  miss: 20115
+MINAD_P #5 	80.096199 %	 hit: 80097  miss: 19904
+MINAD_P #6 	79.745203 %	 hit: 79746  miss: 20255
+MINAD_P #7 	79.938201 %	 hit: 79939  miss: 20062
+MINAD_P #8 	80.156198 %	 hit: 80157  miss: 19844
+MINAD_P #9 	80.085199 %	 hit: 80086  miss: 19915
+MINAD_P #10 	80.145199 %	 hit: 80146  miss: 19855
+>>> Average hit_ratio: 0.8000079999200007	(over 10 simulations)
+
+>>> Simulating MINAD_L...
+MINAD_L #1 	78.162218 %	 hit: 78163  miss: 21838
+MINAD_L #2 	78.370216 %	 hit: 78371  miss: 21630
+MINAD_L #3 	78.127219 %	 hit: 78128  miss: 21873
+MINAD_L #4 	78.110219 %	 hit: 78111  miss: 21890
+MINAD_L #5 	78.372216 %	 hit: 78373  miss: 21628
+MINAD_L #6 	78.003220 %	 hit: 78004  miss: 21997
+MINAD_L #7 	78.034220 %	 hit: 78035  miss: 21966
+MINAD_L #8 	78.437216 %	 hit: 78438  miss: 21563
+MINAD_L #9 	78.292217 %	 hit: 78293  miss: 21708
+MINAD_L #10 	78.467215 %	 hit: 78468  miss: 21533
+>>> Average hit_ratio: 0.7823761762382375	(over 10 simulations)
+
+--------------------------------------------------
+
+>>> RESULTS - (over 10 simulations)
+| Algorithms   |   hit_ratio (10) |
+|--------------|------------------|
+| MIN          |         0.806867 |
+| MINAD        |         0.802928 |
+| MINAD_P      |         0.800008 |
+| MINAD_L      |         0.782376 |
+| LFU_IDEAL    |         0.773809 |
+| MAD_LFU      |         0.773809 |
+| MAD          |         0.773778 |
+| LFU          |         0.752061 |
+| LRU          |         0.678939 |
+| FIFO         |         0.6104   |
+| RR           |         0.609958 |
+| MAD_P        |         0.216369 |
+| FILO         |         0.186889 |
+
+
+-------------------------------------------------- RAW DATA (CSV)
+ALGORITHM,METRIC,RESULT,REQUEST_FRQ,ZIPF_ETA,N_ITER,N_REQUESTS,CACHE_SIZE,LIBRARY_SIZE,SEED
+RR,latency_loss,1448.8489895101052,1000,1.5,10,100000,10,1000,3974411 
+FIFO,latency_loss,1461.7343436565634,1000,1.5,10,100000,10,1000,3974411 
+FILO,latency_loss,1477.4171718282817,1000,1.5,10,100000,10,1000,3974411 
+LRU,latency_loss,886.5161548384515,1000,1.5,10,100000,10,1000,3974411 
+LFU,latency_loss,197.16466035339647,1000,1.5,10,100000,10,1000,3974411 
+LFU_IDEAL,latency_loss,181.8809291907081,1000,1.5,10,100000,10,1000,3974411 
+MIN,latency_loss,288.37265527344726,1000,1.5,10,100000,10,1000,3974411 
+MAD,latency_loss,182.25226747732523,1000,1.5,10,100000,10,1000,3974411 
+MAD_LFU,latency_loss,181.8809291907081,1000,1.5,10,100000,10,1000,3974411 
+MAD_P,latency_loss,1378.049787502125,1000,1.5,10,100000,10,1000,3974411 
+MINAD,latency_loss,213.4611293887061,1000,1.5,10,100000,10,1000,3974411 
+MINAD_P,latency_loss,210.37542324576754,1000,1.5,10,100000,10,1000,3974411 
+MINAD_L,latency_loss,182.74771752282476,1000,1.5,10,100000,10,1000,3974411 
+RR,simple_loss,390.04209957900423,1000,1.5,10,100000,10,1000,3974411 
+FIFO,simple_loss,389.6001039989599,1000,1.5,10,100000,10,1000,3974411 
+FILO,simple_loss,813.1108688913112,1000,1.5,10,100000,10,1000,3974411 
+LRU,simple_loss,321.06078939210613,1000,1.5,10,100000,10,1000,3974411 
+LFU,simple_loss,247.93852061479384,1000,1.5,10,100000,10,1000,3974411 
+LFU_IDEAL,simple_loss,226.19073809261909,1000,1.5,10,100000,10,1000,3974411 
+MIN,simple_loss,193.1330686693133,1000,1.5,10,100000,10,1000,3974411 
+MAD,simple_loss,226.22173778262214,1000,1.5,10,100000,10,1000,3974411 
+MAD_LFU,simple_loss,226.19073809261909,1000,1.5,10,100000,10,1000,3974411 
+MAD_P,simple_loss,783.6311636883631,1000,1.5,10,100000,10,1000,3974411 
+MINAD,simple_loss,197.0720292797072,1000,1.5,10,100000,10,1000,3974411 
+MINAD_P,simple_loss,199.99200007999923,1000,1.5,10,100000,10,1000,3974411 
+MINAD_L,simple_loss,217.62382376176237,1000,1.5,10,100000,10,1000,3974411 
+RR,hit_ratio,0.6099579004209958,1000,1.5,10,100000,10,1000,3974411 
+FIFO,hit_ratio,0.6103998960010399,1000,1.5,10,100000,10,1000,3974411 
+FILO,hit_ratio,0.18688913110868893,1000,1.5,10,100000,10,1000,3974411 
+LRU,hit_ratio,0.6789392106078939,1000,1.5,10,100000,10,1000,3974411 
+LFU,hit_ratio,0.7520614793852061,1000,1.5,10,100000,10,1000,3974411 
+LFU_IDEAL,hit_ratio,0.7738092619073809,1000,1.5,10,100000,10,1000,3974411 
+MIN,hit_ratio,0.8068669313306867,1000,1.5,10,100000,10,1000,3974411 
+MAD,hit_ratio,0.7737782622173779,1000,1.5,10,100000,10,1000,3974411 
+MAD_LFU,hit_ratio,0.7738092619073809,1000,1.5,10,100000,10,1000,3974411 
+MAD_P,hit_ratio,0.2163688363116369,1000,1.5,10,100000,10,1000,3974411 
+MINAD,hit_ratio,0.8029279707202928,1000,1.5,10,100000,10,1000,3974411 
+MINAD_P,hit_ratio,0.8000079999200007,1000,1.5,10,100000,10,1000,3974411 
+MINAD_L,hit_ratio,0.7823761762382375,1000,1.5,10,100000,10,1000,3974411 
+
+--------------------------------------------------
+
+
++--------------+----------------+---------------+-------------+
+| Algorithms   |   latency_loss |   simple_loss |   hit_ratio |
++==============+================+===============+=============+
+| RR           |       1448.85  |       390.042 |    0.609958 |
++--------------+----------------+---------------+-------------+
+| FIFO         |       1461.73  |       389.6   |    0.6104   |
++--------------+----------------+---------------+-------------+
+| FILO         |       1477.42  |       813.111 |    0.186889 |
++--------------+----------------+---------------+-------------+
+| LRU          |        886.516 |       321.061 |    0.678939 |
++--------------+----------------+---------------+-------------+
+| LFU          |        197.165 |       247.939 |    0.752061 |
++--------------+----------------+---------------+-------------+
+| LFU_IDEAL    |        181.881 |       226.191 |    0.773809 |
++--------------+----------------+---------------+-------------+
+| MIN          |        288.373 |       193.133 |    0.806867 |
++--------------+----------------+---------------+-------------+
+| MAD          |        182.252 |       226.222 |    0.773778 |
++--------------+----------------+---------------+-------------+
+| MAD_LFU      |        181.881 |       226.191 |    0.773809 |
++--------------+----------------+---------------+-------------+
+| MAD_P        |       1378.05  |       783.631 |    0.216369 |
++--------------+----------------+---------------+-------------+
+| MINAD        |        213.461 |       197.072 |    0.802928 |
++--------------+----------------+---------------+-------------+
+| MINAD_P      |        210.375 |       199.992 |    0.800008 |
++--------------+----------------+---------------+-------------+
+| MINAD_L      |        182.748 |       217.624 |    0.782376 |
++--------------+----------------+---------------+-------------+
