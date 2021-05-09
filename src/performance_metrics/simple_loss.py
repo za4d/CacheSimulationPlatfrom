@@ -2,13 +2,14 @@ from performance_metrics import PerformanceMetric
 
 
 class SimpleLoss(PerformanceMetric):
+    goal = 'min'
 
     @property
     def name(self):
         return 'Simple Loss'
 
-    def __init__(self, request_sequence, initial_state, cost_modal):
-        super().__init__(request_sequence, initial_state, cost_modal)
+    def __init__(self, request_sequence, initial_cache, cost_modal):
+        super().__init__(request_sequence, initial_cache, cost_modal)
         self.simple_loss = 0
 
 

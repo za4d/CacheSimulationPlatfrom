@@ -1,7 +1,5 @@
 from unittest import TestCase
 import numpy as np
-from tabulate import tabulate
-
 import performance_metrics
 import caching_algorithms
 import request_modals
@@ -35,7 +33,6 @@ def test_online_algorithms():
         # return str(metric)
 
 
-
 def test_offline_algorithms():
 
     for caching_algorithm_name in ['MIN', 'MINAD', 'MINAD-P', 'MINAD-L']:
@@ -64,56 +61,22 @@ def test_basic():
 
 def test_all():
     a = caching_algorithms_all
-    SimulationPlatform().run_simulations(a, 10,  100000, 10, 1000, ['latency_loss','simple_loss','hit_ratio'], 1000, 1.5, None)
-
-def batch_run_mad():
-    # zlist = [1,3.593813664,12.91549665,46.41588834,166.8100537,599.4842503,2154.43469,7742.636827,27825.59402,100000]
-    zlist = [12.91549665]
-    for z in zlist:
-        SimulationPlatform().run_simulations(['MAD_P','MAD'], 3,  100000, 100, 1000, ['latency_loss','simple_loss'], z, 1.5, None)
-
+    SimulationPlatform().run_simulations(a, 10,  10000, 100, 10000, 'latency_loss', 1000, 1.5, None)
+    SimulationPlatform().run_simulations(a, 10,  10000, 100, 10000, 'hit_ratio', 1000, 1.5, None)
 
 def test():
-    # # a = ['RR', 'FIFO', 'LRU', 'LFU', 'MAD']
     # a = ['RR', 'FIFO', 'LRU', 'LFU', 'MAD']
-    # b = ['MAD','MAD_P','MIN','MINAD_P']
-    # c = a
-    # SimulationPlatform().run_simulations(c, 2, 10000, 10, 100, ['kappa_ratio', 'hit_ratio','latency_loss'], 1000, 1.5, 2313)
+    a = ['RR', 'FIFO', 'LRU', 'LFU', 'MAD']
+    b = ['MAD','MAD_P','MIN','MINAD_P']
+    c = a
+    SimulationPlatform().run_simulations(c, 2, 10000, 2, 1000, ['kappa_ratio', 'hit_ratio','latency_loss'], 1000, 1.5, None)
+    # SimulationPlatform().run_simulations(c, 2, 10000, 2, 1000, 'kappa_ratio', 1000, 1.5, None)
+    # SimulationPlatform().run_simulations(c, 2, 10000, 2, 1000, 'hit_ratio', 1000, 1.5, None)
+    # SimulationPlatform().run_simulations(c, 2, 10000, 2, 1000, 'latency_loss', 1000, 1.5, None)
 
-    SimulationPlatform().run_simulations(['MAD_LFU','LFU','LFU_IDEAL','MAD'],
-                                         n_iter=1,
-                                         n_requests=100000,
-                                         cache_size=10,
-                                         library_size=1000,
-                                         performance_metric_names=['latency_loss'],
-                                         request_frq=1000,
-                                         zipf_eta=1.5,
-                                         seed = None)
-
-def test_multiple():
-    # seed = np.random.randint(2**31)
-    seed = 1200948151
-    etas = {1.1:None, 2:None}
-    for e in etas.keys():
-        r, s = SimulationPlatform().run_simulations(['LRU'],
-                                                    n_iter=1,
-                                                    n_requests=10000,
-                                                    cache_size=100,
-                                                    library_size=10000,
-                                                    performance_metric_names=['latency_loss','hit_ratio'],
-                                                    request_frq=100000,
-                                                    zipf_eta=e,
-                                                    seed = seed)
-        etas[e] = s
-
-    print('#'*100+'\n')
-
-    for t in etas.values(): print(t)
 
 if __name__ == '__main__':
-    # batch_run_mad()
-    # test()
-    # test_multiple()
+    test()
     # test_online_algorithms()
     # test_offline_algorithms()
-    test_all()
+    # test_all()

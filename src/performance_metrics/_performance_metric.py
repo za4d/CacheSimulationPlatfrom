@@ -3,17 +3,32 @@ from abc import ABC, abstractmethod
 
 class PerformanceMetric(ABC):
     _result = None
+    _maximise = None
 
     @property
     @abstractmethod
     def name(self):
         pass
 
-    def __init__(self, request_sequence, initial_state, cost_modal):
+    def __init__(self, request_sequence, initial_cache, cost_modal):
+        self._reverse = None
         self.hit_count_ = 0
         self.cost_modal = cost_modal
-        self.initial_state = initial_state
+        self.initial_cache = initial_cache
         self.request_sequence = request_sequence
+
+    @classmethod
+    def __init_subclass__(cls):
+        if not hasattr(cls, 'goal'):
+            raise NotImplementedError(
+                f'Class {cls} lacks required `goal` class attribute'
+            )
+        elif cls.goal in 'max':
+            cls._maximise = True
+        elif cls.goal in 'min':
+            cls._maximise = False
+        else:
+            raise ValueError(f'performance metric {cls} `goal ={cls.goal}` not =\'max\' or =\'min\'')
 
     @abstractmethod
     def record(self, time, replacement_address):
@@ -70,3 +85,8 @@ class PerformanceMetric(ABC):
         """:return true of false, depending on policy type"""
         pass
 
+    @property
+    def to_maximise(self):
+        if self._maximise is None:
+            raise AttributeError(f'{self} goal not declared')
+        return self._maximise

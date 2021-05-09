@@ -41,7 +41,7 @@ class TrackAggregateDelay:
             # accessed inside previous window
             f.cum_delay += cost - diff
 
-class MinimumAggregateDelay_MADP(OnlineCachingAlgorithm):
+class MAD_Perturbed(OnlineCachingAlgorithm):
 
     def __init__(self, cache_size, cost_modal):
         super().__init__(cache_size, cost_modal)

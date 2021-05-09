@@ -1,13 +1,14 @@
 from performance_metrics import PerformanceMetric
 
 class LatencyLoss(PerformanceMetric):
+    goal = 'min'
 
     @property
     def name(self):
         return 'Latency Loss'
 
-    def __init__(self, request_sequence, initial_state, cost_modal):
-        super().__init__(request_sequence, initial_state, cost_modal)
+    def __init__(self, request_sequence, initial_cache, cost_modal):
+        super().__init__(request_sequence, initial_cache, cost_modal)
         self.latency_loss = None
         self.processing_time = 10
         self.file_requests_log = dict()
@@ -43,6 +44,7 @@ class LatencyLoss(PerformanceMetric):
         if self.latency_loss:
             return self.latency_loss
 
+        temp = dict()    # TODO remove dict
         latency_loss = 0
         for file, request_history in self.file_requests_log.items():
             c = self.cost(file)
@@ -67,6 +69,7 @@ class LatencyLoss(PerformanceMetric):
                         # Calculate latency loss
                         processing_delay = self.processing_time * sum(range(len(delayed_hits)))
                         queueing_delay = len(delayed_hits) * (c + r0_t) - sum(delayed_hits)
+                        temp[file] = processing_delay + queueing_delay
                         latency_loss += processing_delay + queueing_delay
 
             except IndexError:

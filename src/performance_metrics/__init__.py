@@ -5,12 +5,15 @@ from .hit_ratio import HitRatio
 from .gain import Gain
 from .latency_loss import LatencyLoss
 from .simple_loss import SimpleLoss
+from .kappa_ratio import KappaRatio
 
 performance_metrics_names = ['hit-ratio', 'gain', 'loss']
 
 def get(name, *args):
     if name == 'hit_ratio':
         return HitRatio(*args)
+    elif name == 'kappa_ratio':
+        return KappaRatio(*args)
     elif name == 'gain':
         return Gain(*args)
     elif name == 'latency_loss':

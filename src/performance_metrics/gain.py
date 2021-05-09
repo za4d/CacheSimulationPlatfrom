@@ -2,13 +2,14 @@
 from performance_metrics import PerformanceMetric
 
 class Gain(PerformanceMetric):
+    goal = 'max'
 
     @property
     def name(self):
         return 'Gain'
 
-    def __init__(self, request_sequence, initial_state, cost_modal, hit_weight=1, miss_weight=1):
-        super().__init__(request_sequence, initial_state, cost_modal)
+    def __init__(self, request_sequence, initial_cache, cost_modal, hit_weight=1, miss_weight=1):
+        super().__init__(request_sequence, initial_cache, cost_modal)
         self.hit_weight = hit_weight
         self.miss_weight = miss_weight
 

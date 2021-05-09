@@ -36,8 +36,8 @@ class MinimumAggregateDelay_L(OfflineCachingAlgorithm):
             # replace file which saves the least amount of time
             min_agg = min([agg for agg,_ in metadata.values()])
             min_agg_addresses = {address: tunr for address, (agg_delay, tunr) in metadata.items() if agg_delay == min_agg}
-            if len(min_agg_addresses) > 1:
-                print('!')
+            # if len(min_agg_addresses) > 1:
+            #     print('!')
             replacement_address = max(min_agg_addresses, key=min_agg_addresses.get)
 
             return replacement_address

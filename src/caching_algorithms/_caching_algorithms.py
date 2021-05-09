@@ -43,6 +43,20 @@ class OfflineCachingAlgorithm(ABC):
         self.cost_modal = cost_modal
         self.cache_size = cache_size
 
+    # TODO: cleaner check proprties
+    # @classmethod
+    # def __init_subclass__(cls):
+    #     required_class_variables = [
+    #         "online",
+    #         "coded"
+    #         ""
+    #     ]
+    #     for var in required_class_variables:
+    #         if not hasattr(cls, var):
+    #             raise NotImplementedError(
+    #                 f'Class {cls} lacks required `{var}` class attribute'
+    #             )
+
     @abstractmethod
     def __call__(self, time, request, cache_state):
         # if request in cache_state:

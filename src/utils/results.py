@@ -1,6 +1,7 @@
 from tabulate import tabulate
 
 class Results(dict):
+    headers = 'ALGORITHM,METRIC,RESULT,REQUEST_FRQ,ZIPF_ETA,N_ITER,N_REQUESTS,CACHE_SIZE,LIBRARY_SIZE,SEED'
 
     def __init__(self, algorithms, n_iter, n_requests, cache_size, library_size, performance_metric_name, request_frq, zipf_eta, seed):
         super().__init__({a: None for a in algorithms})
@@ -19,18 +20,24 @@ class Results(dict):
         return f'{headers}\n{data}'
 
     def csv(self):
-        headers = 'ALGORITHM,METRIC,RESULT,REQUEST_FRQ,ZIPF_ETA,N_ITER,N_REQUESTS,CACHE_SIZE,LIBRARY_SIZE,SEED'
-        data = ''
-        for algorithm, result in self.items():
-            data += f'{algorithm},{self.performance_metric_name},{result},{self.request_frq},{self.zipf_eta},{self.n_iter},{self.n_requests},{self.cache_size},{self.library_size},{self.seed} \n'
-        return headers, data #.rstrip("\n")
+        return self.headers, self.data+'\n'
 
-    def table(self, sort=False):
-        if sort:
-            data = sorted(self.items(), key=lambda tup: tup[1])
+    def table(self, goal=None):
+        if goal=='min':
+            data = sorted(self.items(), key=lambda tup: tup[1], reverse=False)
+        elif goal=='max':
+            data = sorted(self.items(), key=lambda tup: tup[1], reverse=True)
         else:
-            data = self.items()
+            raise AttributeError('no order specied')
+
 
         return tabulate(data,
                         headers = ['Algorithms', f'{self.performance_metric_name} ({self.n_iter})'],
                         tablefmt='github')
+
+    @property
+    def data(self):
+        d = ''
+        for algorithm, result in self.items():
+            d += f'{algorithm},{self.performance_metric_name},{result},{self.request_frq},{self.zipf_eta},{self.n_iter},{self.n_requests},{self.cache_size},{self.library_size},{self.seed} \n'
+        return d.rstrip("\n")

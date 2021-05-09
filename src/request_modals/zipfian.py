@@ -16,9 +16,9 @@ class Zipfian(RequestModal):
     def _generate(self):
         time = 0
         while time <= self.length:
-            time += 1
             request = np.random.zipf(self.eta)
             if request < self.library_size:
+                time += 1
                 yield (time, request)
 
     @property

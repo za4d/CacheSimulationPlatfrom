@@ -1,6 +1,7 @@
 # __all__ = ['CachingAlgorithm','RandomReplacement', 'FirstInFirstOut', 'FirstInLastOut', 'LeastRecentlyUsed', 'LeastFrequentlyUsed', 'Beladays', 'MinimumAggregateDelay', 'MinimumAggregateDelay_Beladys', 'MinimumAggregateDelay_Perturbed', 'MinimumAggregateDelay_L', ]
 import pkgutil
 import inspect
+
 from ._caching_algorithms import OnlineCachingAlgorithm, OfflineCachingAlgorithm
 from .FirstInLastOut import FirstInLastOut
 from .FirstInFirstOut import FirstInFirstOut
@@ -9,14 +10,15 @@ from .LeastFrequentlyUsed import LeastFrequentlyUsed
 from .LeastFrequentlyUsed_Ideal import LeastFrequentlyUsedIdeal
 from .RandomReplacement import RandomReplacement
 from .Beladys import Beladys
+from .MAD import MAD, TrackAggregateDelay
 from .MinimumAggregateDelay import MinimumAggregateDelay
-from .MinimumAggregateDelay_Beladys import MinimumAggregateDelay_Beladys
 from .MinimumAggregateDelay_L import MinimumAggregateDelay_L
 from .MinimumAggregateDelay_Perturbed import MinimumAggregateDelay_Perturbed
-from .MinimumAggregateDelay_MADP import MinimumAggregateDelay_MADP
+from .MAD_Perturbed import MAD_Perturbed
+from .MAD_LFU import MAD_LFU
 
-caching_algorithms_all = ['RR', 'FIFO', 'FILO', 'LRU', 'LFU', 'MIN', 'MAD', 'MAD_P', 'MINAD', 'MINAD_P', 'MINAD_L']  # RR FIFO FILO LRU LFU B
-caching_algorithms_online = ['RR', 'FIFO', 'FILO', 'LRU', 'LFU', 'MAD', 'MAD_P']
+caching_algorithms_all = ['RR', 'FIFO', 'FILO', 'LRU', 'LFU', 'LFU_IDEAL', 'MIN', 'MAD', 'MAD_LFU', 'MAD_P', 'MINAD', 'MINAD_P', 'MINAD_L']  # RR FIFO FILO LRU LFU B
+caching_algorithms_online = ['RR', 'FIFO', 'FILO', 'LRU', 'LFU', 'LFU_IDEAL', 'MAD', 'MAD_LFU', 'MAD_P']
 caching_algorithms_offline = ['MIN', 'MINAD', 'MINAD_P', 'MINAD_L']
 # def get(name, cache_size, cost_modal, request_sequence):
 #     if name == 'RR':
@@ -65,14 +67,18 @@ def get(name, *args):
         return LeastRecentlyUsed(*args)
     elif name == 'LFU':
         return LeastFrequentlyUsed(*args)
+    elif name == 'LFU_IDEAL':
+        return LeastFrequentlyUsedIdeal(*args)
     elif name == 'MIN':
         return Beladys(*args)
     elif name == 'MAD':
-        return MinimumAggregateDelay(*args)
+        return MAD(*args)
+    elif name == 'MAD_LFU':
+        return MAD_LFU(*args)
     elif name == 'MAD_P':
-    	return MinimumAggregateDelay_MADP(*args)
+    	return MAD_Perturbed(*args)
     elif name == 'MINAD':
-        return MinimumAggregateDelay_Beladys(*args)
+        return MinimumAggregateDelay(*args)
     elif name == 'MINAD_P':
         return MinimumAggregateDelay_Perturbed(*args)
     elif name == 'MINAD_L':

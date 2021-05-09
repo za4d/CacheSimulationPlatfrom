@@ -30,6 +30,9 @@ class StaticCost(CostModal, ABC):
     def cost(self, file):
         return self.cost_func[file]
 
+    def asdict(self):
+        return self.cost_func
+
     @property
     def params(self):
         return None

@@ -3,15 +3,21 @@ start: definitions
 definitions: _def~8
 
 _def: object_definition
-    | literal_definition
+    | simple_definition
 
 _HEADER: "::" WS_INLINE*
 
-literal_definition: _HEADER HYP_LITERAL _S _val _B
+simple_definition: _HEADER HYP_LITERAL _S _value _B
 
-_val: NUMBER
-    | range
+_value: NUMBER
+    | list_values
     | ESCAPED_STRING
+
+
+list_values: "(" START "," STOP "," STEP ")" -> range
+           | "[" [_value ("," _value)*] "]"  -> list
+
+COMMENT: /#.*/
 
 HYP_LITERAL: "NUM ITERATIONS"i
            | "NUM REQUESTS"i
@@ -23,13 +29,14 @@ HYP_OBJECT: "CACHING ALGORITHM"i
           | "REQUEST MODAL"i
           | "COST MODAL"i
 
-object_definition: _object_header object_instance+
 
 _NAME_HEADER: ":" WS_INLINE*
 
+object_definition: _object_header object_instance+
+
 object_instance: (_NAME_HEADER OBJECT_NAME _B) object_params*
 
-object_params: (KWARG _S _val _B) -> kw_val
+object_params: (KWARG _S _value _B) -> kw_value
 
 _object_header: _HEADER HYP_OBJECT _S* _B
 
@@ -37,7 +44,7 @@ OBJECT_NAME: STRING
 
 KWARG: STRING
 
-range: "(" START "," STOP "," STEP ")"
+
 START: NUMBER
 STOP: NUMBER
 STEP: NUMBER
@@ -47,6 +54,7 @@ STRING: /\w+/
 _S: WS_INLINE
 _B: NEWLINE
 
+%ignore COMMENT
 %import common.NUMBER
 %import common.NEWLINE
 %import common.WS_INLINE

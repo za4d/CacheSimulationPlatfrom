@@ -6,7 +6,7 @@
 : min
 :: PERFORMANCE METRIC
 :gain
-hit_weight 5
+hit_weight 2
 miss_weight 3
 :: REQUEST MODAL
 :gaussian
@@ -18,4 +18,3 @@ eta (1.1,2,0.1)
 :: COST MODAL
 :static_uniform_cost
 cost 99
-

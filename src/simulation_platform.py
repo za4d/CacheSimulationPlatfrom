@@ -70,7 +70,7 @@ Algorithms to test
 class SimulationPlatform:
 
 
-    def __init__(self, log_file='logfile.log', csv_file='results.csv'):
+    def __init__(self, log_file='logfile.log', csv_file='results_log.csv'):
         sys.stdout = Logger(log_file)
         self.csv_file = csv_file
         
@@ -93,8 +93,38 @@ class SimulationPlatform:
 
         return results
 
-    def run_simulations(self, algorithms: List[str], n_iter: int, n_requests: int, cache_size: int, library_size: int, performance_metric_name: str, request_frq: float, zipf_eta: float, seed):
+    def run_simulations(self, algorithms: List[str], n_iter: int, n_requests: int, cache_size: int, library_size: int, performance_metric_names: [str], request_frq: float, zipf_eta: float, seed):
         seed = seed if seed else np.random.randint(10000000)
+        if type(performance_metric_names)==str:
+                performance_metric_names = [performance_metric_names]
+
+        results_dict = dict()
+        for pm_name in performance_metric_names:
+            results_dict[pm_name] = self.run(algorithms, n_iter, n_requests, cache_size, library_size, pm_name, request_frq, zipf_eta, seed)
+
+        data = []
+        for a in algorithms:
+            data.append((a, *[results_dict[pm][a] for pm in performance_metric_names]))
+
+        csv_data = Results.headers + '\n'
+        for pm, results in results_dict.items():
+            csv_data += f'{results.data}\n'
+
+        print(f'{"-"*50} RAW DATA (CSV)')
+        print(csv_data)
+        print(f'{"-"*50}\n\n')
+
+        self.save_result(self.csv_file,csv_data)
+        s = str(tabulate(data,
+                       headers = ['Algorithms'] + performance_metric_names,
+                       tablefmt='grid',
+                        ))
+        print(s)
+
+        return results_dict, s
+
+
+    def run(self, algorithms: List[str], n_iter: int, n_requests: int, cache_size: int, library_size: int, performance_metric_name: str, request_frq: float, zipf_eta: float, seed):
         results = Results(algorithms, n_iter, n_requests, cache_size, library_size, performance_metric_name, request_frq, zipf_eta, seed)
 
         self.log_hyperparameter(algorithms, n_iter, n_requests, cache_size, library_size, performance_metric_name, request_frq, zipf_eta, seed)
@@ -111,7 +141,7 @@ class SimulationPlatform:
             simulation_instances = []
             for iteration in range(n_iter):
                 # initilise instance
-                virtual_cache = VirtualCache(cache_size)
+                virtual_cache = VirtualCache(np.random.choice(np.arange(0,library_size), size=cache_size, replace=False))
                 request_modal = next(request_modal_gen)
                 cost_modal = next(cost_modal_gen)
                 caching_algorithm = caching_algorithms.get(algorithm, cache_size, cost_modal) if is_online(algorithm) else caching_algorithms.get(algorithm, cache_size, cost_modal, request_modal)
@@ -123,12 +153,12 @@ class SimulationPlatform:
             for iteration_num, performance_result in enumerate(p.map(self.do, simulation_instances)):
                 total += performance_result.result
                 log(f'{algorithm} #{iteration_num+1} \t{performance_result}\t', f'hit: {performance_result.hit_count}  miss: {performance_result.miss_count}')
-
-            #### SINGLE
+            p.close()
+            # ### SINGLE
             # total = 0
             # for iteration in range(n_iter):
             #     # initilise instance
-            #     virtual_cache = VirtualCache(cache_size)
+            #     virtual_cache = VirtualCache(np.random.choice(np.arange(0,library_size), size=cache_size, replace=False))
             #     request_modal = next(request_modal_gen)
             #     cost_modal = next(cost_modal_gen)
             #     caching_algorithm = caching_algorithms.get(algorithm, cache_size, cost_modal) if is_online(algorithm) else caching_algorithms.get(algorithm, cache_size, cost_modal, request_modal)
@@ -157,13 +187,11 @@ class SimulationPlatform:
             log(f'>>> Average {performance_metric_name}: {results[algorithm]}\t(over {n_iter} simulations)\n')
 
         # log results as csv and formatted table
-        log(f'{"-"*50} RAW DATA (CSV) \n'
-            f'{results}\n'
-            f'{"-"*50}\n\n'
+        log(f'{"-"*50}\n\n'
             f'>>> RESULTS - (over {n_iter} simulations)\n'
-            f'{results.table(sort=True)}\n\n')
+            f'{results.table(goal=performance_metric.goal)}\n\n')
 
-        self.save_result(*results.csv())
+        self.save_result('results_log.csv', *results.csv())
 
         return results
 
@@ -173,8 +201,8 @@ class SimulationPlatform:
         # log(f'\t{performance_result}\t', f'hit: {performance_result.hit_count}  miss: {performance_result.miss_count}')
         return performance_result
 
-    def save_result(self,*data):
-        with open(self.csv_file, 'a') as f:
+    def save_result(self, csv_file, *data):
+        with open(csv_file, 'a') as f:
             for d in data:
                 print(d, file=f)
 

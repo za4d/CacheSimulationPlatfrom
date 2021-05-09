@@ -1,18 +1,28 @@
 from lark import Lark, tree
 from parse_batch import ReadBatch
+import sys
+
+def make_dot(parser, filename):
+    tree.pydot__tree_to_dot(parser.parse(ex), filename)
+
+def make_png(parser, filename):
+    tree.pydot__tree_to_png( parser.parse(ex), filename)
+
+example_file = 'example.csp'
 
 if __name__ == '__main__':
     with open('batch_grammer.lark', 'r') as grammer_f:
-        with open('example.csp', 'r') as example_f:
+        with open(example_file, 'r') as example_f:
             grammer = grammer_f.read()
             ex = example_f.read()
             parser = Lark(grammer, start='definitions', ambiguity='explicit')
-            tree = parser.parse(ex)
-            print(tree.pretty())
+            t = parser.parse(ex)
+            print(t.pretty())
+            make_png(parser,'test.png')
             print('#'*10)
-            parsed = ReadBatch().transform(tree)
+            parsed = ReadBatch().transform(t)
             print(parsed)
-            print(parsed.keys())
+
 
 
     # make_png(sys.argv[1])

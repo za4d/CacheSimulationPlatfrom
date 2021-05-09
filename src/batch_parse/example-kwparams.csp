@@ -6,7 +6,7 @@
 : min
 :: PERFORMANCE METRIC
 :gain
-hit_weight 5
+hit_weight (2,3,0.3)
 miss_weight 3
 :: REQUEST MODAL
 :gaussian
