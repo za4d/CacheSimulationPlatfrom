@@ -1,0 +1,144 @@
+>>> HYPERPARAMETERS 
+Testing algorithms dict_keys(['RR', 'FIFO', 'FILO', 'LRU', 'LFU', 'LFU_IDEAL', 'MIN', 'MAD', 'MAD_LFU', 'MAD_P', 'MAD_MIN', 'MINAD', 'MINAD_P', 'MINAD_L', 'MINAD_W']), 10 simulations of 100000 requests distributed with eta=1.5, Cache size is 10 with 1000 files in main memory
+-----------------------  ---------------------------------------------------------------------------------------------------------------------------------------------------
+algorithms               dict_keys(['RR', 'FIFO', 'FILO', 'LRU', 'LFU', 'LFU_IDEAL', 'MIN', 'MAD', 'MAD_LFU', 'MAD_P', 'MAD_MIN', 'MINAD', 'MINAD_P', 'MINAD_L', 'MINAD_W'])
+n_iter                   10
+n_requests               100000
+cache_size               10
+library_size             1000
+performance_metric_name  latency_loss
+request_frq              1000
+zipf_eta                 1.5
+seed                     9941024
+-----------------------  ---------------------------------------------------------------------------------------------------------------------------------------------------
+>>> Simulating RR...
+RR #1 	1451.163868	 hit: 60951  miss: 39050
+RR #2 	1441.510645	 hit: 60602  miss: 39399
+RR #3 	1459.304097	 hit: 61596  miss: 38405
+RR #4 	1449.869301	 hit: 60957  miss: 39044
+RR #5 	1456.970520	 hit: 61226  miss: 38775
+RR #6 	1454.412086	 hit: 61126  miss: 38875
+RR #7 	1451.957460	 hit: 61142  miss: 38859
+RR #8 	1452.955730	 hit: 61243  miss: 38758
+RR #9 	1455.229538	 hit: 61499  miss: 38502
+RR #10 	1459.798522	 hit: 61440  miss: 38561
+>>> Average latency_loss: 1453.3171768282318	(over 10 simulations)
+
+>>> Simulating FIFO...
+FIFO #1 	1462.317447	 hit: 61053  miss: 38948
+FIFO #2 	1454.288647	 hit: 60650  miss: 39351
+FIFO #3 	1472.866241	 hit: 61335  miss: 38666
+FIFO #4 	1462.398216	 hit: 61135  miss: 38866
+FIFO #5 	1472.790452	 hit: 61280  miss: 38721
+FIFO #6 	1469.080719	 hit: 61206  miss: 38795
+FIFO #7 	1461.556144	 hit: 61038  miss: 38963
+FIFO #8 	1464.225078	 hit: 61274  miss: 38727
+FIFO #9 	1470.472965	 hit: 61279  miss: 38722
+FIFO #10 	1470.107419	 hit: 61435  miss: 38566
+>>> Average latency_loss: 1466.0103328966711	(over 10 simulations)
+
+>>> Simulating FILO...
+FILO #1 	1314.577454	 hit: 33078  miss: 66923
+FILO #2 	513.433386	 hit: 44204  miss: 55797
+FILO #3 	1488.196718	 hit: 18756  miss: 81245
+FILO #4 	1477.883361	 hit: 18530  miss: 81471
+FILO #5 	1490.648784	 hit: 18718  miss: 81283
+FILO #6 	1485.070829	 hit: 18732  miss: 81269
+FILO #7 	1441.845832	 hit: 24412  miss: 75589
+FILO #8 	1479.028190	 hit: 18649  miss: 81352
+FILO #9 	1474.096819	 hit: 21149  miss: 78852
+FILO #10 	1487.272347	 hit: 18606  miss: 81395
+>>> Average latency_loss: 1365.2053719462806	(over 10 simulations)
+
+>>> Simulating LRU...
+LRU #1 	882.592384	 hit: 67966  miss: 32035
+LRU #2 	849.912541	 hit: 67556  miss: 32445
+LRU #3 	845.936111	 hit: 68126  miss: 31875
+LRU #4 	816.940721	 hit: 67982  miss: 32019
+LRU #5 	836.302717	 hit: 68117  miss: 31884
+LRU #6 	848.885941	 hit: 67993  miss: 32008
+LRU #7 	858.881481	 hit: 67849  miss: 32152
+LRU #8 	911.807802	 hit: 68200  miss: 31801
+LRU #9 	888.882581	 hit: 68257  miss: 31744
+LRU #10 	827.452105	 hit: 68325  miss: 31676
+>>> Average latency_loss: 856.7594384056159	(over 10 simulations)
+
+>>> Simulating LFU...
+LFU #1 	191.805522	 hit: 75698  miss: 24303
+LFU #2 	191.804382	 hit: 75869  miss: 24132
+LFU #3 	186.945661	 hit: 76593  miss: 23408
+LFU #4 	190.396636	 hit: 75977  miss: 24024
+LFU #5 	187.457885	 hit: 76391  miss: 23610
+LFU #6 	199.999290	 hit: 74533  miss: 25468
+LFU #7 	196.487965	 hit: 75197  miss: 24804
+LFU #8 	214.002100	 hit: 72617  miss: 27384
+LFU #9 	201.249318	 hit: 74965  miss: 25036
+LFU #10 	213.657833	 hit: 74095  miss: 25906
+>>> Average latency_loss: 197.3806591934081	(over 10 simulations)
+
+>>> Simulating LFU_IDEAL...
+LFU_IDEAL #1 	180.164988	 hit: 77333  miss: 22668
+LFU_IDEAL #2 	181.810832	 hit: 77133  miss: 22868
+LFU_IDEAL #3 	181.107369	 hit: 77527  miss: 22474
+LFU_IDEAL #4 	180.620864	 hit: 77399  miss: 22602
+LFU_IDEAL #5 	180.223958	 hit: 77515  miss: 22486
+LFU_IDEAL #6 	180.490895	 hit: 77447  miss: 22554
+LFU_IDEAL #7 	180.811202	 hit: 77439  miss: 22562
+LFU_IDEAL #8 	180.849222	 hit: 77511  miss: 22490
+LFU_IDEAL #9 	179.958540	 hit: 77619  miss: 22382
+LFU_IDEAL #10 	178.963780	 hit: 77673  miss: 22328
+>>> Average latency_loss: 180.50016499835002	(over 10 simulations)
+
+>>> Simulating MIN...
+MIN #1 	292.791872	 hit: 80688  miss: 19313
+MIN #2 	270.473935	 hit: 80468  miss: 19533
+MIN #3 	287.894571	 hit: 80832  miss: 19169
+MIN #4 	281.094409	 hit: 80733  miss: 19268
+MIN #5 	285.338097	 hit: 80815  miss: 19186
+MIN #6 	286.349397	 hit: 80765  miss: 19236
+MIN #7 	288.427376	 hit: 80712  miss: 19289
+MIN #8 	280.330087	 hit: 80836  miss: 19165
+MIN #9 	280.843182	 hit: 80931  miss: 19070
+MIN #10 	287.558114	 hit: 80895  miss: 19106
+>>> Average latency_loss: 284.11010389896103	(over 10 simulations)
+
+>>> Simulating MAD...
+MAD #1 	180.557444	 hit: 77323  miss: 22678
+MAD #2 	182.050000	 hit: 77128  miss: 22873
+MAD #3 	180.708713	 hit: 77531  miss: 22470
+MAD #4 	181.084589	 hit: 77394  miss: 22607
+MAD #5 	181.135599	 hit: 77506  miss: 22495
+MAD #6 	181.213778	 hit: 77443  miss: 22558
+MAD #7 	181.183978	 hit: 77427  miss: 22574
+MAD #8 	181.380846	 hit: 77492  miss: 22509
+MAD #9 	180.670823	 hit: 77628  miss: 22373
+MAD #10 	179.175088	 hit: 77670  miss: 22331
+>>> Average latency_loss: 180.9160858391416	(over 10 simulations)
+
+>>> Simulating MAD_LFU...
+MAD_LFU #1 	180.281927	 hit: 77336  miss: 22665
+MAD_LFU #2 	181.810832	 hit: 77130  miss: 22871
+MAD_LFU #3 	180.837442	 hit: 77532  miss: 22469
+MAD_LFU #4 	180.620864	 hit: 77397  miss: 22604
+MAD_LFU #5 	180.385456	 hit: 77514  miss: 22487
+MAD_LFU #6 	180.668763	 hit: 77443  miss: 22558
+MAD_LFU #7 	180.792872	 hit: 77438  miss: 22563
+MAD_LFU #8 	181.054209	 hit: 77513  miss: 22488
+MAD_LFU #9 	180.118619	 hit: 77630  miss: 22371
+MAD_LFU #10 	179.165688	 hit: 77674  miss: 22327
+>>> Average latency_loss: 180.5736672633274	(over 10 simulations)
+
+>>> Simulating MAD_P...
+MAD_P #1 	193.343497	 hit: 77233  miss: 22768
+MAD_P #2 	201.365246	 hit: 75603  miss: 24398
+MAD_P #3 	190.452815	 hit: 77432  miss: 22569
+MAD_P #4 	193.027290	 hit: 77213  miss: 22788
+MAD_P #5 	190.902751	 hit: 77193  miss: 22808
+MAD_P #6 	189.567844	 hit: 77390  miss: 22611
+MAD_P #7 	190.253807	 hit: 77381  miss: 22620
+MAD_P #8 	189.264837	 hit: 77325  miss: 22676
+MAD_P #9 	192.125889	 hit: 77395  miss: 22606
+MAD_P #10 	189.302387	 hit: 77441  miss: 22560
+>>> Average latency_loss: 191.9606363936361	(over 10 simulations)
+
+>>> Simulating MAD_MIN...

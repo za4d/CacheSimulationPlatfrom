@@ -1,0 +1,33 @@
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/dcs/18/u1728054/.pyenv/versions/3.8.3/lib/python3.8/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+  File "/dcs/18/u1728054/.pyenv/versions/3.8.3/lib/python3.8/multiprocessing/pool.py", line 48, in mapstar
+    return list(map(*args))
+  File "/dcs/18/u1728054/310/CacheSimulationPlatfrom/src/simulation_platform.py", line 199, in do
+    performance_result = sim.simulate()
+  File "/dcs/18/u1728054/310/CacheSimulationPlatfrom/src/simulation_instance.py", line 30, in simulate
+    replacement_address = caching_algorithm(time, file, cache)
+  File "/dcs/18/u1728054/310/CacheSimulationPlatfrom/src/caching_algorithms/MAD_MIN.py", line 47, in __call__
+    self.lfu.update(time,requested_file,cache_state)
+AttributeError: 'MAD_MIN' object has no attribute 'lfu'
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "src/test_Algorithms.py", line 120, in <module>
+    test_all()
+  File "src/test_Algorithms.py", line 67, in test_all
+    SimulationPlatform().run_simulations(a, 10,  100000, 10, 1000, ['latency_loss','simple_loss','hit_ratio'], 1000, 1.5, None)
+  File "/dcs/18/u1728054/310/CacheSimulationPlatfrom/src/simulation_platform.py", line 103, in run_simulations
+    results_dict[pm_name] = self.run(algorithms, n_iter, n_requests, cache_size, library_size, pm_name, request_frq, zipf_eta, seed)
+  File "/dcs/18/u1728054/310/CacheSimulationPlatfrom/src/simulation_platform.py", line 153, in run
+    for iteration_num, performance_result in enumerate(p.map(self.do, simulation_instances)):
+  File "/dcs/18/u1728054/.pyenv/versions/3.8.3/lib/python3.8/multiprocessing/pool.py", line 364, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+  File "/dcs/18/u1728054/.pyenv/versions/3.8.3/lib/python3.8/multiprocessing/pool.py", line 771, in get
+    raise self._value
+AttributeError: 'MAD_MIN' object has no attribute 'lfu'
+srun: error: emu-39: task 0: Exited with exit code 1
