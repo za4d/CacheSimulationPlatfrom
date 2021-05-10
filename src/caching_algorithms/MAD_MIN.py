@@ -58,7 +58,7 @@ class MAD_MIN(OfflineCachingAlgorithm):
     def rank(self, file):
         ad = self.track.estimate_aggregate_delay(file)
         tunr = self.beladys_tunr(file)
-        return ad * tunr
+        return ad / tunr
         # return ad/tunr if tunr>0 else ad*0.001
 
     def beladys_tunr(self, requested_file):
