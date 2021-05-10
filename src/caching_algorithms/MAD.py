@@ -45,6 +45,7 @@ class TrackAggregateDelay:
 
 # TODO
 class MAD(OnlineCachingAlgorithm):
+    name='MAD'
 
     def __init__(self, cache_size, cost_modal):
         super().__init__(cache_size, cost_modal)

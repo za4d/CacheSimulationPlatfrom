@@ -5,6 +5,7 @@ from collections import deque
 
 
 class FirstInFirstOut(OnlineCachingAlgorithm):
+    name='FIFO'
 
     def __init__(self, cache_size, cost_modal):
         super().__init__(cache_size, cost_modal)

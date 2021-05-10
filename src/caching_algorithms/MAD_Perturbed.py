@@ -2,11 +2,12 @@ from dataclasses import dataclass
 import numpy as np
 
 from caching_algorithms import OnlineCachingAlgorithm
-from caching_algorithms import MAD, TrackAggregateDelay
+from caching_algorithms import TrackAggregateDelay
 
 
 
 class MADPerturbed(OnlineCachingAlgorithm):
+    name='MAD_P'
 
     def __init__(self, cache_size, cost_modal):
         super().__init__(cache_size, cost_modal)
@@ -23,8 +24,10 @@ class MADPerturbed(OnlineCachingAlgorithm):
         if requested_file in cache_state:
             return  None
         else:
-            replacement_address = np.argmin(list(map(self.perturbed_estimate_aggregate_delay, cache_state)))
+            replacement_address = np.argmin(list(map(self.perturbed_estimate_aggregate_delay, cache_state+[requested_file])))
             # replacement_address = np.argmin(map(self.perturbed_estimate_aggregate_delay, cache_state))
+            if replacement_address>len(cache_state)-1:
+                return None
             return replacement_address
 
     def perturbed_estimate_aggregate_delay(self, file):

@@ -1,8 +1,9 @@
 # __all__ = ['CachingAlgorithm','RandomReplacement', 'FirstInFirstOut', 'FirstInLastOut', 'LeastRecentlyUsed', 'LeastFrequentlyUsed', 'Beladays', 'MinimumAggregateDelay', 'MinimumAggregateDelay_Beladys', 'MinimumAggregateDelay_Perturbed', 'MinimumAggregateDelay_L', ]
 import pkgutil
 import inspect
+from abc import ABCMeta
 
-from ._caching_algorithms import OnlineCachingAlgorithm, OfflineCachingAlgorithm
+from ._caching_algorithms import CachingAlgorithm, OnlineCachingAlgorithm, OfflineCachingAlgorithm
 from .FirstInLastOut import FirstInLastOut
 from .FirstInFirstOut import FirstInFirstOut
 from .LeastRecentlyUsed import LeastRecentlyUsed
@@ -17,25 +18,42 @@ from .MinimumAggregateDelayPerturbed import MinimumAggregateDelayPerturbed
 from .MinimumAggregateDelay_Weighted import MinimumAggregateDelayWeighted
 from .MAD_Perturbed import MADPerturbed
 from .MAD_LFU import MAD_LFU
-from .MAD_MIN import MAD_MIN
+from .MAD_MIN import MAD_MIN,MAD_LFU2
+
+# Dynamic import files
+get_caching_algorithm = dict()
+
+__all__ = ['get']
+for loader, name, is_pkg in pkgutil.walk_packages(__path__):
+    module = loader.find_module(name).load_module(name)
+    for name, value in inspect.getmembers(module):
+        if name.startswith('__'): continue
+        globals()[name] = value
+        __all__.append(name)
+        if type(value)==ABCMeta and issubclass(value, (OfflineCachingAlgorithm, OnlineCachingAlgorithm)):
+            if value in [OnlineCachingAlgorithm, OfflineCachingAlgorithm]:
+                continue
+            get_caching_algorithm[value.name] = value
 
 
-get_caching_algorithm = {'RR' 	: RandomReplacement,
-                         'FIFO' 	: FirstInFirstOut,
-                         'FILO' 	: FirstInLastOut,
-                         'LRU' 	: LeastRecentlyUsed,
-                         'LFU' 	: LeastFrequentlyUsed,
-                         'LFU_IDEAL' 	: LeastFrequentlyUsedIdeal,
-                         'MIN' 	: Beladys,
-                         'MAD' 	: MAD,
-                         'MAD_LFU' 	: MAD_LFU,
-                         'MAD_P' 	: MADPerturbed,
-                         'MAD_MIN' 	: MAD_MIN,
-                         'MINAD' 	: MinimumAggregateDelay,
-                         'MINAD_P' 	: MinimumAggregateDelayPerturbed,
-                         'MINAD_L' 	: MinimumAggregateDelayLayered,
-                         'MINAD_W' 	: MinimumAggregateDelayWeighted
-                         }
+# get_caching_algorithm = {n 	: RandomReplacement
+# get_caching_algorithm = {'RR' 	: RandomReplacement,
+#                          'FIFO' 	: FirstInFirstOut,
+#                          'FILO' 	: FirstInLastOut,
+#                          'LRU' 	: LeastRecentlyUsed,
+#                          'LFU' 	: LeastFrequentlyUsed,
+#                          'LFU_IDEAL' 	: LeastFrequentlyUsedIdeal,
+#                          'MIN' 	: Beladys,
+#                          'MAD' 	: MAD,
+#                          'MAD_LFU' 	: MAD_LFU,
+#                          'MAD_P' 	: MADPerturbed,
+#                          'MAD_MIN' 	: MAD_MIN,
+#                          'MAD_MIN2' 	: MAD_LFU2,
+#                          'MINAD' 	: MinimumAggregateDelay,
+#                          'MINAD_P' 	: MinimumAggregateDelayPerturbed,
+#                          'MINAD_L' 	: MinimumAggregateDelayLayered,
+#                          'MINAD_W' 	: MinimumAggregateDelayWeighted
+#                          }
 caching_algorithms_all = get_caching_algorithm.keys()# RR FIFO FILO LRU LFU B
 caching_algorithms_online = [k for k, ca in get_caching_algorithm.items() if ca.online()]
 caching_algorithms_offline = [k for k, ca in get_caching_algorithm.items() if not ca.online()]
@@ -78,12 +96,4 @@ def is_online(name):
 def get(name, *args):
     return get_caching_algorithm[name.upper()](*args)
 
-# Dynamic import files
-__all__ = ['get']
-for loader, name, is_pkg in pkgutil.walk_packages(__path__):
-    module = loader.find_module(name).load_module(name)
-    for name, value in inspect.getmembers(module):
-        if name.startswith('__'): continue
-        globals()[name] = value
-        __all__.append(name)
 

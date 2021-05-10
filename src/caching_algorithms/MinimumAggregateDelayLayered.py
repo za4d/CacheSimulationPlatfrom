@@ -2,6 +2,7 @@ from caching_algorithms import OfflineCachingAlgorithm, MinimumAggregateDelay
 from math import ceil
 
 class MinimumAggregateDelayLayered(MinimumAggregateDelay):
+    name='MINAD_L'
 
     def __init__(self, cache_size, cost_modal, request_sequence):
         super().__init__(cache_size, cost_modal, request_sequence)
@@ -19,7 +20,7 @@ class MinimumAggregateDelayLayered(MinimumAggregateDelay):
                 # Fin
                 # Timed save per tick if file is kept in cache
             metadata = dict()
-            for address, file in enumerate(cache_state):
+            for address, file in enumerate(cache_state+[requested_file]):
                 # get Time Until Next Request
                 try:
                     tunr = self.request_sequence_data.index(file) + 1
@@ -41,6 +42,9 @@ class MinimumAggregateDelayLayered(MinimumAggregateDelay):
             # if len(min_agg_addresses) > 1:
             #     print('!')
             replacement_address = max(min_agg_addresses, key=min_agg_addresses.get)
+
+            if replacement_address>len(cache_state)-1:
+                return None
 
             return replacement_address
 
