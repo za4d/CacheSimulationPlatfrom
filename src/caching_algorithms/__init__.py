@@ -37,8 +37,8 @@ get_caching_algorithm = {'RR' 	: RandomReplacement,
                          'MINAD_W' 	: MinimumAggregateDelayWeighted
                          }
 caching_algorithms_all = get_caching_algorithm.keys()# RR FIFO FILO LRU LFU B
-caching_algorithms_online = [k for k,ca in get_caching_algorithm.items() if ca.online()]
-caching_algorithms_offline = [k for k,ca in get_caching_algorithm.items() if not ca.online()]
+caching_algorithms_online = [k for k, ca in get_caching_algorithm.items() if ca.online()]
+caching_algorithms_offline = [k for k, ca in get_caching_algorithm.items() if not ca.online()]
 
 # def get(name, cache_size, cost_modal, request_sequence):
 #     if name == 'RR':
