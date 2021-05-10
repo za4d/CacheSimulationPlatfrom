@@ -1,8 +1,9 @@
 from abc import ABC, abstractmethod
 
+class CachingAlgorithm():
+    pass
 
-
-class OnlineCachingAlgorithm(ABC):
+class OnlineCachingAlgorithm(ABC,CachingAlgorithm):
     """If file is in cache then return `None` for no replacment address. If files is not cached but not stored return -1"""
 
     def __init__(self, cache_size, cost_modal):
@@ -36,7 +37,7 @@ class OnlineCachingAlgorithm(ABC):
         pass
 
 
-class OfflineCachingAlgorithm(ABC):
+class OfflineCachingAlgorithm(ABC,CachingAlgorithm):
 
     def __init__(self, cache_size, cost_modal, request_sequence):
         self.request_sequence = request_sequence

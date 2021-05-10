@@ -5,6 +5,7 @@ from caching_algorithms import OnlineCachingAlgorithm
 # TODO: caching algorithms module
 
 class RandomReplacement(OnlineCachingAlgorithm):
+    name='RR'
 
     def __init__(self, cache_size, cost_modal):
         super().__init__(cache_size, cost_modal)

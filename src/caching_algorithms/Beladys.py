@@ -4,6 +4,7 @@ from caching_algorithms import OfflineCachingAlgorithm
 # TODO: caching algorithms module
 
 class Beladys(OfflineCachingAlgorithm):
+    name='MIN'
 
     def __init__(self, cache_size, cost_modal, request_sequence):
         super().__init__(cache_size, cost_modal, request_sequence)

@@ -3,6 +3,7 @@ from math import ceil
 
 
 class MinimumAggregateDelayWeighted(MinimumAggregateDelay):
+    name='MINAD_W'
 
     def __init__(self, cache_size, cost_modal, request_sequence, scale=0.011):
         super().__init__(cache_size, cost_modal, request_sequence)
@@ -22,7 +23,7 @@ class MinimumAggregateDelayWeighted(MinimumAggregateDelay):
             # Fin
             # Timed save per tick if file is kept in cache
             time_saved = dict()
-            for address, file in enumerate(cache_state):
+            for address, file in enumerate(cache_state+[requested_file]):
                 # get Time Until Next Request
                 try:
                     tunr = self.request_sequence_data.index(file) + 1
@@ -39,6 +40,9 @@ class MinimumAggregateDelayWeighted(MinimumAggregateDelay):
 
             # replace file which saves the least amount of time
             replacement_address = min(time_saved, key=time_saved.get)
+
+            if replacement_address>len(cache_state)-1:
+                return None
 
             return replacement_address
 

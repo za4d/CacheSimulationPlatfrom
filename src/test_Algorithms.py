@@ -64,7 +64,8 @@ def test_basic():
 
 def test_all():
     a = caching_algorithms_all
-    SimulationPlatform().run_simulations(a, 10,  100000, 10, 1000, ['latency_loss','simple_loss','hit_ratio'], 1000, 1.5, None)
+    # SimulationPlatform().run_simulations(a, 10,  100000, 10, 1000, ['latency_loss','simple_loss','hit_ratio'], 1000, 1.5, None)
+    SimulationPlatform().run_simulations(a, 1,  10000, 10, 1000, ['latency_loss'], 1000, 1.5, None)
     # SimulationPlatform().run_simulations(['MAD_MIN','MINAD', 'MINAD_W','MINAD_L','MAD_LFU','MIN','MAD','LFU'][:3], 3,  10000, 10, 1000, ['latency_loss'], 1000, 1.1, 839284)
 
 def batch_run_mad():
@@ -81,9 +82,9 @@ def test():
     # c = a
     # SimulationPlatform().run_simulations(c, 2, 10000, 10, 100, ['kappa_ratio', 'hit_ratio','latency_loss'], 1000, 1.5, 2313)
 
-    SimulationPlatform().run_simulations(['MAD_LFU','LFU','LFU_IDEAL','MAD'],
+    SimulationPlatform().run_simulations(['MINAD','MAD_MIN','MAD_LFU2','MAD_LFU','LFU','LFU_IDEAL','MAD','MIN','MAD_P'],
                                          n_iter=1,
-                                         n_requests=100000,
+                                         n_requests=10000,
                                          cache_size=10,
                                          library_size=1000,
                                          performance_metric_names=['latency_loss'],
@@ -105,7 +106,7 @@ def test_multiple():
 if __name__ == '__main__':
     # batch_run_mad()
     # test()
-    test_multiple()
+    # test_multiple()
     # test_online_algorithms()
     # test_offline_algorithms()
-    # test_all()
+    test_all()

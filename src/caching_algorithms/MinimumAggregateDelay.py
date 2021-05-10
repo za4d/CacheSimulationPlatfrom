@@ -1,8 +1,11 @@
+from pip._internal.cli.cmdoptions import cache_dir
+
 from caching_algorithms import OfflineCachingAlgorithm
 from math import ceil
 
 
 class MinimumAggregateDelay(OfflineCachingAlgorithm):
+    name='MINAD'
 
     def __init__(self, cache_size, cost_modal, request_sequence):
         super().__init__(cache_size, cost_modal, request_sequence)
@@ -21,7 +24,7 @@ class MinimumAggregateDelay(OfflineCachingAlgorithm):
             # Fin
             # Timed save per tick if file is kept in cache
             time_saved = dict()
-            for address, file in enumerate(cache_state):
+            for address, file in enumerate(cache_state+[requested_file]):
                 # get Time Until Next Request
                 try:
                     tunr = self.request_sequence_data.index(file) + 1
@@ -32,13 +35,15 @@ class MinimumAggregateDelay(OfflineCachingAlgorithm):
                     return address
 
                 # get Aggregate Delay
+                assert self.request_sequence_data[tunr-1] == file
                 agg_delay = self.aggregate_delay(file, tunr-1)
-                if tunr < 0 or agg_delay <0:
-                    print('!!')
                 time_saved[address] = agg_delay / tunr
-
+                assert agg_delay>1
             # replace file which saves the least amount of time
             replacement_address = min(time_saved, key=time_saved.get)
+
+            if replacement_address>len(cache_state)-1:
+                return None
 
             return replacement_address
 

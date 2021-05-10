@@ -3,6 +3,7 @@ from caching_algorithms import MinimumAggregateDelay
 from math import ceil
 
 class MinimumAggregateDelayPerturbed(MinimumAggregateDelay):
+    name='MINAD_P'
 
     def __init__(self, cache_size, cost_modal, request_sequence):
         super().__init__(cache_size, cost_modal, request_sequence)
@@ -21,7 +22,7 @@ class MinimumAggregateDelayPerturbed(MinimumAggregateDelay):
             # Fin
             # Timed save per tick if file is kept in cache
             perturbed_time_saved = dict()
-            for address, file in enumerate(cache_state):
+            for address, file in enumerate(cache_state+[requested_file]):
 
                 # Get perturbation
                 perturbation = np.random.normal(0, 1)
@@ -41,6 +42,9 @@ class MinimumAggregateDelayPerturbed(MinimumAggregateDelay):
 
             # replace file which saves the least amount of time
             replacement_address = min(perturbed_time_saved, key=perturbed_time_saved.get)
+
+            if replacement_address>len(cache_state)-1:
+                return None
 
             return replacement_address
 

@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 import numpy as np
-from caching_algorithms import MAD, TrackAggregateDelay
+from caching_algorithms import TrackAggregateDelay
 
 from caching_algorithms import OnlineCachingAlgorithm, LeastFrequentlyUsedIdeal
 
@@ -37,6 +37,7 @@ from caching_algorithms import OnlineCachingAlgorithm, LeastFrequentlyUsedIdeal
 
 
 class MAD_LFU(OnlineCachingAlgorithm):
+    name='MAD_LFU'
 
     def __init__(self, cache_size, cost_modal):
         super().__init__(cache_size, cost_modal)

@@ -2,6 +2,7 @@
 from caching_algorithms import OnlineCachingAlgorithm
 
 class LeastRecentlyUsed(OnlineCachingAlgorithm):
+    name='LRU'
 
     def __init__(self, cache_size, cost_modal):
         super().__init__(cache_size, cost_modal)
