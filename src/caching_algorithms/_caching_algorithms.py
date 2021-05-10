@@ -19,8 +19,8 @@ class OnlineCachingAlgorithm(ABC):
         #     # miss
         pass
 
-    @property
-    def online(self):
+    @staticmethod
+    def online():
         """:return true of false, depending on policy type"""
         return True
 
@@ -66,8 +66,8 @@ class OfflineCachingAlgorithm(ABC):
         #     # miss
         pass
 
-    @property
-    def online(self):
+    @staticmethod
+    def online():
         """:return true of false, depending on policy type"""
         return False
 

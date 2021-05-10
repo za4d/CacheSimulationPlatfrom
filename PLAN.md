@@ -26,6 +26,14 @@
 - *eta is a request modal parameter*
 - *hit weight and miss weight are performance metric parameters*
 
+$$
+\mathrm{ABCdef123}\\
+\mathit{ABCdef123}\\
+\mathcal{ABCdef123}\\
+\mathscr{ABCdef123}\\
+\mathbb{ABCdef123}\\
+$$
+
 
 
 [^1]: list of tuple containing names and parameters as keyword dictionaries e.g.

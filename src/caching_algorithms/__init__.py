@@ -12,14 +12,34 @@ from .RandomReplacement import RandomReplacement
 from .Beladys import Beladys
 from .MAD import MAD, TrackAggregateDelay
 from .MinimumAggregateDelay import MinimumAggregateDelay
-from .MinimumAggregateDelay_L import MinimumAggregateDelay_L
-from .MinimumAggregateDelay_Perturbed import MinimumAggregateDelay_Perturbed
-from .MAD_Perturbed import MAD_Perturbed
+from .MinimumAggregateDelayLayered import MinimumAggregateDelayLayered
+from .MinimumAggregateDelayPerturbed import MinimumAggregateDelayPerturbed
+from .MinimumAggregateDelay_Weighted import MinimumAggregateDelayWeighted
+from .MAD_Perturbed import MADPerturbed
 from .MAD_LFU import MAD_LFU
+from .MAD_MIN import MAD_MIN
 
-caching_algorithms_all = ['RR', 'FIFO', 'FILO', 'LRU', 'LFU', 'LFU_IDEAL', 'MIN', 'MAD', 'MAD_LFU', 'MAD_P', 'MINAD', 'MINAD_P', 'MINAD_L']  # RR FIFO FILO LRU LFU B
-caching_algorithms_online = ['RR', 'FIFO', 'FILO', 'LRU', 'LFU', 'LFU_IDEAL', 'MAD', 'MAD_LFU', 'MAD_P']
-caching_algorithms_offline = ['MIN', 'MINAD', 'MINAD_P', 'MINAD_L']
+
+get_caching_algorithm = {'RR' 	: RandomReplacement,
+                         'FIFO' 	: FirstInFirstOut,
+                         'FILO' 	: FirstInLastOut,
+                         'LRU' 	: LeastRecentlyUsed,
+                         'LFU' 	: LeastFrequentlyUsed,
+                         'LFU_IDEAL' 	: LeastFrequentlyUsedIdeal,
+                         'MIN' 	: Beladys,
+                         'MAD' 	: MAD,
+                         'MAD_LFU' 	: MAD_LFU,
+                         'MAD_P' 	: MADPerturbed,
+                         'MAD_MIN' 	: MAD_MIN,
+                         'MINAD' 	: MinimumAggregateDelay,
+                         'MINAD_P' 	: MinimumAggregateDelayPerturbed,
+                         'MINAD_L' 	: MinimumAggregateDelayLayered,
+                         'MINAD_W' 	: MinimumAggregateDelayWeighted
+                         }
+caching_algorithms_all = get_caching_algorithm.keys()# RR FIFO FILO LRU LFU B
+caching_algorithms_online = [k for k,ca in get_caching_algorithm.items() if ca.online()]
+caching_algorithms_offline = [k for k,ca in get_caching_algorithm.items() if not ca.online()]
+
 # def get(name, cache_size, cost_modal, request_sequence):
 #     if name == 'RR':
 #         return RandomReplacement(cache_size, cost_modal)
@@ -56,35 +76,7 @@ def is_online(name):
         raise ValueError(f'Invalid caching algorithm given \'{name}\'')
 
 def get(name, *args):
-    name = name.upper()
-    if name == 'RR':
-        return RandomReplacement(*args)
-    elif name == 'FIFO':
-        return FirstInFirstOut(*args)
-    elif name == 'FILO':
-        return FirstInLastOut(*args)
-    elif name == 'LRU':
-        return LeastRecentlyUsed(*args)
-    elif name == 'LFU':
-        return LeastFrequentlyUsed(*args)
-    elif name == 'LFU_IDEAL':
-        return LeastFrequentlyUsedIdeal(*args)
-    elif name == 'MIN':
-        return Beladys(*args)
-    elif name == 'MAD':
-        return MAD(*args)
-    elif name == 'MAD_LFU':
-        return MAD_LFU(*args)
-    elif name == 'MAD_P':
-    	return MAD_Perturbed(*args)
-    elif name == 'MINAD':
-        return MinimumAggregateDelay(*args)
-    elif name == 'MINAD_P':
-        return MinimumAggregateDelay_Perturbed(*args)
-    elif name == 'MINAD_L':
-        return MinimumAggregateDelay_L(*args)
-    else:
-        raise AttributeError(f'Invalid caching algorithm given \'{name}\'')
+    return get_caching_algorithm[name.upper()](*args)
 
 # Dynamic import files
 __all__ = ['get']

@@ -1,9 +1,8 @@
 import numpy as np
-
-from caching_algorithms import OfflineCachingAlgorithm
+from caching_algorithms import MinimumAggregateDelay
 from math import ceil
 
-class MinimumAggregateDelay_Perturbed(OfflineCachingAlgorithm):
+class MinimumAggregateDelayPerturbed(MinimumAggregateDelay):
 
     def __init__(self, cache_size, cost_modal, request_sequence):
         super().__init__(cache_size, cost_modal, request_sequence)
@@ -44,19 +43,6 @@ class MinimumAggregateDelay_Perturbed(OfflineCachingAlgorithm):
             replacement_address = min(perturbed_time_saved, key=perturbed_time_saved.get)
 
             return replacement_address
-
-
-    def aggregate_delay(self, file, next_request_time):
-        cost = self.cost_modal.cost(file)
-
-        fetched_time = next_request_time + ceil(cost) + 1
-        window = zip(range(next_request_time, fetched_time), self.request_sequence_data[next_request_time:fetched_time])
-
-        delayed_hits = [t for t, f in window if f == file]
-
-        agg_delay = len(delayed_hits) * (cost + next_request_time) - (sum(delayed_hits))
-
-        return agg_delay
 
 
     @property
