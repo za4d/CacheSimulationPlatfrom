@@ -44,7 +44,7 @@ class MAD_MIN(OfflineCachingAlgorithm):
         self.request_sequence_data = self.request_sequence.aslist()
 
     def __call__(self, time, requested_file, cache_state):
-        self.lfu.update(time,requested_file,cache_state)
+        # self.lfu.update(time,requested_file,cache_state)
         self.track.tick()
         self.track.on_access(requested_file)
         if requested_file in cache_state:
