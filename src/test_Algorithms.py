@@ -93,28 +93,19 @@ def test():
 
 def test_multiple():
     # seed = np.random.randint(2**31)
-    seed = 1200948151
-    etas = {1.1:None, 2:None}
-    for e in etas.keys():
-        r, s = SimulationPlatform().run_simulations(['LRU'],
-                                                    n_iter=1,
-                                                    n_requests=10000,
-                                                    cache_size=100,
-                                                    library_size=10000,
-                                                    performance_metric_names=['latency_loss','hit_ratio'],
-                                                    request_frq=100000,
-                                                    zipf_eta=e,
-                                                    seed = seed)
-        etas[e] = s
+    tabs = dict()
+    for c in range(1,100,10):
+        r, s = SimulationPlatform().run_simulations(caching_algorithms_all, 10,  100000, c, 1000, ['latency_loss','simple_loss','hit_ratio'], 1000, 1.5, None)
+        tabs[c] = s
 
     print('#'*100+'\n')
 
-    for t in etas.values(): print(t)
+    for c,t in tabs.items(): print(f'# {c}\n',t)
 
 if __name__ == '__main__':
     # batch_run_mad()
     # test()
-    # test_multiple()
+    test_multiple()
     # test_online_algorithms()
     # test_offline_algorithms()
-    test_all()
+    # test_all()
