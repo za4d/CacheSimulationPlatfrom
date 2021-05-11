@@ -95,7 +95,7 @@ def test():
 def test_multiple():
     # seed = np.random.randint(2**31)
     # a = caching_algorithms_all
-    a = ['MINAD','MIN','MINAD_L','MINAD_W']
+    a = ['MINAD','MIN','MINAD_L','MINAD_W','MAD']
     tabs = dict()
     for x in np.arange(1.1,1.6,0.1):
         r, s = SimulationPlatform().run_simulations(a, 10,  100000, 100, 1000, ['latency_loss'], 1000, x, None)
