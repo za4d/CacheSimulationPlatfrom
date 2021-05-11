@@ -82,21 +82,23 @@ def test():
     # c = a
     # SimulationPlatform().run_simulations(c, 2, 10000, 10, 100, ['kappa_ratio', 'hit_ratio','latency_loss'], 1000, 1.5, 2313)
 
-    SimulationPlatform().run_simulations(['MINAD','MAD_MIN','MAD_LFU2','MAD_LFU','LFU','LFU_IDEAL','MAD','MIN','MAD_P'],
+    SimulationPlatform().run_simulations(['MINAD','MINAD2','MAD_MIN','MAD_LFU2','MAD_LFU','LFU','MAD','MIN','MAD_P'],
                                          n_iter=1,
                                          n_requests=10000,
                                          cache_size=10,
                                          library_size=1000,
-                                         performance_metric_names=['latency_loss'],
+                                         performance_metric_names=['latency_loss','hit_ratio'],
                                          request_frq=1000,
                                          zipf_eta=1.5,
                                          seed = None)
 
 def test_multiple():
     # seed = np.random.randint(2**31)
+    # a = caching_algorithms_all
+    a = ['MINAD','MIN','MINAD_L','MINAD_W']
     tabs = dict()
     for c in range(1,100,10):
-        r, s = SimulationPlatform().run_simulations(caching_algorithms_all, 10,  100000, c, 1000, ['latency_loss','simple_loss','hit_ratio'], 1000, 1.5, None)
+        r, s = SimulationPlatform().run_simulations(a, 10,  100000, c, 1000, ['latency_loss','simple_loss','hit_ratio'], 1000, 1.5, None)
         tabs[c] = s
 
     print('#'*100+'\n')
@@ -106,7 +108,7 @@ def test_multiple():
 if __name__ == '__main__':
     # batch_run_mad()
     # test()
-    # test_multiple()
+    test_multiple()
     # test_online_algorithms()
     # test_offline_algorithms()
-    test_all()
+    # test_all()

@@ -4,7 +4,7 @@ from caching_algorithms import OnlineCachingAlgorithm
 
 
 class LeastFrequentlyUsedIdeal(OnlineCachingAlgorithm):
-    name='LFU_IDEAL'
+    name=''
 
     def __init__(self, cache_size, cost_modal):
         super().__init__(cache_size, cost_modal)

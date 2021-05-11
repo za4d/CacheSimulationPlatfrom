@@ -42,7 +42,7 @@ class MinimumAggregateDelayWeighted(MinimumAggregateDelay):
             replacement_address = min(time_saved, key=time_saved.get)
 
             if replacement_address>len(cache_state)-1:
-                return None
+                return -1
 
             return replacement_address
 

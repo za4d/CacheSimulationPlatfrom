@@ -8,8 +8,9 @@ class VirtualCache(list):
         return super().__getitem__(address)
 
     def write(self, address, file):
-        # self.checkIfDuplicates()
-        super().__setitem__(address, file)
+        # address of minus 1 supports optional caching setting
+        if address != -1:
+            super().__setitem__(address, file)
 
     def state(self):
         return self.copy()

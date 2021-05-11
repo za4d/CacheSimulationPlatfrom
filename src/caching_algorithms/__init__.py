@@ -17,8 +17,8 @@ from .MinimumAggregateDelayLayered import MinimumAggregateDelayLayered
 from .MinimumAggregateDelayPerturbed import MinimumAggregateDelayPerturbed
 from .MinimumAggregateDelay_Weighted import MinimumAggregateDelayWeighted
 from .MAD_Perturbed import MADPerturbed
-from .MAD_LFU import MAD_LFU
-from .MAD_MIN import MAD_MIN,MAD_LFU2
+from .MAD_LFU import MAD_LFU, MAD_LFU2
+from .MAD_MIN import MAD_MIN
 
 # Dynamic import files
 get_caching_algorithm = dict()

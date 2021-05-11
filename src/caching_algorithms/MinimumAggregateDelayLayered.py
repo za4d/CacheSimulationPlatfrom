@@ -44,7 +44,7 @@ class MinimumAggregateDelayLayered(MinimumAggregateDelay):
             replacement_address = max(min_agg_addresses, key=min_agg_addresses.get)
 
             if replacement_address>len(cache_state)-1:
-                return None
+                return -1
 
             return replacement_address
 

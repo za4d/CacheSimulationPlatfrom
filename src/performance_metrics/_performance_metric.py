@@ -35,6 +35,10 @@ class PerformanceMetric(ABC):
         """time can be used to get requested file from request sequence"""
         pass
 
+    def logHit(self, time, replacement_address):
+        """time can be used to get requested file from request sequence"""
+        pass
+
     @abstractmethod
     def __str__(self):
         """Formatted string representation of metric value"""
