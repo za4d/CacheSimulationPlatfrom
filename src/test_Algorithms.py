@@ -98,7 +98,7 @@ def test_multiple():
     a = ['MINAD','MIN','MINAD_L','MINAD_W']
     tabs = dict()
     for x in np.arange(1.1,1.6,0.1):
-        r, s = SimulationPlatform().run_simulations(a, 10,  10000, 100, 1000, ['latency_loss'], 1000, x, None)
+        r, s = SimulationPlatform().run_simulations(a, 10,  100000, 100, 1000, ['latency_loss'], 1000, x, None)
         tabs[x] = s
 
     print('#'*100+'\n')
