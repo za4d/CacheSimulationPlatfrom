@@ -74,23 +74,39 @@ def batch_run_mad():
     for z in zlist:
         SimulationPlatform().run_simulations(['MAD_P','MAD'], 3,  100000, 100, 1000, ['latency_loss','simple_loss'], z, 1.5, None)
 
+def test_fixed():
+    results_dict, s = SimulationPlatform().run_simulations(['RR', 'FIFO', 'LRU', 'LFU', 'LFU_IDEAL', 'MAD','MIN','MINAD'],
+                                                           n_iter=1,
+                                                           n_requests=10000,
+                                                           cache_size=10,
+                                                           library_size=1000,
+                                                           performance_metric_names=['latency_loss','hit_ratio'],
+                                                           request_frq=1000,
+                                                           zipf_eta=1.5,
+                                                           seed = 6748329)
+    print(s)
+    if s=='+--------------+----------------+-------------+\n| Algorithms   |   latency_loss |   hit_ratio |\n+==============+================+=============+\n| MINAD        |        285.497 |    0.841416 |\n+--------------+----------------+-------------+\n| LFU_IDEAL    |        300.756 |    0.766223 |\n+--------------+----------------+-------------+\n| MAD          |        305.275 |    0.764024 |\n+--------------+----------------+-------------+\n| LFU          |        309.287 |    0.751925 |\n+--------------+----------------+-------------+\n| MIN          |        365.947 |    0.836016 |\n+--------------+----------------+-------------+\n| LRU          |       1059.59  |    0.673833 |\n+--------------+----------------+-------------+\n| RR           |       1422.66  |    0.60244  |\n+--------------+----------------+-------------+\n| FIFO         |       1442.42  |    0.605039 |\n+--------------+----------------+-------------+':
+        print('PASS!')
+    else:
+        print('FAIL!')
 
-def test():
-    # # a = ['RR', 'FIFO', 'LRU', 'LFU', 'MAD']
-    # a = ['RR', 'FIFO', 'LRU', 'LFU', 'MAD']
-    # b = ['MAD','MAD_P','MIN','MINAD_P']
-    # c = a
-    # SimulationPlatform().run_simulations(c, 2, 10000, 10, 100, ['kappa_ratio', 'hit_ratio','latency_loss'], 1000, 1.5, 2313)
 
-    SimulationPlatform().run_simulations(['MINAD','MINAD2','MAD_MIN','MAD_LFU2','MAD_LFU','LFU','MAD','MIN','MAD_P'],
-                                         n_iter=1,
-                                         n_requests=10000,
-                                         cache_size=10,
-                                         library_size=1000,
-                                         performance_metric_names=['latency_loss','hit_ratio'],
-                                         request_frq=1000,
-                                         zipf_eta=1.5,
-                                         seed = None)
+# def test():
+#     # # a = ['RR', 'FIFO', 'LRU', 'LFU', 'MAD']
+#     # a = ['RR', 'FIFO', 'LRU', 'LFU', 'MAD']
+#     # b = ['MAD','MAD_P','MIN','MINAD_P']
+#     # c = a
+#     # SimulationPlatform().run_simulations(c, 2, 10000, 10, 100, ['kappa_ratio', 'hit_ratio','latency_loss'], 1000, 1.5, 2313)
+#
+#     SimulationPlatform().run_simulations(['MINAD','MINAD2','MAD_MIN','MAD_LFU2','MAD_LFU','LFU','MAD','MIN','MAD_P'],
+#                                          n_iter=1,
+#                                          n_requests=10000,
+#                                          cache_size=10,
+#                                          library_size=1000,
+#                                          performance_metric_names=['latency_loss','hit_ratio'],
+#                                          request_frq=1000,
+#                                          zipf_eta=1.5,
+#                                          seed = None)
 
 def test_multiple():
     # seed = np.random.randint(2**31)
@@ -107,8 +123,9 @@ def test_multiple():
 
 if __name__ == '__main__':
     # batch_run_mad()
+    test_fixed()
     # test()
-    test_multiple()
+    # test_multiple()
     # test_online_algorithms()
     # test_offline_algorithms()
     # test_all()

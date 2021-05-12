@@ -94,3 +94,4 @@ class PerformanceMetric(ABC):
         if self._maximise is None:
             raise AttributeError(f'{self} goal not declared')
         return self._maximise
+

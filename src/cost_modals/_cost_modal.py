@@ -22,6 +22,7 @@ class CostModal(ABC):
 
 
 class StaticCost(CostModal, ABC):
+    name='static_cost'
 
     def __init__(self, dict):
         super().__init__(len(dict))

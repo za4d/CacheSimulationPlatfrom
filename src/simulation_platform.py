@@ -68,6 +68,7 @@ Algorithms to test
 '''
 
 class SimulationPlatform:
+    multicore = True
 
 
     def __init__(self, log_file='logfile.log', csv_file='results_log.csv'):
@@ -137,40 +138,45 @@ class SimulationPlatform:
             request_modal_gen = (request_modals.Zipfian(n_requests, library_size, eta=zipf_eta) for _ in range(n_iter))
             cost_modal_gen = (cost_modals.StaticUniformCost(library_size, request_frq) for _ in range(n_iter))
 
-            #### MULTI THREAD
-            simulation_instances = []
-            for iteration in range(n_iter):
-                # initilise instance
-                virtual_cache = VirtualCache(np.random.choice(np.arange(0,library_size), size=cache_size, replace=False))
-                request_modal = next(request_modal_gen)
-                cost_modal = next(cost_modal_gen)
-                caching_algorithm = caching_algorithms.get(algorithm, cache_size, cost_modal) if is_online(algorithm) else caching_algorithms.get(algorithm, cache_size, cost_modal, request_modal)
-                performance_metric = performance_metrics.get(performance_metric_name, request_modal, virtual_cache.state(), cost_modal)
-                simulation_instances.append(SimulationInstance(caching_algorithm, performance_metric, request_modal, cost_modal, virtual_cache))
+            self.multicore = False # FOR DEBUGGING
+            if self.multicore:
+                # ##########################################################################################################################################
+                # #### MULTI THREAD
+                simulation_instances = []
+                for iteration in range(n_iter):
+                    # initilise instance
+                    virtual_cache = VirtualCache(np.random.choice(np.arange(0,library_size), size=cache_size, replace=False))
+                    request_modal = next(request_modal_gen)
+                    cost_modal = next(cost_modal_gen)
+                    caching_algorithm = caching_algorithms.get(algorithm, cache_size, cost_modal) if is_online(algorithm) else caching_algorithms.get(algorithm, cache_size, cost_modal, request_modal)
+                    performance_metric = performance_metrics.get(performance_metric_name, request_modal, virtual_cache.state(), cost_modal)
+                    simulation_instances.append(SimulationInstance(caching_algorithm, performance_metric, request_modal, cost_modal, virtual_cache))
 
-            p = multiprocessing.Pool(n_iter)
-            total = 0
-            for iteration_num, performance_result in enumerate(p.map(self.do, simulation_instances)):
-                total += performance_result.result
-                log(f'{algorithm} #{iteration_num+1} \t{performance_result}\t', f'hit: {performance_result.hit_count}  miss: {performance_result.miss_count}')
-            p.close()
-            # ### SINGLE
-            # total = 0
-            # for iteration in range(n_iter):
-            #     # initilise instance
-            #     virtual_cache = VirtualCache(np.random.choice(np.arange(0,library_size), size=cache_size, replace=False))
-            #     request_modal = next(request_modal_gen)
-            #     cost_modal = next(cost_modal_gen)
-            #     caching_algorithm = caching_algorithms.get(algorithm, cache_size, cost_modal) if is_online(algorithm) else caching_algorithms.get(algorithm, cache_size, cost_modal, request_modal)
-            #     performance_metric = performance_metrics.get(performance_metric_name, request_modal, virtual_cache.state(), cost_modal)
-            #     sim = SimulationInstance(caching_algorithm, performance_metric, request_modal, cost_modal, virtual_cache)
-            #
-            #     ## Simulate
-            #     sim_pm = sim.simulate()
-            #     sim_pm.compute()
-            #     total += sim_pm.result
-            #     log(f'{algorithm} #{iteration+1} \t{sim_pm}\t', f'hit: {sim_pm.hit_count}  miss: {sim_pm.miss_count}')
-            # ###
+                p = multiprocessing.Pool(n_iter)
+                total = 0
+                for iteration_num, performance_result in enumerate(p.map(self.do, simulation_instances)):
+                    total += performance_result.result
+                    log(f'{algorithm} #{iteration_num+1} \t{performance_result}\t', f'hit: {performance_result.hit_count}  miss: {performance_result.miss_count}')
+                p.close()
+            else:
+                ##########################################################################################################################################
+                ### SINGLE
+                total = 0
+                for iteration in range(n_iter):
+                    # initilise instance
+                    virtual_cache = VirtualCache(np.random.choice(np.arange(0,library_size), size=cache_size, replace=False))
+                    request_modal = next(request_modal_gen)
+                    cost_modal = next(cost_modal_gen)
+                    caching_algorithm = caching_algorithms.get(algorithm, cache_size, cost_modal) if is_online(algorithm) else caching_algorithms.get(algorithm, cache_size, cost_modal, request_modal)
+                    performance_metric = performance_metrics.get(performance_metric_name, request_modal, virtual_cache.state(), cost_modal)
+                    sim = SimulationInstance(caching_algorithm, performance_metric, request_modal, cost_modal, virtual_cache)
+
+                    ## Simulate
+                    sim_pm = sim.simulate()
+                    sim_pm.compute()
+                    total += sim_pm.result
+                    log(f'{algorithm} #{iteration+1} \t{sim_pm}\t', f'hit: {sim_pm.hit_count}  miss: {sim_pm.miss_count}')
+                ##########################################################################################################################################
 
 
             # log(f'>>> Simulating {algorithm}...')

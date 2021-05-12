@@ -4,25 +4,24 @@ import inspect
 from abc import ABCMeta
 
 from ._caching_algorithms import CachingAlgorithm, OnlineCachingAlgorithm, OfflineCachingAlgorithm
-from .FirstInLastOut import FirstInLastOut
-from .FirstInFirstOut import FirstInFirstOut
-from .LeastRecentlyUsed import LeastRecentlyUsed
-from .LeastFrequentlyUsed import LeastFrequentlyUsed
-from .LeastFrequentlyUsed_Ideal import LeastFrequentlyUsedIdeal
-from .RandomReplacement import RandomReplacement
-from .Beladys import Beladys
-from .MAD import MAD, TrackAggregateDelay
-from .MinimumAggregateDelay import MinimumAggregateDelay
-from .MinimumAggregateDelayLayered import MinimumAggregateDelayLayered
-from .MinimumAggregateDelayPerturbed import MinimumAggregateDelayPerturbed
-from .MinimumAggregateDelay_Weighted import MinimumAggregateDelayWeighted
-from .MAD_Perturbed import MADPerturbed
-from .MAD_LFU import MAD_LFU, MAD_LFU2
-from .MAD_MIN import MAD_MIN
+# from .FirstInLastOut import FirstInLastOut
+# from .FirstInFirstOut import FirstInFirstOut
+# from .LeastRecentlyUsed import LeastRecentlyUsed
+# from .LeastFrequentlyUsed import LeastFrequentlyUsed
+# from .LeastFrequentlyUsed_Ideal import LeastFrequentlyUsedIdeal
+# from .RandomReplacement import RandomReplacement
+# from .Beladys import Beladys
+# from .MAD import MAD, TrackAggregateDelay
+# from .MinimumAggregateDelay import MinimumAggregateDelay
+# from .MinimumAggregateDelayLayered import MinimumAggregateDelayLayered
+# from .MinimumAggregateDelayPerturbed import MinimumAggregateDelayPerturbed
+# from .MinimumAggregateDelay_Weighted import MinimumAggregateDelayWeighted
+# from .MAD_Perturbed import MADPerturbed
+# from .MAD_LFU import MAD_LFU, MAD_LFU2
+# from .MAD_MIN import MAD_MIN
 
 # Dynamic import files
 get_caching_algorithm = dict()
-
 __all__ = ['get']
 for loader, name, is_pkg in pkgutil.walk_packages(__path__):
     module = loader.find_module(name).load_module(name)
@@ -31,11 +30,11 @@ for loader, name, is_pkg in pkgutil.walk_packages(__path__):
         globals()[name] = value
         __all__.append(name)
         if type(value)==ABCMeta and issubclass(value, (OfflineCachingAlgorithm, OnlineCachingAlgorithm)):
-            if value in [OnlineCachingAlgorithm, OfflineCachingAlgorithm]:
+            if len(value.__abstractmethods__) > 0:
                 continue
             get_caching_algorithm[value.name] = value
 
-
+# print(get_caching_algorithm)
 # get_caching_algorithm = {n 	: RandomReplacement
 # get_caching_algorithm = {'RR' 	: RandomReplacement,
 #                          'FIFO' 	: FirstInFirstOut,
@@ -93,7 +92,13 @@ def is_online(name):
     else:
         raise ValueError(f'Invalid caching algorithm given \'{name}\'')
 
+
+
 def get(name, *args):
-    return get_caching_algorithm[name.upper()](*args)
+    try:
+        return get_caching_algorithm[name](*args)
+    except KeyError:
+        raise ValueError(f'Invalid caching algorithm given \'{name}\'')
+
 
 

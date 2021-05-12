@@ -56,6 +56,7 @@ _B: NEWLINE
 
 %ignore COMMENT
 %import common.NUMBER
+%import common.NUMBER
 %import common.NEWLINE
 %import common.WS_INLINE
 %import common.ESCAPED_STRING

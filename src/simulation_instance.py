@@ -12,10 +12,10 @@ class SimulationInstance:
     #     elif algorithm_name == 'MINAD-P':
     #         self.perturbation_scale = np.power(4 * np.pi * np.log(len(data)), -1/4) * np.sqrt(len(data)/len(init_state))
 
-    def __init__(self, caching_algorithm, performance_metric, request_modal, cost_modal, virtual_cache):
+    def __init__(self, caching_algorithm, recorder, request_modal, cost_modal, virtual_cache):
         self.cache = virtual_cache
         self.caching_algorithm = caching_algorithm
-        self.performance_metric = performance_metric
+        self.performance_metric = recorder
         self.request_modal = request_modal
         self.cost_modal = cost_modal
 
