@@ -127,9 +127,10 @@ def test_multiple():
     # a = caching_algorithms_all
     a = ['MINAD','MIN','MINAD_L','MINAD_W','MAD']
     tabs = dict()
-    for x in np.arange(1.1,1.6,0.1):
-        r, s = SimulationPlatform().run_simulations(a, 10,  100000, 100, 1000, ['latency_loss'], 1000, x, None)
-        tabs[x] = s
+    zs = [np.power(10,p) for p in [0,1,2, 2.33333333, 2.66666667, 3, 3.33333333,3.66666667, 4.,5,6]]
+    for z in zs:
+        r, s = SimulationPlatform().run_simulations(caching_algorithms_all, 10,  100000, 100, 1000, ['hit_ratio','latency_loss','simple_loss'], 1000, z, None)
+        tabs[z] = s
 
     print('#'*100+'\n')
 
@@ -137,9 +138,9 @@ def test_multiple():
 
 if __name__ == '__main__':
     # batch_run_mad()
-    test_fixed()
+    # test_fixed()
     # test()
-    # test_multiple()
+    test_multiple()
     # test_online_algorithms()
     # test_offline_algorithms()
     # test_all()

@@ -86,7 +86,7 @@ def test_fixed():
                                              seed = 6748329)
 
 def test_wsweep():
-    s = SimulationPlatform().temp(n_iter=10,
+    s = SimulationPlatform().temp(n_iter=5,
                                   n_requests=10000,
                                   cache_size=10,
                                   library_size=1000,
