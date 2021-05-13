@@ -15,14 +15,14 @@ class SimulationInstance:
     def __init__(self, caching_algorithm, recorder, request_modal, cost_modal, virtual_cache):
         self.cache = virtual_cache
         self.caching_algorithm = caching_algorithm
-        self.performance_metric = recorder
+        self.recorder = recorder
         self.request_modal = request_modal
         self.cost_modal = cost_modal
 
     def simulate(self):
         cache = self.cache
         caching_algorithm = self.caching_algorithm
-        performance_metric = self.performance_metric
+        recorder = self.recorder
         request_modal = self.request_modal
 
         for time, file in request_modal:
@@ -31,9 +31,9 @@ class SimulationInstance:
             # print(replacement_address)
             if replacement_address is not None:
                 cache.write(replacement_address, file)
-            performance_metric.record(time, replacement_address)
+            recorder.record(time, replacement_address)
 
-        return performance_metric
+        return recorder
 
     # def set_algorithm(self, name):
     #     if name == 'RR':

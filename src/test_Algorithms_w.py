@@ -74,8 +74,6 @@ def batch_run_mad():
     for z in zlist:
         SimulationPlatform().run_simulations(['MAD_P','MAD'], 3,  100000, 100, 1000, ['latency_loss','simple_loss'], z, 1.5, None)
 
-
-
 def test_fixed():
     s = SimulationPlatform().run_simulations(['RR', 'FIFO', 'LRU', 'LFU', 'LFU_IDEAL', 'MAD','MIN','MINAD'],
                                              n_iter=3,
@@ -88,15 +86,14 @@ def test_fixed():
                                              seed = 6748329)
 
 def test_wsweep():
-    s = SimulationPlatform().run_simulations([],
-                                             n_iter=10,
-                                             n_requests=100000,
-                                             cache_size=10,
-                                             library_size=1000,
-                                             performance_metric_names=['hit_ratio','latency_loss','simple_loss'],
-                                             request_frq=1000,
-                                             zipf_eta=1.5,
-                                             seed = None)
+    s = SimulationPlatform().temp(n_iter=10,
+                                  n_requests=100000,
+                                  cache_size=10,
+                                  library_size=1000,
+                                  performance_metric_names=['hit_ratio','latency_loss','simple_loss'],
+                                  request_frq=1000,
+                                  zipf_eta=1.5,
+                                  seed = None)
     # print(s)
     # print('+--------------+----------------+-------------+\n| Algorithms   |   latency_loss |   hit_ratio |\n+==============+================+=============+\n| MINAD        |        285.497 |    0.841416 |\n+--------------+----------------+-------------+\n| LFU_IDEAL    |        300.756 |    0.766223 |\n+--------------+----------------+-------------+\n| MAD          |        305.275 |    0.764024 |\n+--------------+----------------+-------------+\n| LFU          |        309.287 |    0.751925 |\n+--------------+----------------+-------------+\n| MIN          |        365.947 |    0.836016 |\n+--------------+----------------+-------------+\n| LRU          |       1059.59  |    0.673833 |\n+--------------+----------------+-------------+\n| RR           |       1422.66  |    0.60244  |\n+--------------+----------------+-------------+\n| FIFO         |       1442.42  |    0.605039 |\n+--------------+----------------+-------------+')
     # if s=='+--------------+----------------+-------------+\n| Algorithms   |   latency_loss |   hit_ratio |\n+==============+================+=============+\n| MINAD        |        285.497 |    0.841416 |\n+--------------+----------------+-------------+\n| LFU_IDEAL    |        300.756 |    0.766223 |\n+--------------+----------------+-------------+\n| MAD          |        305.275 |    0.764024 |\n+--------------+----------------+-------------+\n| LFU          |        309.287 |    0.751925 |\n+--------------+----------------+-------------+\n| MIN          |        365.947 |    0.836016 |\n+--------------+----------------+-------------+\n| LRU          |       1059.59  |    0.673833 |\n+--------------+----------------+-------------+\n| RR           |       1422.66  |    0.60244  |\n+--------------+----------------+-------------+\n| FIFO         |       1442.42  |    0.605039 |\n+--------------+----------------+-------------+':
@@ -137,7 +134,7 @@ def test_multiple():
 
 if __name__ == '__main__':
     # batch_run_mad()
-    test_fixed()
+    test_wsweep()
     # test()
     # test_multiple()
     # test_online_algorithms()

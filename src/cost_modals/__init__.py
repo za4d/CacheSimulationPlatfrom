@@ -22,6 +22,6 @@ for loader, name, is_pkg in pkgutil.walk_packages(__path__):
 
 def get(name, *args):
     try:
-        return get_caching_algorithm[name](*args)
+        return get_cost_modals[name](*args)
     except KeyError:
         raise AttributeError(f'Invalid cost modal name given \'{name}\'')

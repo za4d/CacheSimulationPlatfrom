@@ -21,15 +21,16 @@ class ReadBatch(Transformer):
         # print(np.arange(start, stop, step))
 
     def object_instance(self, obj_name, *kwargs_list):
-        kwargs = dict(kwargs_list)
         # self._expand_kw_list(kwargs_list)
-        return (str(obj_name), kwargs)
+        return [(str(obj_name), kwargs) for kwargs in map(dict,product(*kwargs_list))]
 
     def KWARG(self, s):
         return str(s)
 
     def object_definition(self, hyperparam, *instances):
-        return  (str(hyperparam).upper(), list(instances))
+        if type(instances)==tuple:
+            instances = sum(instances, [])
+        return  (str(hyperparam).upper(), instances)
 
     def simple_definition(self, hyperparam, value):
         name = str(hyperparam).upper()
@@ -49,7 +50,8 @@ class ReadBatch(Transformer):
 
     @v_args(inline=True)
     def kw_value(self, kw, val):
-        return (kw, val)
+        vals = [val] if type(val)!=list else val
+        return [(kw,v) for v in vals]
 
     def _expand_kw_list(self, *data):
         # convert [(name, [value,...])] -> [[(name,value), (name,value), ...]]
@@ -98,6 +100,11 @@ class BatchJob:
 
     def __init__(self, args):
         arg_lists = {'NUM ITERATIONS': None, 'NUM REQUESTS': None, 'CACHE SIZE': None, 'LIBRARY SIZE': None, 'CACHING ALGORITHM': None, 'PERFORMANCE METRIC': None, 'REQUEST MODAL': None, 'COST MODAL': None}
+
+    def split_objects(name):
+        objects
+        if
+
 
     def compile(self,):
         'NUM ITERATIONS'

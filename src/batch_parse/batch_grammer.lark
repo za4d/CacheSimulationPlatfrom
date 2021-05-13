@@ -7,7 +7,7 @@ _def: object_definition
 
 _HEADER: "::" WS_INLINE*
 
-simple_definition: _HEADER HYP_LITERAL _S _value _B
+simple_definition: _HEADER HYP_LITERAL _S _value _N
 
 _value: NUMBER
     | list_values
@@ -34,11 +34,11 @@ _NAME_HEADER: ":" WS_INLINE*
 
 object_definition: _object_header object_instance+
 
-object_instance: (_NAME_HEADER OBJECT_NAME _B) object_params*
+object_instance: (_NAME_HEADER OBJECT_NAME _N) object_params*
 
-object_params: (KWARG _S _value _B) -> kw_value
+object_params: (KWARG _S _value _N) -> kw_value
 
-_object_header: _HEADER HYP_OBJECT _S* _B
+_object_header: _HEADER HYP_OBJECT _S* _N
 
 OBJECT_NAME: STRING
 
@@ -52,7 +52,7 @@ STEP: NUMBER
 STRING: /\w+/
 
 _S: WS_INLINE
-_B: NEWLINE
+_N: NEWLINE
 
 %ignore COMMENT
 %import common.NUMBER

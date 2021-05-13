@@ -21,14 +21,14 @@ class LatencyLoss(PerformanceMetric):
         requested_file = self.request_sequence[time]
         if self.is_hit(replacement_address):
             self.hit()
-            log_entry = (self.time, True)
+            log_entry = (time, True)
             self.time += 1
             try:
                 self.file_requests_log[requested_file].append(log_entry)
             except KeyError:
                 self.file_requests_log[requested_file] = [log_entry]
         else:
-            log_entry = (self.time, False)
+            log_entry = (time, False)
             self.time += 1
             try:
                 self.file_requests_log[requested_file].append(log_entry)
