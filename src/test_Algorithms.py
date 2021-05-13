@@ -128,7 +128,7 @@ def test_multiple():
     tabs = dict()
     zs = [np.power(10,p) for p in [0.00001,1,2, 2.33333333, 2.66666667, 3, 3.33333333,3.66666667, 4.,5,6]]
     for z in zs:
-        r, s = SimulationPlatform().run_simulations(caching_algorithms_all, 10,  100000, 100, 1000, ['hit_ratio','latency_loss','simple_loss'], 1000, z, None)
+        r, s = SimulationPlatform().run_simulations(caching_algorithms_all, 10,  10000, 100, 1000, ['hit_ratio','latency_loss','simple_loss'], 1000, z, None)
         tabs[z] = s
 
     print('#'*100+'\n')
