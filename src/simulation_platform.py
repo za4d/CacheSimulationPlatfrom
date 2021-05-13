@@ -233,8 +233,8 @@ class SimulationPlatform:
         self.log_hyperparameter(ws, n_iter, n_requests, cache_size, library_size, performance_metric_names, request_frq, zipf_eta, seed)
 
 
-        for w in ws:
-            log(f'>>> Simulating {w}...')
+        for algorithm in ws:
+            log(f'>>> Simulating {algorithm}...')
             # Initilise simulation parameters
             np.random.seed(seed)
             request_modal_gen = (request_modals.Zipfian(n_requests, library_size, eta=zipf_eta) for _ in range(n_iter))
@@ -251,7 +251,7 @@ class SimulationPlatform:
                     virtual_cache = VirtualCache(np.random.choice(np.arange(0,library_size), size=cache_size, replace=False))
                     request_modal = next(request_modal_gen)
                     cost_modal = next(cost_modal_gen)
-                    caching_algorithm = caching_algorithms.MinimumAggregateDelayWeighted(cache_size, cost_modal, request_modal, w)
+                    caching_algorithm = caching_algorithms.MinimumAggregateDelayWeighted(cache_size, cost_modal, request_modal, algorithm)
                     recorder_list[iteration].start(request_modal, virtual_cache.state(), cost_modal)
                     simulation_instances.append(SimulationInstance(caching_algorithm, recorder_list[iteration], request_modal, cost_modal, virtual_cache))
 

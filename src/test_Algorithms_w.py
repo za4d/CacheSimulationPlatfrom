@@ -87,7 +87,7 @@ def test_fixed():
 
 def test_wsweep():
     s = SimulationPlatform().temp(n_iter=10,
-                                  n_requests=100000,
+                                  n_requests=10000,
                                   cache_size=10,
                                   library_size=1000,
                                   performance_metric_names=['hit_ratio','latency_loss','simple_loss'],
