@@ -101,11 +101,6 @@ class BatchJob:
     def __init__(self, args):
         arg_lists = {'NUM ITERATIONS': None, 'NUM REQUESTS': None, 'CACHE SIZE': None, 'LIBRARY SIZE': None, 'CACHING ALGORITHM': None, 'PERFORMANCE METRIC': None, 'REQUEST MODAL': None, 'COST MODAL': None}
 
-    def split_objects(name):
-        objects
-        if
-
-
     def compile(self,):
         'NUM ITERATIONS'
         'NUM REQUESTS'

@@ -5,7 +5,7 @@ from tabulate import tabulate
 import performance_metrics
 import caching_algorithms
 import request_modals
-import cost_modals
+import library_modals
 import simulation_instance
 from simulation_platform import SimulationPlatform
 from virtual_cache import VirtualCache
@@ -22,7 +22,7 @@ def test_online_algorithms():
         r = 10000
         vc = VirtualCache(c)
         rm = request_modals.Zipfian(num_requests=r, library_size=n, eta=1.7)
-        cm = cost_modals.StaticCost({file: abs(np.random.normal(100, 10)) for file in range(n)})
+        cm = library_modals.StaticCost({file: abs(np.random.normal(100, 10)) for file in range(n)})
         ###
         ca = caching_algorithms.get(caching_algorithm_name, c, cm)
         ###
@@ -44,8 +44,8 @@ def test_offline_algorithms():
         n_requests = 10000
         virtual_cache = VirtualCache(cache_size)
         request_modal = request_modals.Zipfian(num_requests=n_requests, library_size=library_size, eta=1.7)
-        # cost_modal = cost_modals.StaticCost({file: abs(np.random.normal(100, 10)) for file in range(n)})
-        cost_modal = cost_modals.StaticNormalCost(library_size, 100, 10)
+        # cost_modal = library_modals.StaticCost({file: abs(np.random.normal(100, 10)) for file in range(n)})
+        cost_modal = library_modals.StaticNormalCost(library_size, 100, 10)
         ###
         caching_algorithm = caching_algorithms.get(caching_algorithm_name, cache_size, cost_modal, request_modal)
         ###

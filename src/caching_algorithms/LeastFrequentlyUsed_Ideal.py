@@ -8,7 +8,7 @@ class LeastFrequentlyUsedIdeal(OnlineCachingAlgorithm):
 
     def __init__(self, cache_size, cost_modal):
         super().__init__(cache_size, cost_modal)
-        self.frequency = dict.fromkeys(cost_modal.asdict().keys(), 0)# frequency by file
+        self.frequency = dict.fromkeys(cost_modal.cost_dict.keys(), 0)# frequency by file
 
     def __call__(self, time, requested_file, cache_state):
         self.frequency.setdefault(requested_file, 0)

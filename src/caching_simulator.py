@@ -10,7 +10,7 @@ from utils import Logger, log
 import performance_metrics
 import caching_algorithms
 import request_modals
-import cost_modals
+import library_modals
 import simulation_instance
 from virtual_cache import VirtualCache
 

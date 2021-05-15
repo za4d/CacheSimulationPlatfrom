@@ -3,10 +3,10 @@ import numpy as np
 
 class SimulationInstance:
 
-    # def __init__(self, algorithm_name, performance_metric, request_modal, library_modal, init_state: List[File]):
+    # def __init__(self, algorithm_name, performance_metric, request_modal, temp_library_modal, init_state: List[File]):
     #     self.storage = init_state
     #     self.caching_algorithm = self.set_algorithm(algorithm_name)
-    #     cost_func = library_modal.costfunct()
+    #     cost_func = temp_library_modal.costfunct()
     #     if algorithm_name in ['MAD', 'MAD-P', 'MINAD']:
     #         self.track = TrackAggregateDelay(cost_func)
     #     elif algorithm_name == 'MINAD-P':

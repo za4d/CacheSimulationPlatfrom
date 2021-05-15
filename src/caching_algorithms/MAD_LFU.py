@@ -67,7 +67,7 @@ from caching_algorithms import OnlineCachingAlgorithm, LeastFrequentlyUsedIdeal
 #         return None
 
 class MAD_LFU2(OnlineCachingAlgorithm):
-    name='MAD_LFU2'
+    # name='MAD_LFU2'
 
     def __init__(self, cache_size, cost_modal):
         super().__init__(cache_size, cost_modal)

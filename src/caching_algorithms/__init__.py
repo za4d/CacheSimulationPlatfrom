@@ -32,7 +32,10 @@ for loader, name, is_pkg in pkgutil.walk_packages(__path__):
         if type(value)==ABCMeta and issubclass(value, (OfflineCachingAlgorithm, OnlineCachingAlgorithm)):
             if len(value.__abstractmethods__) > 0:
                 continue
-            get_caching_algorithm[value.name] = value
+            try:
+                get_caching_algorithm[value.name] = value
+            except AttributeError:
+                pass
 
 # print(get_caching_algorithm)
 # get_caching_algorithm = {n 	: RandomReplacement
@@ -53,7 +56,7 @@ for loader, name, is_pkg in pkgutil.walk_packages(__path__):
 #                          'MINAD_L' 	: MinimumAggregateDelayLayered,
 #                          'MINAD_W' 	: MinimumAggregateDelayWeighted
 #                          }
-caching_algorithms_all = get_caching_algorithm.keys()# RR FIFO FILO LRU LFU B
+caching_algorithms_all = list(get_caching_algorithm.keys())# RR FIFO FILO LRU LFU B
 caching_algorithms_online = [k for k, ca in get_caching_algorithm.items() if ca.online()]
 caching_algorithms_offline = [k for k, ca in get_caching_algorithm.items() if not ca.online()]
 
