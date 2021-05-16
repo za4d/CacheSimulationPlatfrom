@@ -1,0 +1,3 @@
+slurmstepd: error: *** JOB 123946 ON emu-39 CANCELLED AT 2021-05-16T03:17:41 DUE TO TIME LIMIT ***
+slurmstepd: error: *** STEP 123946.0 ON emu-39 CANCELLED AT 2021-05-16T03:17:41 DUE TO TIME LIMIT ***
+srun: error: emu-39: task 0: Terminated
